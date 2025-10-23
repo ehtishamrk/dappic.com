@@ -1,205 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dappic — Let's Draw Your Brand to New Heights</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dappic — Let's draw your brand to new heights</title>
+  <meta name="description" content="Dappic — Premium subscription creative studio. Branding, motion, web & marketing." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Favicon (logo.png must be in repo root) -->
   <link rel="icon" type="image/png" href="logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Fonts (clean, modern Apple-like) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;}
-    html,body {
-      background:#000;
-      color:#fff;
-      font-family:'Inter', sans-serif;
+    :root{
+      --bg: #000;
+      --muted: #9aa0a6;
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.04);
+      --maxw: 1200px;
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--white);
+      font-family:Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
       overflow-x:hidden;
+      -webkit-tap-highlight-color:transparent;
     }
-    header {
+
+    /* Progress bar */
+    #progress {
       position:fixed;
-      top:0;left:0;width:100%;
-      backdrop-filter:blur(10px);
-      background:rgba(0,0,0,0.5);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:1.2rem 3rem;
-      z-index:1000;
+      left:0;right:0;top:0;
+      height:3px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+      transform-origin:left center;
+      transform:scaleX(0);
+      z-index:2000;
+      will-change:transform;
     }
-    header img{height:40px;}
-    header a{
-      text-decoration:none;
-      color:#fff;
-      border:1px solid #fff;
-      padding:0.6rem 1.4rem;
-      border-radius:100px;
-      transition:all .3s ease;
-    }
-    header a:hover{background:#fff;color:#000;}
-    section{
-      min-height:100vh;
+
+    /* Sticky nav (glass) */
+    header{
+      position:sticky;
+      top:18px;
+      margin:18px auto;
+      max-width:var(--maxw);
+      padding:10px 18px;
       display:flex;
-      flex-direction:column;
       align-items:center;
-      justify-content:center;
-      padding:5rem 2rem;
-      text-align:center;
+      justify-content:space-between;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border-radius:12px;
+      backdrop-filter: blur(8px) saturate(120%);
+      border:1px solid rgba(255,255,255,0.03);
+      z-index:1500;
     }
-    h1,h2,h3{
-      font-family:'Playfair Display',serif;
-      letter-spacing:0.5px;
+    .brand {display:flex;gap:12px;align-items:center}
+    .brand img{width:54px;height:54px;object-fit:contain;border-radius:10px;background:#fff;padding:6px}
+    .brand h1{margin:0;font-size:18px;font-weight:700;letter-spacing:0.2px}
+    nav{display:flex;gap:16px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px}
+    nav a:hover{color:var(--white)}
+    .cta{
+      background:transparent;
+      color:var(--white);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:10px 14px;border-radius:10px;font-weight:700;
+      transition:all .18s ease;
     }
-    h1{
-      font-size:clamp(2.5rem,6vw,5rem);
-      line-height:1.1;
-      font-weight:600;
+    .cta:hover{background:rgba(255,255,255,0.04);transform:translateY(-3px)}
+
+    /* Sections layout */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
+    section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 20px;position:relative}
+    .panel{max-width:920px;margin:0 auto;text-align:center}
+
+    /* Hero */
+    .hero .eyebrow{color:var(--muted);letter-spacing:2px;font-size:12px;margin-bottom:16px}
+    h1.hero{
+      font-size:clamp(28px,6.4vw,64px);
+      line-height:1.02;
+      margin:0;
+      font-weight:700;
+      letter-spacing:-0.6px;
+      color:var(--white);
     }
-    h2{
-      font-size:2rem;
-      margin-bottom:1rem;
-      font-weight:500;
-    }
-    p{
-      max-width:700px;
-      color:#ccc;
-      line-height:1.7;
-      font-size:1.1rem;
-    }
-    .hero{
-      background:radial-gradient(circle at 50% 30%,rgba(255,255,255,0.05),transparent 70%);
-    }
-    .hero h1 span{
-      display:block;
-      font-style:italic;
-      color:#d4af37;
-    }
-    .services{
+    p.lead{color:var(--muted);font-size:18px;margin-top:18px;max-width:780px;margin-left:auto;margin-right:auto}
+
+    /* About */
+    .about .large {font-size:20px;color:var(--muted);max-width:800px;margin:20px auto 0}
+
+    /* Services / Pricing grid */
+    .pricing-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:2rem;
-      width:100%;
-      max-width:1000px;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-top:28px;
     }
-    .service{
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:16px;
-      padding:2rem;
-      transition:all .4s ease;
+    .plan{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:22px;
+      border:1px solid rgba(255,255,255,0.02);
+      min-height:280px;
+      display:flex;flex-direction:column;gap:12px;justify-content:space-between;
+      transition:transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;
     }
-    .service:hover{
-      transform:translateY(-8px);
-      border-color:rgba(255,255,255,0.3);
+    .plan:hover{transform:translateY(-12px);box-shadow:0 40px 120px rgba(255,255,255,0.02)}
+    .plan .title{font-weight:700}
+    .plan .price{font-size:20px;font-weight:800;color:var(--white)}
+    .plan .muted{color:var(--muted);font-size:14px}
+
+    /* Process */
+    .process{display:flex;flex-direction:column;gap:18px;max-width:720px;margin:0 auto}
+    .process .step{display:flex;gap:14px;align-items:flex-start}
+    .process .num{font-weight:800;color:var(--white);font-size:20px}
+    .process .txt{color:var(--muted)}
+
+    /* CTA */
+    .cta-block{
+      padding:36px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.02);
+      display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:920px;margin:0 auto;
     }
-    .service h3{
-      margin-bottom:0.8rem;
-      color:#fff;
+    .cta-block h2{margin:0;font-size:28px}
+    .cta-block .muted{color:var(--muted)}
+
+    /* Footer */
+    footer{padding:36px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02)}
+    footer a{color:var(--muted);text-decoration:none}
+    footer .small{color:var(--muted);font-size:14px;margin-top:8px}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .pricing-grid{grid-template-columns:repeat(2,1fr)}
     }
-    .service .price{
-      margin-top:1rem;
-      color:#d4af37;
-      font-weight:600;
-      font-size:1.2rem;
+    @media (max-width:720px){
+      header{margin:10px;padding:10px}
+      .pricing-grid{grid-template-columns:1fr}
+      .cta-block{flex-direction:column;align-items:flex-start}
+      h1.hero{font-size:32px}
+      section{padding:48px 18px}
     }
-    .process{
-      max-width:700px;
-      text-align:left;
-    }
-    .step{
-      margin:1.5rem 0;
-      padding-left:1rem;
-      border-left:2px solid #444;
-    }
-    footer{
-      text-align:center;
-      padding:3rem 1rem;
-      font-size:0.9rem;
-      color:#777;
-      border-top:1px solid rgba(255,255,255,0.05);
-    }
-    footer a{color:#ccc;text-decoration:none;}
-    footer a:hover{color:#fff;}
-    @media(max-width:768px){
-      header{padding:1rem 1.5rem;}
-    }
+
+    /* subtle transform origin for diagonal motion */
+    .diag { transform-origin: center center; will-change: transform, opacity; }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Dappic Logo">
-    <a href="#cta">Let's Create Together</a>
+  <!-- progress bar -->
+  <div id="progress" aria-hidden="true"></div>
+
+  <!-- sticky nav -->
+  <header role="banner" class="wrap">
+    <div class="brand" aria-hidden="false">
+      <img src="logo.png" alt="Dappic logo">
+      <div style="display:none">
+        <!-- hidden accessible brand text (logo visible) -->
+        <h1 style="font-size:0">Dappic</h1>
+      </div>
+    </div>
+
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#hero" data-nav>Home</a>
+      <a href="#about" data-nav>About</a>
+      <a href="#pricing" data-nav>Pricing</a>
+      <a href="#process" data-nav>Process</a>
+      <a href="#contact" class="cta">Let's Create Together</a>
+    </nav>
   </header>
 
-  <section class="hero">
-    <h1 data-animate="fade">Dappic <span>Let's draw your brand to new heights</span></h1>
-  </section>
+  <!-- HERO -->
+  <main>
+    <section id="hero" class="diag" aria-label="Hero section">
+      <div class="panel">
+        <div class="eyebrow" style="opacity:.8;letter-spacing:3px;font-size:12px">DAPPIC</div>
+        <h1 class="hero" style="opacity:0;transform:translateY(20px) rotate(-1deg)">Let's draw your brand<br><span style="font-weight:400;font-size:20px;opacity:.9;color:var(--muted);display:inline-block;margin-top:12px">to new heights</span></h1>
+        <p class="lead" style="opacity:0;transform:translateY(18px)">Subscription-first creative studio — design, motion, web, and growth, delivered with quiet confidence and meticulous craft.</p>
+      </div>
+    </section>
 
-  <section class="about" data-animate="fade">
-    <h2>About Dappic</h2>
-    <p>Dappic is a subscription-based creative agency where timeless design meets digital excellence. We craft brands that feel established, intelligent, and effortless — with creative support tailored for scaling without limits.</p>
-  </section>
+    <!-- ABOUT -->
+    <section id="about" class="diag" aria-label="About Dappic">
+      <div class="panel">
+        <h2 style="opacity:0;transform:translateY(18px)">Where craft meets strategy</h2>
+        <p class="large" style="opacity:0;transform:translateY(18px)">Dappic partners with ambitious brands on an ongoing subscription model — dedicated creative teams, predictable timelines, and refined output that scales. We design systems, motion, and digital products that endure.</p>
+      </div>
+    </section>
 
-  <section class="services" data-animate="fade">
-    <div class="service">
-      <h3>Essential</h3>
-      <p>1 Brand · 1 Request at a time · No motion graphics</p>
-      <div class="price">€400 / month</div>
-    </div>
-    <div class="service">
-      <h3>Pro</h3>
-      <p>1 Brand · All platforms · Includes motion graphics</p>
-      <div class="price">€800 / month</div>
-    </div>
-    <div class="service">
-      <h3>Premium</h3>
-      <p>1 Brand · 2 Requests at a time · Digital Marketing included</p>
-      <div class="price">€1000 / month</div>
-    </div>
-    <div class="service">
-      <h3>Elite</h3>
-      <p>1 Brand · Unlimited Requests · Web Dev, Hosting, Management</p>
-      <div class="price">€1400 / month</div>
-    </div>
-  </section>
+    <!-- PRICING -->
+    <section id="pricing" class="diag" aria-label="Pricing">
+      <div class="panel">
+        <h2 style="opacity:0;transform:translateY(18px)">Subscription Plans — Monthly</h2>
+        <div class="pricing-grid" style="opacity:0;transform:translateY(18px)">
+          <div class="plan" aria-labelledby="starter">
+            <div>
+              <div class="title" id="starter">Starter</div>
+              <div class="muted">1 brand · 1 request at a time</div>
+            </div>
+            <div class="price">€400 <span style="color:var(--muted);font-size:13px">/mo</span></div>
+            <div class="muted" style="margin-top:8px">No motion graphics included.</div>
+            <div style="height:8px"></div>
+            <button class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px">Select</button>
+          </div>
 
-  <section class="process" data-animate="fade">
-    <h2>Our Process</h2>
-    <div class="step"><h3>1. Submit</h3><p>Send your creative brief and priorities.</p></div>
-    <div class="step"><h3>2. Create</h3><p>We design meticulously with elegance and precision.</p></div>
-    <div class="step"><h3>3. Deliver</h3><p>Receive assets refined to old-money perfection.</p></div>
-  </section>
+          <div class="plan" aria-labelledby="pro">
+            <div>
+              <div class="title" id="pro">Pro</div>
+              <div class="muted">1 brand · All platforms · Motion included</div>
+            </div>
+            <div class="price">€800 <span style="color:var(--muted);font-size:13px">/mo</span></div>
+            <div style="height:8px"></div>
+            <button class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px">Select</button>
+          </div>
 
-  <section id="cta" data-animate="fade">
-    <h2>Let's Create Together</h2>
-    <p>Join Dappic’s subscription and experience creative direction that moves with quiet confidence.</p>
-    <a href="https://www.linkedin.com/company/dappic" target="_blank" style="margin-top:1.5rem;display:inline-block;border:1px solid #fff;padding:0.8rem 2rem;border-radius:50px;text-decoration:none;color:#fff;transition:.3s;">Connect on LinkedIn</a>
-  </section>
+          <div class="plan" aria-labelledby="scale">
+            <div>
+              <div class="title" id="scale">Scale</div>
+              <div class="muted">1 brand · 2 requests at a time · Digital marketing</div>
+            </div>
+            <div class="price">€1,000 <span style="color:var(--muted);font-size:13px">/mo</span></div>
+            <div style="height:8px"></div>
+            <button class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px">Select</button>
+          </div>
 
-  <footer>
-    <p>A Project of ABCD Ventures</p>
-    <p>© 2025 Dappic. All rights reserved.</p>
-    <p><a href="https://www.linkedin.com/company/dappic" target="_blank">LinkedIn</a></p>
-  </footer>
+          <div class="plan" aria-labelledby="elite">
+            <div>
+              <div class="title" id="elite">Elite</div>
+              <div class="muted">All services · Hosting & maintenance · Dev & management</div>
+            </div>
+            <div class="price">€1,400 <span style="color:var(--muted);font-size:13px">/mo</span></div>
+            <div style="height:8px"></div>
+            <button class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px">Contact</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Smooth fade scroll -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- PROCESS -->
+    <section id="process" class="diag" aria-label="Process">
+      <div class="panel">
+        <h2 style="opacity:0;transform:translateY(18px)">How we work</h2>
+        <div class="process" style="opacity:0;transform:translateY(18px)">
+          <div class="step"><div class="num">1</div><div class="txt">Submit brief — prioritized queueing and kickoff.</div></div>
+          <div class="step"><div class="num">2</div><div class="txt">Design & iterate — dedicated creative partner.</div></div>
+          <div class="step"><div class="num">3</div><div class="txt">Deliver & scale — assets, motion, and web maintenance.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="diag" aria-label="Contact">
+      <div class="panel">
+        <div class="cta-block" style="opacity:0;transform:translateY(18px)">
+          <div>
+            <h2>Let's create together</h2>
+            <div class="muted" style="margin-top:6px">Share your brief and we'll propose the right plan and timeline.</div>
+          </div>
+          <div style="display:flex;gap:12px">
+            <a href="https://www.linkedin.com/company/dappic" target="_blank" class="cta">Connect on LinkedIn</a>
+            <a href="#pricing" class="cta" onclick="scrollToSection('#pricing')">View Plans</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+      <div class="wrap">
+        <div class="small">A Project of ABCD Ventures</div>
+        <div class="small">© 2025 Dappic. All rights reserved.</div>
+        <div style="margin-top:10px"><a href="https://www.linkedin.com/company/dappic" target="_blank">LinkedIn</a></div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- GSAP animation & scroll handling -->
   <script>
-    gsap.utils.toArray("[data-animate='fade']").forEach(section=>{
-      gsap.from(section,{
-        opacity:0, y:50, duration:1.5,
-        scrollTrigger:{
-          trigger:section,
-          start:"top 85%",
-          toggleActions:"play none none reverse"
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Progress bar
+    const progress = document.getElementById('progress');
+    function updateProgress() {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? scrollTop / docHeight : 0;
+      progress.style.transform = `scaleX(${pct})`;
+    }
+    window.addEventListener('scroll', updateProgress, {passive:true});
+    updateProgress();
+
+    // Smooth diagonal section transitions
+    const sections = document.querySelectorAll('section.diag');
+    sections.forEach((sec, i) => {
+      const inner = sec.querySelector('.panel');
+      // initial state set inline in HTML; now animate on enter
+      gsap.fromTo(inner,
+        {opacity:0, x: (i % 2 === 0 ? -40 : 40), y: 28, rotation: (i%2===0? -0.6 : 0.6)},
+        {
+          opacity:1, x:0, y:0, rotation:0,
+          ease: "power3.out",
+          duration: 1.1,
+          scrollTrigger: {
+            trigger: sec,
+            start: "top 75%",
+            end: "bottom 20%",
+            toggleActions: "play reverse play reverse",
+            // markers: true
+          }
+        }
+      );
+    });
+
+    // Slight parallax / depth effect for hero text on mouse move
+    const hero = document.querySelector('#hero');
+    if(hero){
+      hero.addEventListener('mousemove', (e) => {
+        const bounds = hero.getBoundingClientRect();
+        const cx = (e.clientX - bounds.left) / bounds.width - 0.5;
+        const cy = (e.clientY - bounds.top) / bounds.height - 0.5;
+        gsap.to('.hero', { '--mx': cx*8 + 'px', '--my': cy*8 + 'px', duration:0.9, ease:'power3.out' });
+      });
+    }
+
+    // Smooth scrolling helper for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href.startsWith('#')){
+          e.preventDefault();
+          scrollToSection(href);
         }
       });
     });
+
+    function scrollToSection(sel){
+      const el = document.querySelector(sel);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // initial reveal for first section
+    gsap.fromTo('#hero .panel', {opacity:0, y:24}, {opacity:1, y:0, duration:1.1, ease:'power3.out', delay:0.08});
   </script>
 
-  <!-- Google Analytics -->
+  <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJV7557MFB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-TJV7557MFB');
+    gtag('config', 'G-TJV7557MFB', { 'send_page_view': true });
   </script>
 </body>
 </html>
