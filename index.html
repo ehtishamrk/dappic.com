@@ -1,163 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dappic — Let's Draw Your Brand to New Heights</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Satoshi:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html, body {
-      background: #000;
-      color: #fff;
-      font-family: 'Satoshi', sans-serif;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
+    * {margin:0;padding:0;box-sizing:border-box;}
+    html,body {
+      background:#000;
+      color:#fff;
+      font-family:'Inter', sans-serif;
+      overflow-x:hidden;
     }
     header {
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(12px);
-      background: rgba(0,0,0,0.6);
-      z-index: 999;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 3rem;
+      position:fixed;
+      top:0;left:0;width:100%;
+      backdrop-filter:blur(10px);
+      background:rgba(0,0,0,0.5);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.2rem 3rem;
+      z-index:1000;
     }
-    header img {
-      height: 40px;
+    header img{height:40px;}
+    header a{
+      text-decoration:none;
+      color:#fff;
+      border:1px solid #fff;
+      padding:0.6rem 1.4rem;
+      border-radius:100px;
+      transition:all .3s ease;
     }
-    header a.cta {
-      border: 1px solid #fff;
-      padding: 0.6rem 1.4rem;
-      border-radius: 50px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: all 0.3s ease;
+    header a:hover{background:#fff;color:#000;}
+    section{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:5rem 2rem;
+      text-align:center;
     }
-    header a.cta:hover {
-      background: #fff;
-      color: #000;
+    h1,h2,h3{
+      font-family:'Playfair Display',serif;
+      letter-spacing:0.5px;
     }
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 6rem 2rem;
-      position: relative;
+    h1{
+      font-size:clamp(2.5rem,6vw,5rem);
+      line-height:1.1;
+      font-weight:600;
     }
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 1.5rem;
+    h2{
+      font-size:2rem;
+      margin-bottom:1rem;
+      font-weight:500;
     }
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 6rem);
-      line-height: 1.1;
+    p{
+      max-width:700px;
+      color:#ccc;
+      line-height:1.7;
+      font-size:1.1rem;
     }
-    p {
-      max-width: 700px;
-      color: #ccc;
-      line-height: 1.7;
-      font-size: 1.1rem;
+    .hero{
+      background:radial-gradient(circle at 50% 30%,rgba(255,255,255,0.05),transparent 70%);
     }
-    .hero {
-      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05), transparent 80%);
+    .hero h1 span{
+      display:block;
+      font-style:italic;
+      color:#d4af37;
     }
-    .hero h1 span {
-      display: block;
-      font-style: italic;
-      opacity: 0.85;
+    .services{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:2rem;
+      width:100%;
+      max-width:1000px;
     }
-    .services {
-      display: grid;
-      gap: 2rem;
-      max-width: 1000px;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    .service{
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:16px;
+      padding:2rem;
+      transition:all .4s ease;
     }
-    .service {
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 2rem;
-      border-radius: 20px;
-      transition: all 0.3s ease;
+    .service:hover{
+      transform:translateY(-8px);
+      border-color:rgba(255,255,255,0.3);
     }
-    .service:hover {
-      transform: translateY(-10px);
-      border-color: rgba(255,255,255,0.3);
+    .service h3{
+      margin-bottom:0.8rem;
+      color:#fff;
     }
-    .service h3 {
-      margin-bottom: 0.8rem;
-      font-size: 1.5rem;
+    .service .price{
+      margin-top:1rem;
+      color:#d4af37;
+      font-weight:600;
+      font-size:1.2rem;
     }
-    .service p {
-      color: #aaa;
-      font-size: 0.95rem;
+    .process{
+      max-width:700px;
+      text-align:left;
     }
-    .price {
-      font-size: 1.6rem;
-      margin-top: 1rem;
-      font-weight: 600;
+    .step{
+      margin:1.5rem 0;
+      padding-left:1rem;
+      border-left:2px solid #444;
     }
-    .process-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      max-width: 700px;
+    footer{
+      text-align:center;
+      padding:3rem 1rem;
+      font-size:0.9rem;
+      color:#777;
+      border-top:1px solid rgba(255,255,255,0.05);
     }
-    .step {
-      border-left: 2px solid #444;
-      padding-left: 1.5rem;
-      text-align: left;
-    }
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      font-size: 0.9rem;
-      color: #777;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    footer a {
-      color: #ccc;
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #fff;
-    }
-    @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
-      h1 {
-        font-size: 2.4rem;
-      }
+    footer a{color:#ccc;text-decoration:none;}
+    footer a:hover{color:#fff;}
+    @media(max-width:768px){
+      header{padding:1rem 1.5rem;}
     }
   </style>
-  <!-- Locomotive Scroll for smooth inertia -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
 </head>
-<body data-scroll-container>
-  <header data-scroll-section>
+<body>
+  <header>
     <img src="logo.png" alt="Dappic Logo">
-    <a href="#cta" class="cta">Let's Create Together</a>
+    <a href="#cta">Let's Create Together</a>
   </header>
 
-  <section class="hero" data-scroll-section data-scroll data-scroll-speed="1">
-    <h1>Dappic<br><span>Let's draw your brand to new heights</span></h1>
+  <section class="hero">
+    <h1 data-animate="fade">Dappic <span>Let's draw your brand to new heights</span></h1>
   </section>
 
-  <section class="about" data-scroll-section data-scroll data-scroll-speed="2">
+  <section class="about" data-animate="fade">
     <h2>About Dappic</h2>
-    <p>We are a subscription-based creative agency redefining design for modern brands. At Dappic, our focus is on timeless digital identity — crafted with precision, minimalism, and motion. Each package is made to scale brands without limits.</p>
+    <p>Dappic is a subscription-based creative agency where timeless design meets digital excellence. We craft brands that feel established, intelligent, and effortless — with creative support tailored for scaling without limits.</p>
   </section>
 
-  <section class="services" data-scroll-section data-scroll data-scroll-speed="3">
+  <section class="services" data-animate="fade">
     <div class="service">
       <h3>Essential</h3>
       <p>1 Brand · 1 Request at a time · No motion graphics</p>
@@ -170,43 +148,48 @@
     </div>
     <div class="service">
       <h3>Premium</h3>
-      <p>1 Brand · 2 Requests at a time · All services + Digital Marketing</p>
+      <p>1 Brand · 2 Requests at a time · Digital Marketing included</p>
       <div class="price">€1000 / month</div>
     </div>
     <div class="service">
       <h3>Elite</h3>
-      <p>1 Brand · All requests · Website Hosting, Maintenance, Development & Management</p>
+      <p>1 Brand · Unlimited Requests · Web Dev, Hosting, Management</p>
       <div class="price">€1400 / month</div>
     </div>
   </section>
 
-  <section class="process" data-scroll-section>
+  <section class="process" data-animate="fade">
     <h2>Our Process</h2>
-    <div class="process-steps">
-      <div class="step"><h3>1. Submit</h3><p>Share your creative request with our team.</p></div>
-      <div class="step"><h3>2. Create</h3><p>We design, refine, and deliver premium assets that match your brand’s essence.</p></div>
-      <div class="step"><h3>3. Scale</h3><p>Watch your brand evolve with on-demand creative excellence.</p></div>
-    </div>
+    <div class="step"><h3>1. Submit</h3><p>Send your creative brief and priorities.</p></div>
+    <div class="step"><h3>2. Create</h3><p>We design meticulously with elegance and precision.</p></div>
+    <div class="step"><h3>3. Deliver</h3><p>Receive assets refined to old-money perfection.</p></div>
   </section>
 
-  <section id="cta" data-scroll-section>
+  <section id="cta" data-animate="fade">
     <h2>Let's Create Together</h2>
-    <p>Ready to elevate your brand? Join our subscription and experience timeless design at scale.</p>
-    <a href="https://www.linkedin.com/company/dappic" target="_blank" class="cta">Connect on LinkedIn</a>
+    <p>Join Dappic’s subscription and experience creative direction that moves with quiet confidence.</p>
+    <a href="https://www.linkedin.com/company/dappic" target="_blank" style="margin-top:1.5rem;display:inline-block;border:1px solid #fff;padding:0.8rem 2rem;border-radius:50px;text-decoration:none;color:#fff;transition:.3s;">Connect on LinkedIn</a>
   </section>
 
-  <footer data-scroll-section>
+  <footer>
     <p>A Project of ABCD Ventures</p>
     <p>© 2025 Dappic. All rights reserved.</p>
     <p><a href="https://www.linkedin.com/company/dappic" target="_blank">LinkedIn</a></p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <!-- Smooth fade scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-      inertia: 0.8,
+    gsap.utils.toArray("[data-animate='fade']").forEach(section=>{
+      gsap.from(section,{
+        opacity:0, y:50, duration:1.5,
+        scrollTrigger:{
+          trigger:section,
+          start:"top 85%",
+          toggleActions:"play none none reverse"
+        }
+      });
     });
   </script>
 
