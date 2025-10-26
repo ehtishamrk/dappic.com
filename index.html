@@ -129,6 +129,22 @@
       70% { transform: translate(-9%, 4%); }
       90% { transform: translate(-1%, -7%); }
     }
+    
+    /* Mobile Performance Optimizations */
+    @media (max-width: 768px) {
+      .grain {
+        display: none;
+      }
+      
+      canvas#bg {
+        display: none;
+      }
+      
+      * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+    }
 
     .site {
       max-width: var(--maxw);
@@ -345,6 +361,14 @@
       background: radial-gradient(circle, rgba(0,147,186,0.08), transparent 70%);
       pointer-events: none;
       animation: pulse 8s ease-in-out infinite;
+      will-change: transform;
+    }
+    
+    @media (max-width: 768px) {
+      .hero::before {
+        animation: none;
+        opacity: 0.3;
+      }
     }
     
     @keyframes pulse {
@@ -1335,7 +1359,13 @@
     .reveal {
       opacity: 0;
       transform: translateY(40px);
-      will-change: transform, opacity;
+    }
+    
+    @media (max-width: 768px) {
+      .reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -1788,114 +1818,118 @@
       });
     }
 
-    // Premium Canvas
-    (function(){
-      const canvas = document.getElementById('bg');
-      const ctx = canvas.getContext('2d');
-      let W = canvas.width = window.innerWidth;
-      let H = canvas.height = window.innerHeight;
+    // Premium Canvas - Desktop only
+    if (!isMobile) {
+      (function(){
+        const canvas = document.getElementById('bg');
+        const ctx = canvas.getContext('2d');
+        let W = canvas.width = window.innerWidth;
+        let H = canvas.height = window.innerHeight;
 
-      const particles = [];
-      const PARTICLE_COUNT = Math.min(150, Math.round((W * H) / 6000));
+        const particles = [];
+        const PARTICLE_COUNT = Math.min(150, Math.round((W * H) / 6000));
 
-      class Particle {
-        constructor() {
-          this.x = Math.random() * W;
-          this.y = Math.random() * H;
-          this.vx = (Math.random() - 0.5) * 0.5;
-          this.vy = (Math.random() - 0.5) * 0.5;
-          this.size = Math.random() * 2 + 1;
-          this.alpha = Math.random() * 0.5 + 0.2;
-          this.hue = 190 + Math.random() * 20;
-        }
-        
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
+        class Particle {
+          constructor() {
+            this.x = Math.random() * W;
+            this.y = Math.random() * H;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 2 + 1;
+            this.alpha = Math.random() * 0.5 + 0.2;
+            this.hue = 190 + Math.random() * 20;
+          }
           
-          if(this.x < 0 || this.x > W) this.vx *= -1;
-          if(this.y < 0 || this.y > H) this.vy *= -1;
-        }
-        
-        draw() {
-          ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      for(let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(new Particle());
-      }
-
-      window.addEventListener('resize', () => {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-      });
-
-      let mouse = { x: W / 2, y: H / 2 };
-      window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      });
-
-      function drawConnections() {
-        for(let i = 0; i < particles.length; i++) {
-          for(let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
             
-            if(dist < 120) {
-              const opacity = (1 - dist / 120) * 0.2;
-              ctx.strokeStyle = `rgba(0, 147, 186, ${opacity})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
+            if(this.x < 0 || this.x > W) this.vx *= -1;
+            if(this.y < 0 || this.y > H) this.vy *= -1;
+          }
+          
+          draw() {
+            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        for(let i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push(new Particle());
+        }
+
+        window.addEventListener('resize', () => {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        });
+
+        let mouse = { x: W / 2, y: H / 2 };
+        window.addEventListener('mousemove', (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        });
+
+        function drawConnections() {
+          for(let i = 0; i < particles.length; i++) {
+            for(let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if(dist < 120) {
+                const opacity = (1 - dist / 120) * 0.2;
+                ctx.strokeStyle = `rgba(0, 147, 186, ${opacity})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
             }
           }
         }
-      }
 
-      function animate() {
-        ctx.clearRect(0, 0, W, H);
-        
-        const bgGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H));
-        bgGrad.addColorStop(0, 'rgba(0,147,186,0.02)');
-        bgGrad.addColorStop(1, 'rgba(19,35,72,0.03)');
-        ctx.fillStyle = bgGrad;
-        ctx.fillRect(0, 0, W, H);
-        
-        particles.forEach(p => {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+        function animate() {
+          ctx.clearRect(0, 0, W, H);
           
-          if(dist < 200) {
-            const force = (200 - dist) / 200;
-            p.vx -= (dx / dist) * force * 0.015;
-            p.vy -= (dy / dist) * force * 0.015;
-          }
+          const bgGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H));
+          bgGrad.addColorStop(0, 'rgba(0,147,186,0.02)');
+          bgGrad.addColorStop(1, 'rgba(19,35,72,0.03)');
+          ctx.fillStyle = bgGrad;
+          ctx.fillRect(0, 0, W, H);
           
-          p.vx *= 0.99;
-          p.vy *= 0.99;
+          particles.forEach(p => {
+            const dx = mouse.x - p.x;
+            const dy = mouse.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if(dist < 200) {
+              const force = (200 - dist) / 200;
+              p.vx -= (dx / dist) * force * 0.015;
+              p.vy -= (dy / dist) * force * 0.015;
+            }
+            
+            p.vx *= 0.99;
+            p.vy *= 0.99;
+            
+            p.update();
+            p.draw();
+          });
           
-          p.update();
-          p.draw();
-        });
-        
-        drawConnections();
-        requestAnimationFrame(animate);
-      }
+          drawConnections();
+          requestAnimationFrame(animate);
+        }
 
-      animate();
-    })();
+        animate();
+      })();
+    }
 
     // GSAP Animations
     gsap.registerPlugin(ScrollTrigger);
+    
+    const isMobile = window.innerWidth <= 768;
 
     // Header scroll effect
     const header = document.getElementById('header');
@@ -1907,27 +1941,29 @@
       }
     });
 
-    // Smooth reveals
-    gsap.utils.toArray('.reveal').forEach((el, i) => {
-      gsap.fromTo(el, 
-        { y: 60, opacity: 0 }, 
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.4,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          },
-          delay: i * 0.08
-        }
-      );
-    });
+    // Smooth reveals - Desktop only
+    if (!isMobile) {
+      gsap.utils.toArray('.reveal').forEach((el, i) => {
+        gsap.fromTo(el, 
+          { y: 60, opacity: 0 }, 
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.4,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.08
+          }
+        );
+      });
+    }
 
-    // Hero panel float
-    if (window.innerWidth >= 1024) {
+    // Hero panel float - Desktop only
+    if (!isMobile) {
       gsap.to('#hero-panel', {
         y: -20,
         duration: 8,
@@ -1947,8 +1983,8 @@
       delay: 0.3
     });
 
-    // Parallax effect for hero (desktop only)
-    if (window.innerWidth >= 1024) {
+    // Parallax effect for hero - Desktop only
+    if (!isMobile) {
       gsap.to('.hero-left', {
         y: -100,
         scrollTrigger: {
@@ -1960,8 +1996,8 @@
       });
     }
 
-    // 3D Portfolio tilt (desktop only)
-    if (window.innerWidth >= 1024) {
+    // 3D Portfolio tilt - Desktop only
+    if (!isMobile) {
       document.querySelectorAll('.work').forEach(tile => {
         tile.addEventListener('mousemove', (e) => {
           const rect = tile.getBoundingClientRect();
@@ -1990,24 +2026,26 @@
       });
     }
 
-    // Card hover animations
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          y: -20,
-          duration: 0.6,
-          ease: 'power3.out'
+    // Card hover animations - Desktop only
+    if (!isMobile) {
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -20,
+            duration: 0.6,
+            ease: 'power3.out'
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.5)'
+          });
         });
       });
-      
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          y: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.5)'
-        });
-      });
-    });
+    }
 
     // Smooth scroll navigation
     function goto(hash) {
@@ -2152,22 +2190,26 @@
 
     // Performance optimization
     let ticking = false;
-    window.addEventListener('scroll', () => {
-      if(!ticking) {
-        window.requestAnimationFrame(() => {
-          ScrollTrigger.update();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    if (!isMobile) {
+      window.addEventListener('scroll', () => {
+        if(!ticking) {
+          window.requestAnimationFrame(() => {
+            ScrollTrigger.update();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
 
     // Preload critical assets
     window.addEventListener('load', () => {
       gsap.to('.hero', { opacity: 1, duration: 0.6 });
     });
 
-    ScrollTrigger.refresh();
+    if (!isMobile) {
+      ScrollTrigger.refresh();
+    }
   </script>
 </body>
 </html>
