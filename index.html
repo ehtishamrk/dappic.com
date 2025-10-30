@@ -2504,16 +2504,5 @@
             }, 250);
         }, { passive: true });
     </script>
-    <script>
-document.addEventListener("scroll", () => {
-  const sections = document.querySelectorAll("#privacy .content-body h2, #privacy .content-body p, #privacy .content-body ul");
-  sections.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.85) {
-      el.classList.add("reveal-visible");
-    }
-  });
-});
-</script>
 </body>
 </html>
