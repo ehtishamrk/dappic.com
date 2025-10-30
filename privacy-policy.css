@@ -1,100 +1,110 @@
-/* PRIVACY POLICY PAGE — ISOLATED, NON-CONFLICTING STYLES */
-#privacy-policy-container {
-  background: #fafafa;
-  padding: 60px 20px;
-  font-family: "Inter", "Segoe UI", sans-serif;
-  color: #1a1a1a;
+/* PREMIUM PRIVACY PAGE STYLING - ALIGNED WITH DAPPIC CORE DESIGN */
+#privacy .content-page {
+    padding: 10rem 3rem 6rem;
+    position: relative;
+    z-index: 1;
+    color: var(--secondary);
 }
 
-#privacy-policy-container .pp-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 60px 70px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  text-align: justify;
-  line-height: 1.75;
-  animation: fadeIn 0.6s ease;
+#privacy .content-container {
+    max-width: 950px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(25px) saturate(160%);
+    border: 1px solid rgba(0, 147, 186, 0.08);
+    border-radius: 18px;
+    padding: 4rem 3rem;
+    box-shadow: 0 12px 40px rgba(19, 35, 72, 0.06);
 }
 
-#privacy-policy-container h1 {
-  font-size: 2.3rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 10px;
-  letter-spacing: -0.4px;
+#privacy .content-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid rgba(35, 62, 126, 0.1);
+    padding-bottom: 2rem;
 }
 
-#privacy-policy-container .pp-meta {
-  color: #555;
-  font-size: 0.95rem;
-  margin-bottom: 30px;
-  line-height: 1.6;
+#privacy .content-title {
+    font-size: 3rem;
+    font-weight: 200;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
 }
 
-#privacy-policy-container h2 {
-  font-size: 1.3rem;
-  margin-top: 25px;
-  margin-bottom: 10px;
-  color: #111;
-  font-weight: 600;
+#privacy .content-date {
+    font-size: 0.875rem;
+    color: var(--accent);
+    opacity: 0.7;
 }
 
-#privacy-policy-container h3 {
-  font-size: 1.05rem;
-  margin-top: 15px;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #222;
+#privacy .content-body {
+    text-align: justify;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--accent);
 }
 
-#privacy-policy-container p {
-  font-size: 0.96rem;
-  color: #333;
-  margin-bottom: 12px;
+#privacy .content-body h2 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--secondary);
+    margin: 3rem 0 1rem;
+    position: relative;
 }
 
-#privacy-policy-container ul {
-  margin: 10px 0 15px 25px;
+#privacy .content-body h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-1);
+    border-radius: 2px;
 }
 
-#privacy-policy-container li {
-  margin-bottom: 6px;
-  font-size: 0.95rem;
-  color: #333;
+#privacy .content-body p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
 }
 
-#privacy-policy-container a {
-  color: #0077ff;
-  text-decoration: none;
-  transition: color 0.2s ease;
+#privacy .content-body section {
+    margin-bottom: 2.25rem;
 }
 
-#privacy-policy-container a:hover {
-  text-decoration: underline;
+#privacy .content-body section:last-child {
+    margin-bottom: 0;
 }
 
-#privacy-policy-container strong {
-  color: #111;
+#privacy .content-container:hover {
+    box-shadow: 0 16px 48px rgba(0, 147, 186, 0.15);
+    transition: box-shadow 0.6s var(--transition-smooth);
 }
 
-#privacy-policy-container section:not(:last-child)::after {
-  content: "";
-  display: block;
-  height: 1px;
-  background: #eee;
-  margin: 25px 0;
+/* GRADIENT DIVIDER UNDER CONTAINER */
+#privacy::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 80%;
+    height: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: 0.5;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-  #privacy-policy-container .pp-wrapper {
-    padding: 40px 25px;
-    border-radius: 12px;
-  }
+    #privacy .content-container {
+        padding: 2.5rem 1.75rem;
+        border-radius: 14px;
+    }
+    #privacy .content-title {
+        font-size: 2.25rem;
+    }
 }
