@@ -1348,6 +1348,7 @@
             font-weight: 300; 
             color: var(--accent); 
             line-height: 1.9;
+            text-align: justify;
         }
         .content-body h2 { 
             font-size: 2rem; 
@@ -1357,6 +1358,8 @@
         }
         .content-body p { 
             margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+    text-align: justify;
         }
         .content-body section { 
             margin-bottom: 3rem; 
@@ -1436,6 +1439,550 @@
             border: 1px solid rgba(0, 147, 186, 0.1); 
             border-radius: 12px;
         }
+        /* CAREERS STYLES */
+.careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+}
+
+.job-card {
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(35, 62, 126, 0.08);
+    background: rgba(249, 250, 249, 0.5);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s var(--transition-smooth);
+    cursor: pointer;
+}
+
+.job-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-1);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.job-card:hover::before {
+    opacity: 0.03;
+}
+
+.job-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-1);
+    transform: scaleX(0);
+    transition: transform 0.5s var(--transition-smooth);
+    transform-origin: left;
+}
+
+.job-card:hover::after {
+    transform: scaleX(1);
+}
+
+.job-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(0, 147, 186, 0.2);
+    background: white;
+}
+
+.job-badge {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: rgba(0, 147, 186, 0.1);
+    color: var(--primary);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.job-title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+}
+
+.job-card:hover .job-title {
+    color: var(--primary);
+}
+
+.job-location {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.job-location::before {
+    content: '📍';
+}
+
+.job-description {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+.job-requirements {
+    list-style: none;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.job-requirements li {
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--accent);
+    border-bottom: 1px solid rgba(35, 62, 126, 0.06);
+    opacity: 0.85;
+    position: relative;
+    padding-left: 24px;
+}
+
+.job-requirements li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.job-apply-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient-1);
+    color: white;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-smooth);
+    text-transform: uppercase;
+    font-family: inherit;
+    border-radius: 50px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 147, 186, 0.3);
+}
+
+.job-apply-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s;
+}
+
+.job-apply-btn:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+.job-apply-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 147, 186, 0.4);
+}
+
+.careers-cta {
+    margin-top: 5rem;
+    padding: 4rem;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.careers-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotateCTA 20s linear infinite;
+}
+
+@keyframes rotateCTA {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.careers-cta h2 {
+    font-size: 2.5rem;
+    font-weight: 200;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.careers-cta p {
+    font-size: 1.125rem;
+    font-weight: 300;
+    color: white;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.careers-cta-btn {
+    padding: 1.25rem 3rem;
+    background: white;
+    color: var(--primary);
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-smooth);
+    text-transform: uppercase;
+    font-family: inherit;
+    border-radius: 50px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.careers-cta-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+        /* BLOG STYLES */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 3rem;
+}
+
+.blog-card {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--transition-smooth);
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(249, 250, 249, 0.5);
+    border: 1px solid rgba(35, 62, 126, 0.08);
+}
+
+.blog-card::before {
+    content: '';
+    position: absolute;
+    inset: -2rem;
+    background: radial-gradient(circle at center, rgba(0, 147, 186, 0.12) 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.6s ease;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.blog-card:hover::before {
+    opacity: 1;
+}
+
+.blog-card:hover {
+    transform: translateY(-15px) rotate(-1deg);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(0, 147, 186, 0.2);
+    background: white;
+}
+
+.blog-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+    background: var(--gradient-1);
+}
+
+.blog-image-inner {
+    width: 100%;
+    height: 100%;
+    transition: all 0.8s var(--transition-smooth);
+    background-size: cover;
+    background-position: center;
+}
+
+.blog-card:hover .blog-image-inner {
+    transform: scale(1.15) rotate(3deg);
+}
+
+.blog-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+}
+
+.blog-card:hover .blog-overlay {
+    opacity: 1;
+}
+
+.blog-read-time {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-read-time::before {
+    content: '⏱️';
+}
+
+.blog-content {
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-category {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.blog-card:hover .blog-category {
+    opacity: 1;
+    letter-spacing: 0.35em;
+}
+
+.blog-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover .blog-title {
+    color: var(--primary);
+}
+
+.blog-excerpt {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+}
+
+.blog-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    font-weight: 300;
+    color: var(--accent);
+    opacity: 0.6;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(35, 62, 126, 0.08);
+}
+
+.blog-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-author::before {
+    content: '✍️';
+}
+
+.blog-date::before {
+    content: '📅';
+    margin-right: 0.5rem;
+}
+
+.blog-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(35, 62, 126, 0.08);
+    transition: all 0.5s var(--transition-smooth);
+}
+
+.blog-featured:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(0, 147, 186, 0.2);
+}
+
+.blog-featured .blog-image {
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.blog-featured .blog-content {
+    padding: 0;
+}
+
+.blog-featured .blog-title {
+    font-size: 2.25rem;
+}
+
+.blog-cta-card {
+    background: var(--gradient-1);
+    padding: 4rem 3rem;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    grid-column: 1 / -1;
+}
+
+.blog-cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotateCTA 25s linear infinite;
+}
+
+.blog-cta-card h3 {
+    font-size: 2rem;
+    font-weight: 200;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-cta-card p {
+    font-size: 1.125rem;
+    font-weight: 300;
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-subscribe-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-subscribe-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.blog-subscribe-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.blog-subscribe-input:focus {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.blog-subscribe-btn {
+    padding: 1rem 2.5rem;
+    background: white;
+    color: var(--primary);
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-smooth);
+    text-transform: uppercase;
+    font-family: inherit;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.blog-subscribe-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+    .blog-featured {
+        grid-template-columns: 1fr;
+    }
+    .blog-subscribe-form {
+        flex-direction: column;
+    }
+}
         
         /* MOBILE MENU */
         .mobile-toggle { 
@@ -1631,14 +2178,17 @@
     <!-- MOBILE MENU -->
     <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
     <div class="mobile-nav" id="mobileNav">
-        <ul>
-            <li><a href="#" onclick="navigateTo('home')">Home</a></li>
-            <li><a href="#" onclick="navigateTo('services')">Services</a></li>
-            <li><a href="#" onclick="navigateTo('work')">Work</a></li>
-            <li><a href="#" onclick="navigateTo('pricing')">Pricing</a></li>
-            <li><a href="#" onclick="navigateTo('locations')">Locations</a></li>
-            <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
-        </ul>
+    <ul>
+        <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+        <li><a href="#" onclick="navigateTo('services')">Services</a></li>
+        <li><a href="#" onclick="navigateTo('work')">Work</a></li>
+        <li><a href="#" onclick="navigateTo('pricing')">Pricing</a></li>
+        <li><a href="#" onclick="navigateTo('locations')">Locations</a></li>
+        <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
+        <li><a href="#" onclick="navigateTo('careers')">Careers</a></li>
+        <li><a href="#" onclick="navigateTo('blog')">Blog</a></li>
+
+    </ul>
         <button class="btn-primary" onclick="navigateTo('contact')" style="width: 100%; margin-top: 2rem;">Start Project</button>
     </div>
     
@@ -1650,12 +2200,14 @@
                 <span class="logo-text">DAPPIC</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('services')">Services</a></li>
-                <li><a href="#" onclick="navigateTo('work')">Work</a></li>
-                <li><a href="#" onclick="navigateTo('pricing')">Pricing</a></li>
-                <li><a href="#" onclick="navigateTo('locations')">Locations</a></li>
-                <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
-            </ul>
+    <li><a href="#" onclick="navigateTo('services')">Services</a></li>
+    <li><a href="#" onclick="navigateTo('work')">Work</a></li>
+    <li><a href="#" onclick="navigateTo('pricing')">Pricing</a></li>
+    <li><a href="#" onclick="navigateTo('locations')">Locations</a></li>
+    <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
+    <li><a href="#" onclick="navigateTo('careers')">Careers</a></li>
+    <li><a href="#" onclick="navigateTo('blog')">Blog</a></li>
+</ul>
             <button class="nav-cta" onclick="navigateTo('contact')">Start Project</button>
             <div class="mobile-toggle" id="mobileToggle" onclick="toggleMobileMenu()">
                 <span></span><span></span><span></span>
@@ -1793,6 +2345,18 @@
                         <div class="location-city">Lisbon</div>
                         <div class="location-country">Portugal</div>
                         <div class="location-address">Portugal</div>
+                        <div class="location-card scroll-reveal">
+    <div class="location-label">EU</div>
+    <div class="location-city">London</div>
+    <div class="location-country">United Kingdom</div>
+    <div class="location-address">United Kingdom</div>
+</div>
+<div class="location-card scroll-reveal">
+    <div class="location-label">OCE</div>
+    <div class="location-city">Melbourne</div>
+    <div class="location-country">Australia</div>
+    <div class="location-address">Australia</div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1945,6 +2509,10 @@
                     <div class="location-card scroll-reveal" style="background: white; border: 1px solid rgba(35, 62, 126, 0.08);"><div class="location-label" style="color: var(--accent);">ME</div><div class="location-city" style="color: var(--secondary);">Dubai</div><div class="location-country" style="color: var(--accent); opacity: 1;">UAE</div><div class="location-address" style="color: var(--accent); opacity: 0.7;">Industrial One</div></div>
                     <div class="location-card scroll-reveal" style="background: white; border: 1px solid rgba(35, 62, 126, 0.08);"><div class="location-label" style="color: var(--accent);">ME</div><div class="location-city" style="color: var(--secondary);">Doha</div><div class="location-country" style="color: var(--accent); opacity: 1;">Qatar</div><div class="location-address" style="color: var(--accent); opacity: 0.7;">Qatar</div></div>
                     <div class="location-card scroll-reveal" style="background: white; border: 1px solid rgba(35, 62, 126, 0.08);"><div class="location-label" style="color: var(--accent);">EU</div><div class="location-city" style="color: var(--secondary);">Lisbon</div><div class="location-country" style="color: var(--accent); opacity: 1;">Portugal</div><div class="location-address" style="color: var(--accent); opacity: 0.7;">Portugal</div></div>
+                    <div class="location-card scroll-reveal" style="background: white; border: 1px solid rgba(35, 62, 126, 0.08);"><div class="location-label" style="color: var(--accent);">EU</div><div class="location-city" style="color: var(--secondary);">London</div><div class="location-country" style="color: var(--accent); opacity: 1;">United Kingdon</div><div class="location-address" style="color: var(--accent); opacity: 0.7;">United Kingdom</div></div>
+                    <div class="location-card scroll-reveal" style="background: white; border: 1px solid rgba(35, 62, 126, 0.08);"><div class="location-label" style="color: var(--accent);">OCE</div><div class="location-city" style="color: var(--secondary);">Melbourne</div><div class="location-country" style="color: var(--accent); opacity: 1;">Australia</div><div class="location-address" style="color: var(--accent); opacity: 0.7;">Australia</div></div>
+
+                    
                 </div>
             </div>
         </div>
@@ -1972,11 +2540,254 @@
                         <div style="font-size: 0.8125rem; font-weight: 300; color: var(--accent); opacity: 0.8;">Dubai, UAE - Industrial One</div>
                         <div style="font-size: 0.8125rem; font-weight: 300; color: var(--accent); opacity: 0.8;">Doha, Qatar</div>
                         <div style="font-size: 0.8125rem; font-weight: 300; color: var(--accent); opacity: 0.8;">Lisbon, Portugal</div>
+                        <div style="font-size: 0.8125rem; font-weight: 300; color: var(--accent); opacity: 0.8;">London, United Kingdom</div>
+                        <div style="font-size: 0.8125rem; font-weight: 300; color: var(--accent); opacity: 0.8;">Melbourne, Australia</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- CAREERS PAGE -->
+<div id="careers" class="page">
+    <div class="content-page">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Join Our Team</div>
+                <h1 class="section-title">Careers</h1>
+                <p class="section-desc">Shape the future of digital excellence with us. We're looking for passionate individuals who want to make an impact.</p>
+            </div>
+            
+            <div class="careers-grid">
+                <!-- SEO Specialist -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">SEO Specialist</h3>
+                    <div class="job-location">Remote / Gujranwala, Pakistan</div>
+                    <p class="job-description">Drive organic growth through strategic SEO initiatives. You'll develop and execute comprehensive SEO strategies that dominate search rankings.</p>
+                    <ul class="job-requirements">
+                        <li>3+ years of SEO experience</li>
+                        <li>Deep knowledge of technical SEO</li>
+                        <li>Proficient in Google Analytics & Search Console</li>
+                        <li>Experience with SEO tools (Ahrefs, SEMrush)</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+
+                <!-- Full Stack Developer -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">Full Stack Developer</h3>
+                    <div class="job-location">Remote / Multiple Locations</div>
+                    <p class="job-description">Build cutting-edge web applications with modern technologies. You'll architect and develop scalable solutions that power our clients' digital presence.</p>
+                    <ul class="job-requirements">
+                        <li>5+ years full-stack development</li>
+                        <li>Expert in React, Node.js, and databases</li>
+                        <li>Experience with cloud platforms (AWS/Azure)</li>
+                        <li>Strong problem-solving abilities</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+
+                <!-- UI/UX Designer -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">UI/UX Designer</h3>
+                    <div class="job-location">Remote / Dubai, UAE</div>
+                    <p class="job-description">Create stunning user experiences that captivate and convert. You'll design intuitive interfaces that blend aesthetics with functionality.</p>
+                    <ul class="job-requirements">
+                        <li>4+ years UI/UX design experience</li>
+                        <li>Expert in Figma, Adobe XD</li>
+                        <li>Strong portfolio showcasing web/mobile design</li>
+                        <li>Understanding of user-centered design principles</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+
+                <!-- Motion Graphics / Video Editor -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">Motion Graphics / Video Editor</h3>
+                    <div class="job-location">Remote / Calgary, Canada</div>
+                    <p class="job-description">Bring brands to life through cinematic motion design. You'll create captivating animations and videos that tell compelling stories.</p>
+                    <ul class="job-requirements">
+                        <li>3+ years motion graphics experience</li>
+                        <li>Expert in After Effects, Premiere Pro</li>
+                        <li>Strong sense of timing and animation principles</li>
+                        <li>Portfolio showcasing diverse motion work</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+
+                <!-- Graphic Designer -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">Graphic Designer</h3>
+                    <div class="job-location">Remote / Lisbon, Portugal</div>
+                    <p class="job-description">Design visual identities that resonate. You'll craft compelling graphics across digital and print media that elevate brands.</p>
+                    <ul class="job-requirements">
+                        <li>3+ years graphic design experience</li>
+                        <li>Master of Adobe Creative Suite</li>
+                        <li>Strong typography and composition skills</li>
+                        <li>Brand identity design experience</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+
+                <!-- Business Development Executive -->
+                <div class="job-card scroll-reveal">
+                    <span class="job-badge">Full-Time</span>
+                    <h3 class="job-title">Business Development Executive</h3>
+                    <div class="job-location">Zevio, Italy / Dubai, UAE</div>
+                    <p class="job-description">Drive growth by building strategic partnerships. You'll identify opportunities and close deals that expand our global footprint.</p>
+                    <ul class="job-requirements">
+                        <li>4+ years B2B sales experience</li>
+                        <li>Proven track record in closing deals</li>
+                        <li>Excellent communication and negotiation skills</li>
+                        <li>Understanding of digital services industry</li>
+                    </ul>
+                    <button class="job-apply-btn" onclick="alert('Application form coming soon! Please send your CV to info@dappic.com')">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="careers-cta scroll-reveal">
+                <h2>Don't See Your Role?</h2>
+                <p>We're always looking for exceptional talent. Send us your portfolio and let's start a conversation about how you can contribute to our mission.</p>
+                <button class="careers-cta-btn" onclick="window.location.href='mailto:info@dappic.com?subject=Spontaneous Application'">Send Your Portfolio</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- BLOG PAGE -->
+<div id="blog" class="page">
+    <div class="content-page">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Insights & Ideas</div>
+                <h1 class="section-title">Blog</h1>
+                <p class="section-desc">Explore the latest trends, insights, and stories from the world of digital innovation</p>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Featured Post -->
+                <article class="blog-featured scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);"></div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Featured</span>
+                        <h2 class="blog-title">The Future of Digital Brand Experiences in 2025</h2>
+                        <p class="blog-excerpt">Discover how emerging technologies and changing consumer behaviors are reshaping the digital landscape. From AI-powered personalization to immersive web experiences, explore what's next.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">Sarah Mitchell</span>
+                            <span class="blog-read-time">8 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Regular Posts -->
+                <article class="blog-card scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);"></div>
+                        <div class="blog-overlay">
+                            <span class="blog-read-time">5 min read</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Design</span>
+                        <h3 class="blog-title">Mastering Micro-Interactions: The Art of Delightful UI</h3>
+                        <p class="blog-excerpt">Learn how subtle animations and interactions can dramatically improve user engagement and create memorable digital experiences.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">James Park</span>
+                            <span class="blog-date">Oct 28, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="blog-overlay">
+                            <span class="blog-read-time">6 min read</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Development</span>
+                        <h3 class="blog-title">Building Lightning-Fast Web Apps with Modern Frameworks</h3>
+                        <p class="blog-excerpt">A deep dive into performance optimization techniques that will make your web applications blazing fast and user-friendly.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">Alex Chen</span>
+                            <span class="blog-date">Oct 25, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <div class="blog-overlay">
+                            <span class="blog-read-time">7 min read</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Marketing</span>
+                        <h3 class="blog-title">SEO in 2025: Strategies That Actually Work</h3>
+                        <p class="blog-excerpt">Cut through the noise with proven SEO strategies that deliver real results in today's competitive digital landscape.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">Maria Rodriguez</span>
+                            <span class="blog-date">Oct 22, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                        <div class="blog-overlay">
+                            <span class="blog-read-time">4 min read</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Business</span>
+                        <h3 class="blog-title">ROI of Premium Design: Why Quality Matters</h3>
+                        <p class="blog-excerpt">Explore the measurable business impact of investing in exceptional design and user experience.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">David Thompson</span>
+                            <span class="blog-date">Oct 20, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card scroll-reveal">
+                    <div class="blog-image">
+                        <div class="blog-image-inner" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                        <div class="blog-overlay">
+                            <span class="blog-read-time">6 min read</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Technology</span>
+                        <h3 class="blog-title">AI-Powered Design Tools: Hype vs Reality</h3>
+                        <p class="blog-excerpt">An honest assessment of how AI tools are transforming the creative process and what it means for designers.</p>
+                        <div class="blog-meta">
+                            <span class="blog-author">Emily Watson</span>
+                            <span class="blog-date">Oct 18, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Newsletter CTA -->
+                <div class="blog-cta-card scroll-reveal">
+                    <h3>Stay Ahead of the Curve</h3>
+                    <p>Get exclusive insights, industry trends, and actionable tips delivered to your inbox every week</p>
+                    <form class="blog-subscribe-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing! Newsletter functionality coming soon.');">
+                        <input type="email" class="blog-subscribe-input" placeholder="Enter your email" required>
+                        <button type="submit" class="blog-subscribe-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     
     <!-- TERMS PAGE -->
     <div id="terms" class="page">
@@ -2240,14 +3051,16 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a onclick="navigateTo('work')">Work</a></li>
-                        <li><a onclick="navigateTo('pricing')">Pricing</a></li>
-                        <li><a onclick="navigateTo('locations')">Locations</a></li>
-                        <li><a onclick="navigateTo('contact')">Contact</a></li>
-                    </ul>
-                </div>
+    <h4>Company</h4>
+    <ul>
+        <li><a onclick="navigateTo('work')">Work</a></li>
+        <li><a onclick="navigateTo('pricing')">Pricing</a></li>
+        <li><a onclick="navigateTo('locations')">Locations</a></li>
+        <li><a onclick="navigateTo('contact')">Contact</a></li>
+        <li><a onclick="navigateTo('careers')">Careers</a></li>
+        <li><a onclick="navigateTo('blog')">Blog</a></li>
+    </ul>
+</div>
                 <div class="footer-section">
                     <h4>Legal</h4>
                     <ul>
@@ -2478,7 +3291,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             // Handle initial hash
             const hash = window.location.hash.substring(1);
-            const validPages = ['home', 'work', 'services', 'pricing', 'locations', 'contact', 'terms', 'privacy'];
+            const validPages = ['home', 'work', 'services', 'pricing', 'careers', 'blog', 'locations', 'contact', 'terms', 'privacy'];
             if (hash && validPages.includes(hash)) {
                 navigateTo(hash);
             }
