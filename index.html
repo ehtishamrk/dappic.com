@@ -2423,7 +2423,6 @@
 }
 
 /* Hide page content until loader completes */
-body:not(.loaded) .hero,
 body:not(.loaded) section,
 body:not(.loaded) footer,
 body:not(.loaded) nav {
@@ -2432,7 +2431,6 @@ body:not(.loaded) nav {
 }
 
 /* Show content after loader */
-body.loaded .hero,
 body.loaded section,
 body.loaded footer,
 body.loaded nav {
@@ -2448,6 +2446,49 @@ body.loaded nav {
         opacity: 1;
         visibility: visible;
     }
+}
+
+/* Hero section - keep hidden but don't override its child animations */
+body:not(.loaded) .hero {
+    visibility: hidden;
+}
+
+body:not(.loaded) .hero * {
+    opacity: 0 !important;
+    animation: none !important;
+}
+
+/* Re-enable hero animations when loaded */
+body.loaded .hero {
+    visibility: visible;
+}
+
+body.loaded .hero-label {
+    animation: fadeInUp 1s var(--transition-smooth) 0.2s forwards !important;
+}
+
+body.loaded .hero-title {
+    animation: fadeInUp 1s var(--transition-smooth) 0.4s forwards !important;
+}
+
+body.loaded .hero-title .word {
+    animation: wordReveal 0.8s var(--transition-bounce) forwards !important;
+}
+
+body.loaded .hero-title .word:nth-child(1) {
+    animation-delay: 0.6s !important;
+}
+
+body.loaded .hero-title .word:nth-child(2) {
+    animation-delay: 0.8s !important;
+}
+
+body.loaded .hero-desc {
+    animation: fadeInUp 1s var(--transition-smooth) 0.8s forwards !important;
+}
+
+body.loaded .hero-buttons {
+    animation: fadeInUp 1s var(--transition-smooth) 1s forwards !important;
 }
 
 /* Mobile */
