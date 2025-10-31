@@ -1689,6 +1689,289 @@
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
+/* COOKIE CONSENT POPUP */
+.cookie-consent {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    max-width: 480px;
+    width: calc(100% - 3rem);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 20px 60px rgba(19, 35, 72, 0.3), 
+                0 0 0 1px rgba(0, 147, 186, 0.1);
+    z-index: 10000;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid rgba(0, 147, 186, 0.2);
+}
+
+.cookie-consent.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.cookie-consent::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    opacity: 0.15;
+    z-index: -1;
+    filter: blur(20px);
+    animation: cookieGlow 3s ease-in-out infinite;
+}
+
+@keyframes cookieGlow {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.25; }
+}
+
+.cookie-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(35, 62, 126, 0.08);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--transition-smooth);
+    color: var(--accent);
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1;
+    padding: 0;
+}
+
+.cookie-close:hover {
+    background: var(--primary);
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+}
+
+.cookie-close:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.cookie-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+    animation: cookieBounce 2s ease-in-out infinite;
+}
+
+@keyframes cookieBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(-5deg); }
+    75% { transform: translateY(-3px) rotate(5deg); }
+}
+
+.cookie-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.cookie-text {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    opacity: 0.9;
+}
+
+.cookie-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    font-weight: 400;
+}
+
+.cookie-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary);
+    transition: width 0.3s;
+}
+
+.cookie-link:hover::after {
+    width: 100%;
+}
+
+.cookie-link:hover {
+    color: var(--accent);
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.cookie-btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-smooth);
+    text-transform: uppercase;
+    font-family: inherit;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cookie-btn-accept {
+    background: var(--gradient-1);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 147, 186, 0.3);
+}
+
+.cookie-btn-accept::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s;
+}
+
+.cookie-btn-accept:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+.cookie-btn-accept:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 147, 186, 0.4);
+}
+
+.cookie-btn-accept:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.cookie-btn-decline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid rgba(35, 62, 126, 0.2);
+}
+
+.cookie-btn-decline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(35, 62, 126, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50px;
+}
+
+.cookie-btn-decline:hover::before {
+    opacity: 1;
+}
+
+.cookie-btn-decline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 147, 186, 0.15);
+}
+
+.cookie-btn-decline:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* Backdrop overlay for cookie popup */
+.cookie-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(19, 35, 72, 0.2);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.cookie-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Premium shine effect */
+.cookie-consent::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    animation: cookieShine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cookieShine {
+    0%, 100% { transform: translateX(-100%) translateY(-100%); }
+    50% { transform: translateX(100%) translateY(100%); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .cookie-consent {
+        bottom: 1rem;
+        width: calc(100% - 2rem);
+        padding: 1.75rem 1.5rem;
+        max-width: none;
+    }
+    
+    .cookie-buttons {
+        flex-direction: column;
+    }
+    
+    .cookie-btn {
+        width: 100%;
+    }
+    
+    .cookie-title {
+        font-size: 1.125rem;
+    }
+    
+    .cookie-text {
+        font-size: 0.8125rem;
+    }
+}
         /* BLOG STYLES */
 .blog-grid {
     display: grid;
@@ -2174,7 +2457,22 @@
         <div class="orb orb-4"></div>
     </div>
     <div class="particles" id="particles"></div>
-    
+    <!-- COOKIE CONSENT POPUP -->
+    <div class="cookie-backdrop" id="cookieBackdrop"></div>
+    <div class="cookie-consent" id="cookieConsent">
+        <button class="cookie-close" id="cookieClose" aria-label="Close cookie notice">×</button>
+        <span class="cookie-icon">🍪</span>
+        <h3 class="cookie-title">We Value Your Privacy</h3>
+        <p class="cookie-text">
+            We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
+            By clicking "Accept", you consent to our use of cookies. 
+            <a href="#" onclick="navigateTo('privacy')" class="cookie-link">Learn more</a>
+        </p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept Cookies</button>
+            <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
+        </div>
+    </div>
     <!-- MOBILE MENU -->
     <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
     <div class="mobile-nav" id="mobileNav">
@@ -3286,9 +3584,121 @@
                 navigateTo(hash || 'home');
             }
         });
-
+// COOKIE CONSENT MANAGEMENT
+        const cookieConsent = {
+            name: 'dappic_cookie_consent',
+            duration: 365, // days
+            
+            // Check if user has already made a choice
+            hasConsent: function() {
+                return localStorage.getItem(this.name) !== null;
+            },
+            
+            // Get user's choice
+            getConsent: function() {
+                return localStorage.getItem(this.name);
+            },
+            
+            // Set user's choice
+            setConsent: function(value) {
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + this.duration);
+                localStorage.setItem(this.name, value);
+                localStorage.setItem(this.name + '_expiry', expiryDate.toISOString());
+                
+                // Track in analytics if accepted
+                if (value === 'accepted' && typeof gtag === 'function') {
+                    gtag('consent', 'update', {
+                        'analytics_storage': 'granted'
+                    });
+                }
+            },
+            
+            // Check if consent has expired
+            isExpired: function() {
+                const expiry = localStorage.getItem(this.name + '_expiry');
+                if (!expiry) return true;
+                return new Date() > new Date(expiry);
+            },
+            
+            // Show cookie popup
+            show: function() {
+                const popup = document.getElementById('cookieConsent');
+                const backdrop = document.getElementById('cookieBackdrop');
+                
+                setTimeout(() => {
+                    backdrop.classList.add('show');
+                    popup.classList.add('show');
+                }, 1000); // Delay for better UX
+            },
+            
+            // Hide cookie popup
+            hide: function() {
+                const popup = document.getElementById('cookieConsent');
+                const backdrop = document.getElementById('cookieBackdrop');
+                
+                popup.classList.remove('show');
+                backdrop.classList.remove('show');
+            },
+            
+            // Initialize
+            init: function() {
+                // Check if consent exists and is not expired
+                if (this.hasConsent() && !this.isExpired()) {
+                    // User has already made a choice
+                    if (this.getConsent() === 'declined') {
+                        // Disable analytics if declined
+                        if (typeof gtag === 'function') {
+                            gtag('consent', 'update', {
+                                'analytics_storage': 'denied'
+                            });
+                        }
+                    }
+                    return;
+                }
+                
+                // Show cookie popup
+                this.show();
+                
+                // Handle Accept button
+                document.getElementById('cookieAccept').addEventListener('click', () => {
+                    this.setConsent('accepted');
+                    this.hide();
+                    
+                    // Optional: Show success message
+                    console.log('Cookies accepted');
+                });
+                
+                // Handle Decline button
+                document.getElementById('cookieDecline').addEventListener('click', () => {
+                    this.setConsent('declined');
+                    this.hide();
+                    
+                    // Disable analytics
+                    if (typeof gtag === 'function') {
+                        gtag('consent', 'update', {
+                            'analytics_storage': 'denied'
+                        });
+                    }
+                    
+                    console.log('Cookies declined');
+                });
+                
+                // Handle Close button
+                document.getElementById('cookieClose').addEventListener('click', () => {
+                    this.hide();
+                    // Don't set consent, so it shows again next visit
+                });
+                
+                // Handle backdrop click
+                document.getElementById('cookieBackdrop').addEventListener('click', () => {
+                    this.hide();
+                });
+            }
+        };
         // INITIALIZE
         window.addEventListener('DOMContentLoaded', () => {
+            cookieConsent.init();
             // Handle initial hash
             const hash = window.location.hash.substring(1);
             const validPages = ['home', 'work', 'services', 'pricing', 'careers', 'blog', 'locations', 'contact', 'terms', 'privacy'];
