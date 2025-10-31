@@ -2399,6 +2399,299 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+/* MOBILE OPTIMIZATION - CAREERS PAGE */
+@media (max-width: 768px) {
+    .careers-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .job-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .job-title {
+        font-size: 1.5rem;
+    }
+    
+    .job-description {
+        font-size: 0.875rem;
+    }
+    
+    .job-requirements {
+        margin-bottom: 2rem;
+    }
+    
+    .job-requirements li {
+        font-size: 0.8125rem;
+        padding: 0.65rem 0;
+    }
+    
+    .careers-cta {
+        padding: 3rem 2rem;
+    }
+    
+    .careers-cta h2 {
+        font-size: 2rem;
+    }
+    
+    .careers-cta p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .job-card {
+        padding: 1.75rem 1.25rem;
+    }
+    
+    .job-badge {
+        font-size: 0.625rem;
+        padding: 0.4rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .job-title {
+        font-size: 1.35rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .job-location {
+        font-size: 0.875rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .job-description {
+        font-size: 0.8125rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .job-requirements {
+        margin-bottom: 1.75rem;
+    }
+    
+    .job-requirements li {
+        font-size: 0.75rem;
+        padding: 0.6rem 0;
+        padding-left: 20px;
+    }
+    
+    .job-apply-btn {
+        font-size: 0.8125rem;
+        padding: 0.875rem;
+    }
+    
+    .careers-cta {
+        padding: 2.5rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    .careers-cta h2 {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .careers-cta p {
+        font-size: 0.9375rem;
+        margin-bottom: 2rem;
+    }
+    
+    .careers-cta-btn {
+        padding: 1rem 2rem;
+        font-size: 0.8125rem;
+        width: 100%;
+    }
+}
+
+/* MOBILE OPTIMIZATION - BLOG PAGE */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .blog-featured {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    
+    .blog-featured .blog-title {
+        font-size: 1.75rem;
+    }
+    
+    .blog-card {
+        border-radius: 12px;
+    }
+    
+    .blog-content {
+        padding: 1.75rem 1.5rem;
+    }
+    
+    .blog-title {
+        font-size: 1.35rem;
+    }
+    
+    .blog-excerpt {
+        font-size: 0.875rem;
+    }
+    
+    .blog-meta {
+        font-size: 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .blog-cta-card {
+        padding: 3rem 2rem;
+    }
+    
+    .blog-cta-card h3 {
+        font-size: 1.75rem;
+    }
+    
+    .blog-cta-card p {
+        font-size: 1rem;
+    }
+    
+    .blog-subscribe-form {
+        flex-direction: column;
+    }
+    
+    .blog-subscribe-input {
+        width: 100%;
+    }
+    
+    .blog-subscribe-btn {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-card {
+        border-radius: 10px;
+    }
+    
+    .blog-image {
+        aspect-ratio: 4/3;
+    }
+    
+    .blog-content {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    .blog-category {
+        font-size: 0.625rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .blog-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.65rem;
+    }
+    
+    .blog-excerpt {
+        font-size: 0.8125rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .blog-meta {
+        padding-top: 1.25rem;
+        font-size: 0.6875rem;
+    }
+    
+    .blog-featured {
+        padding: 1.75rem 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .blog-featured .blog-image {
+        border-radius: 10px;
+    }
+    
+    .blog-featured .blog-title {
+        font-size: 1.5rem;
+    }
+    
+    .blog-featured .blog-excerpt {
+        font-size: 0.875rem;
+    }
+    
+    .blog-cta-card {
+        padding: 2.5rem 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .blog-cta-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .blog-cta-card p {
+        font-size: 0.9375rem;
+        margin-bottom: 1.75rem;
+    }
+    
+    .blog-subscribe-input {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.875rem;
+    }
+    
+    .blog-subscribe-btn {
+        padding: 0.875rem;
+        font-size: 0.8125rem;
+    }
+    
+    .blog-read-time {
+        font-size: 0.8125rem;
+    }
+}
+
+/* ADDITIONAL MOBILE FIXES */
+@media (max-width: 640px) {
+    .content-page {
+        padding: 8rem 1.5rem 4rem;
+    }
+    
+    .section-header {
+        margin-bottom: 4rem;
+    }
+    
+    .section-title {
+        font-size: 2.25rem;
+    }
+    
+    .section-desc {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-page {
+        padding: 7rem 1.25rem 3rem;
+    }
+    
+    .section-header {
+        margin-bottom: 3rem;
+    }
+    
+    .section-label {
+        font-size: 0.6875rem;
+        letter-spacing: 0.35em;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .section-desc {
+        font-size: 0.9375rem;
+    }
+}
     </style>
 </head>
 <body>
