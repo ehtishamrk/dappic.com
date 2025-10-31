@@ -2373,7 +2373,7 @@
             transition-timing-function: var(--transition-smooth);
         }
         
-/* CLEAN LOADER - NO BULLSHIT */
+/* SIMPLE OUTLINE LOADER */
 .page-loader {
     position: fixed;
     inset: 0;
@@ -2382,84 +2382,92 @@
     align-items: center;
     justify-content: center;
     z-index: 99999;
-    overflow: hidden;
+}
+
+.page-loader.morph-out {
+    animation: morphToSite 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes morphToSite {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(3);
+        filter: blur(40px);
+    }
 }
 
 .loader-svg {
-    width: 180px;
-    height: 180px;
-    position: relative;
-    z-index: 2;
+    width: 200px;
+    height: 200px;
 }
 
-/* Outline - draws */
 .logo-outline {
     fill: none;
     stroke: #0093BA;
-    stroke-width: 12;
+    stroke-width: 10;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 10000;
-    stroke-dashoffset: 10000;
-    animation: draw 2.5s ease-out forwards;
+    stroke-dasharray: 8000;
+    stroke-dashoffset: 8000;
+    animation: drawOutline 3s ease-out forwards;
 }
 
-@keyframes draw {
-    to { stroke-dashoffset: 0; }
+@keyframes drawOutline {
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
-/* Fill - hidden until outline done */
-.logo-fill {
+/* Hide page content until loader completes */
+body:not(.loaded) .hero,
+body:not(.loaded) section,
+body:not(.loaded) footer,
+body:not(.loaded) nav {
     opacity: 0;
-    animation: showFill 0.01s linear 2.5s forwards;
+    visibility: hidden;
 }
 
-@keyframes showFill {
-    to { opacity: 1; }
+/* Show content after loader */
+body.loaded .hero,
+body.loaded section,
+body.loaded footer,
+body.loaded nav {
+    animation: fadeInContent 0.8s ease forwards;
 }
 
-/* Clip rect - animates bottom to top */
-#fillRect {
-    animation: fillUp 1.2s ease-in-out 2.5s forwards;
-}
-
-@keyframes fillUp {
+@keyframes fadeInContent {
     from {
-        y: 4500;
-        height: 0;
+        opacity: 0;
+        visibility: hidden;
     }
     to {
-        y: 0;
-        height: 4500;
+        opacity: 1;
+        visibility: visible;
     }
-}
-
-/* Canvas for particles */
-#particleCanvas {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
     .loader-svg {
-        width: 150px;
-        height: 150px;
+        width: 160px;
+        height: 160px;
     }
     .logo-outline {
-        stroke-width: 14;
+        stroke-width: 12;
     }
 }
 
 @media (max-width: 480px) {
     .loader-svg {
-        width: 120px;
-        height: 120px;
+        width: 130px;
+        height: 130px;
     }
     .logo-outline {
-        stroke-width: 16;
+        stroke-width: 14;
     }
 }
 
@@ -3729,106 +3737,51 @@
             }
         };
 
-        // PARTICLE EXPLOSION LOADER - CLEAN VERSION
+        // OUTLINE DRAW + MORPH LOADER
 (function() {
     const loader = document.getElementById('pageLoader');
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    const svg = document.querySelector('.loader-svg');
+    const DRAW_TIME = 3000; // 3 seconds to draw outline
+    const MORPH_TIME = 1200; // 1.2 seconds to morph
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const TOTAL_ANIMATION = 3700; // 2.5s draw + 1.2s fill
     let pageLoaded = false;
-    let animationDone = false;
-    let particles = [];
+    let drawComplete = false;
     
+    // Check when page loads
     window.addEventListener('load', () => {
         pageLoaded = true;
-        checkReady();
+        checkAndMorph();
     });
     
+    // Check when drawing completes
     setTimeout(() => {
-        animationDone = true;
-        checkReady();
-    }, TOTAL_ANIMATION);
+        drawComplete = true;
+        checkAndMorph();
+    }, DRAW_TIME);
     
-    function checkReady() {
-        if (pageLoaded && animationDone) {
-            explode();
+    function checkAndMorph() {
+        // Only morph when BOTH conditions met
+        if (pageLoaded && drawComplete) {
+            startMorph();
         }
     }
     
-    function explode() {
-        const rect = svg.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
+    function startMorph() {
+        // Start morph animation
+        loader.classList.add('morph-out');
         
-        // Create 200 particles
-        for (let i = 0; i < 200; i++) {
-            const angle = (Math.PI * 2 * i) / 200;
-            const speed = 3 + Math.random() * 5;
-            
-            particles.push({
-                x: cx,
-                y: cy,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                size: 2 + Math.random() * 3,
-                alpha: 1,
-                decay: 0.02 + Math.random() * 0.01
-            });
-        }
-        
-        svg.style.opacity = '0';
-        svg.style.transform = 'scale(1.5)';
-        svg.style.transition = 'all 0.3s ease';
-        
-        animate();
-    }
-    
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        let alive = 0;
-        particles.forEach(p => {
-            if (p.alpha > 0) {
-                alive++;
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vy += 0.15; // gravity
-                p.alpha -= p.decay;
-                
-                ctx.save();
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = '#0093BA';
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        });
-        
-        if (alive > 0) {
-            requestAnimationFrame(animate);
-        } else {
-            finish();
-        }
-    }
-    
-    function finish() {
-        loader.style.transition = 'opacity 0.5s ease';
-        loader.style.opacity = '0';
+        // After morph completes, remove loader and trigger page animations
         setTimeout(() => {
             loader.remove();
-        }, 500);
+            
+            // Add 'loaded' class to body to trigger homepage animations
+            document.body.classList.add('loaded');
+            
+            // Now trigger scroll reveal animations
+            if (typeof revealOnScroll === 'function') {
+                revealOnScroll();
+            }
+        }, MORPH_TIME);
     }
-    
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
 })();
         // CREATE PARTICLES
         function createParticles() {
@@ -3956,6 +3909,9 @@
 
         // SCROLL REVEAL
         function revealOnScroll() {
+             if (!document.body.classList.contains('loaded')) {
+        return;
+    }
             const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
             
             reveals.forEach(element => {
@@ -4157,9 +4113,6 @@
             if (hash && validPages.includes(hash)) {
                 navigateTo(hash);
             }
-            
-            // Initial reveal
-            revealOnScroll();
             
             // Preload logo
             const logoImg = new Image();
