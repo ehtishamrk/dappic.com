@@ -2805,94 +2805,199 @@ body.loaded .hero-buttons {
         font-size: 0.9375rem;
     }
 }
-        /* ===== SLEEK MODERN PRICING TOGGLE ===== */
+        /* ===== $10K PREMIUM TOGGLE - THREE TIER SYSTEM ===== */
 .pricing-toggle-container {
     text-align: center;
-    margin: 0 auto 5rem;
-    max-width: 500px;
+    margin: 0 auto 6rem;
+    max-width: 900px;
+    position: relative;
 }
 
 .pricing-toggle-wrapper {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
     position: relative;
-    background: #F5F7FA;
-    padding: 0.25rem;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 147, 186, 0.1);
+    padding: 0;
 }
 
-.pricing-toggle-label {
+.pricing-toggle-option {
     position: relative;
-    z-index: 2;
-    padding: 0.75rem 2rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--accent);
     cursor: pointer;
-    transition: color 0.3s ease;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    background: white;
+    border: 2px solid rgba(0, 147, 186, 0.08);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
 }
 
-.pricing-toggle-label.active {
-    color: white;
-}
-
-.pricing-toggle-slider-bg {
+.pricing-toggle-option::before {
+    content: '';
     position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
-    height: calc(100% - 0.5rem);
-    width: calc(50% - 0.25rem);
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    border-radius: 10px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 147, 186, 0.2);
-    z-index: 1;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 147, 186, 0.03) 0%, 
+        rgba(35, 62, 126, 0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.pricing-toggle-input:checked ~ .pricing-toggle-slider-bg {
-    transform: translateX(calc(100% + 0.25rem));
+.pricing-toggle-option:hover::before {
+    opacity: 1;
+}
+
+.pricing-toggle-option:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 147, 186, 0.15);
+    box-shadow: 
+        0 8px 32px rgba(0, 147, 186, 0.08),
+        0 4px 16px rgba(0, 147, 186, 0.06);
+}
+
+.pricing-toggle-option.active {
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    border-color: transparent;
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 
+        0 20px 60px rgba(0, 147, 186, 0.25),
+        0 10px 30px rgba(35, 62, 126, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.pricing-toggle-option.active::before {
+    opacity: 0;
 }
 
 .pricing-toggle-input {
     display: none;
 }
 
-.pricing-toggle-badge {
+.pricing-toggle-check {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 147, 186, 0.2);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.pricing-toggle-option.active .pricing-toggle-check {
+    background: white;
+    border-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-toggle-check::after {
+    content: '✓';
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.pricing-toggle-option.active .pricing-toggle-check::after {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.pricing-toggle-period {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.pricing-toggle-option.active .pricing-toggle-period {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pricing-toggle-label {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+}
+
+.pricing-toggle-option.active .pricing-toggle-label {
+    color: white;
+}
+
+.pricing-toggle-discount {
     display: inline-flex;
     align-items: center;
-    padding: 0.2rem 0.5rem;
-    background: rgba(0, 147, 186, 0.15);
+    gap: 0.35rem;
+    padding: 0.35rem 0.875rem;
+    background: rgba(0, 147, 186, 0.1);
     color: var(--primary);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.pricing-toggle-option.active .pricing-toggle-discount {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.pricing-toggle-discount::before {
+    content: '🎁';
+    font-size: 0.875rem;
+}
+
+.pricing-toggle-best {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #FFB800 0%, #FF8A00 100%);
+    color: white;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(255, 184, 0, 0.4);
+    z-index: 10;
 }
 
 .pricing-toggle-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 300;
     color: var(--accent);
-    opacity: 0.65;
-    margin-top: 1rem;
+    opacity: 0.7;
+    margin-top: 2rem;
 }
 
-/* ===== SMOOTH PRICE TRANSITIONS ===== */
+/* ===== ULTRA SMOOTH PRICE TRANSITIONS ===== */
 .pricing-savings-badge {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.625rem 1.25rem;
     background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     color: white;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    border-radius: 8px;
+    letter-spacing: 0.02em;
+    border-radius: 10px;
     margin-bottom: 1.5rem;
+    box-shadow: 0 6px 24px rgba(0, 147, 186, 0.25);
     opacity: 0;
-    transform: translateY(-5px);
-    transition: all 0.3s ease;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .pricing-savings-badge.show {
@@ -2901,44 +3006,58 @@ body.loaded .hero-buttons {
 }
 
 .pricing-price-wrapper {
-    min-height: 110px;
+    min-height: 115px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
 }
 
 .pricing-price-original {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 300;
     color: var(--accent);
-    opacity: 0.4;
+    opacity: 0.35;
     text-decoration: line-through;
-    margin-bottom: 0.25rem;
+    text-decoration-color: rgba(0, 147, 186, 0.4);
+    text-decoration-thickness: 2px;
+    margin-bottom: 0.35rem;
     display: none;
     transition: all 0.3s ease;
 }
 
 .pricing-price {
-    font-size: 3rem;
+    font-size: 3.25rem;
     font-weight: 200;
     color: var(--primary);
     line-height: 1;
-    transition: all 0.3s ease;
+    letter-spacing: -0.02em;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
 }
 
 .pricing-price.animating {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
+}
+
+.pricing-price-animated {
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .pricing-discount-note {
     font-size: 0.8125rem;
     font-weight: 400;
     color: var(--primary);
-    margin-top: 0.5rem;
+    margin-top: 0.65rem;
+    padding: 0.5rem 0.875rem;
+    background: rgba(0, 147, 186, 0.06);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
     opacity: 0;
-    transform: translateY(-5px);
-    transition: all 0.3s ease;
+    transform: translateY(-8px);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .pricing-discount-note.show {
@@ -2947,46 +3066,65 @@ body.loaded .hero-buttons {
 }
 
 .pricing-period {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 300;
     color: var(--accent);
-    margin-top: 0.5rem;
+    margin-top: 0.65rem;
     opacity: 0.7;
     transition: all 0.3s ease;
 }
 
 .pricing-quarterly-highlight {
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.03) 0%, rgba(35, 62, 126, 0.02) 100%);
+    background: linear-gradient(135deg, 
+        rgba(0, 147, 186, 0.04) 0%, 
+        rgba(35, 62, 126, 0.02) 100%);
     border-color: rgba(0, 147, 186, 0.2) !important;
+    box-shadow: 
+        0 12px 40px rgba(0, 147, 186, 0.12),
+        0 0 0 1px rgba(0, 147, 186, 0.08);
 }
 
-/* Mobile */
+.pricing-yearly-highlight {
+    background: linear-gradient(135deg, 
+        rgba(0, 147, 186, 0.06) 0%, 
+        rgba(35, 62, 126, 0.04) 100%);
+    border-color: rgba(0, 147, 186, 0.25) !important;
+    box-shadow: 
+        0 16px 48px rgba(0, 147, 186, 0.15),
+        0 0 0 1px rgba(0, 147, 186, 0.1);
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .pricing-toggle-label {
-        padding: 0.65rem 1.5rem;
-        font-size: 0.875rem;
+    .pricing-toggle-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+    }
+    
+    .pricing-toggle-option {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    .pricing-toggle-option:hover {
+        transform: translateY(-2px);
+    }
+    
+    .pricing-toggle-option.active {
+        transform: translateY(-3px) scale(1.01);
     }
 }
 
 @media (max-width: 480px) {
-    .pricing-toggle-wrapper {
-        flex-direction: column;
-        gap: 0.25rem;
+    .pricing-toggle-option {
+        padding: 1.25rem 1rem;
     }
     
     .pricing-toggle-label {
-        width: 100%;
-        justify-content: center;
+        font-size: 1rem;
     }
     
-    .pricing-toggle-slider-bg {
-        width: calc(100% - 0.5rem);
-        height: calc(50% - 0.25rem);
-        transform: translateY(0) !important;
-    }
-    
-    .pricing-toggle-input:checked ~ .pricing-toggle-slider-bg {
-        transform: translateY(calc(100% + 0.25rem)) !important;
+    .pricing-price {
+        font-size: 2.75rem;
     }
 }
     </style>
@@ -3323,17 +3461,31 @@ body.loaded .hero-buttons {
                <!-- PRICING TOGGLE -->
 <div class="pricing-toggle-container">
     <div class="pricing-toggle-wrapper">
-        <input type="checkbox" id="billingToggle" class="pricing-toggle-input">
-        <div class="pricing-toggle-slider-bg"></div>
-        <label for="billingToggle" class="pricing-toggle-label active" data-billing="monthly">
-            Monthly
-        </label>
-        <label for="billingToggle" class="pricing-toggle-label" data-billing="quarterly">
-            Quarterly
-            <span class="pricing-toggle-badge">-10%</span>
-        </label>
+        <!-- MONTHLY -->
+        <div class="pricing-toggle-option active" data-billing="monthly" onclick="pricingToggle.select('monthly', this)">
+            <div class="pricing-toggle-check"></div>
+            <div class="pricing-toggle-period">Pay Monthly</div>
+            <div class="pricing-toggle-label">Monthly</div>
+        </div>
+        
+        <!-- QUARTERLY -->
+        <div class="pricing-toggle-option" data-billing="quarterly" onclick="pricingToggle.select('quarterly', this)">
+            <div class="pricing-toggle-check"></div>
+            <div class="pricing-toggle-period">Pay Quarterly</div>
+            <div class="pricing-toggle-label">Quarterly</div>
+            <div class="pricing-toggle-discount">Save 10%</div>
+        </div>
+        
+        <!-- YEARLY -->
+        <div class="pricing-toggle-option" data-billing="yearly" onclick="pricingToggle.select('yearly', this)">
+            <div class="pricing-toggle-best">Best Value</div>
+            <div class="pricing-toggle-check"></div>
+            <div class="pricing-toggle-period">Pay Yearly</div>
+            <div class="pricing-toggle-label">Yearly</div>
+            <div class="pricing-toggle-discount">Save 20%</div>
+        </div>
     </div>
-    <p class="pricing-toggle-subtitle">Save 10% with quarterly billing</p>
+    <p class="pricing-toggle-subtitle">All plans include 14-day money-back guarantee</p>
 </div>
                 <div style="margin-bottom: 5rem;">
                     <h2 style="font-size: 1.75rem; font-weight: 200; color: var(--secondary); margin-bottom: 2.5rem;">One-Stop Solution Packages</h2>
@@ -4410,7 +4562,7 @@ body.loaded .hero-buttons {
                 revealOnScroll();
             }, 250);
         }, { passive: true });
-// ===== SLEEK PRICING TOGGLE =====
+// ===== $10K PREMIUM PRICING TOGGLE =====
 const pricingToggle = {
     monthlyPrices: {
         'Essential': 450,
@@ -4419,43 +4571,46 @@ const pricingToggle = {
         'Enterprise': 1500
     },
     
-    discountRate: 0.10,
+    discounts: {
+        'monthly': 0,
+        'quarterly': 0.10,
+        'yearly': 0.20
+    },
+    
     currentBilling: 'monthly',
     
-    init: function() {
-        const toggleInput = document.getElementById('billingToggle');
-        if (!toggleInput) return;
+    select: function(billing, element) {
+        if (this.currentBilling === billing) return;
         
-        toggleInput.addEventListener('change', () => {
-            this.currentBilling = toggleInput.checked ? 'quarterly' : 'monthly';
-            this.updateLabels();
-            this.updatePricing();
-            
-            if (typeof gtag === 'function') {
-                gtag('event', 'pricing_toggle', { 'billing_type': this.currentBilling });
-            }
+        this.currentBilling = billing;
+        
+        // Update active states
+        document.querySelectorAll('.pricing-toggle-option').forEach(opt => {
+            opt.classList.remove('active');
         });
+        element.classList.add('active');
         
-        this.updateLabels();
+        // Update pricing
+        this.updateAllPricing();
+        
+        if (typeof gtag === 'function') {
+            gtag('event', 'pricing_toggle', { 'billing_type': billing });
+        }
     },
     
-    updateLabels: function() {
-        document.querySelectorAll('.pricing-toggle-label').forEach(label => {
-            label.classList.toggle('active', label.dataset.billing === this.currentBilling);
-        });
-    },
-    
-    calculateQuarterlyPrice: function(monthlyPrice) {
-        return Math.round(monthlyPrice * (1 - this.discountRate));
+    calculatePrice: function(monthlyPrice) {
+        const discount = this.discounts[this.currentBilling];
+        return Math.round(monthlyPrice * (1 - discount));
     },
     
     formatPrice: function(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     
-    updatePricing: function() {
-        document.querySelectorAll('.pricing-card').forEach((card, index) => {
-            setTimeout(() => this.updateCard(card), index * 60);
+    updateAllPricing: function() {
+        const cards = document.querySelectorAll('.pricing-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => this.updateCard(card), index * 70);
         });
     },
     
@@ -4471,6 +4626,7 @@ const pricingToggle = {
         const periodElement = card.querySelector('.pricing-period');
         if (!priceElement || !periodElement) return;
         
+        // Animate out
         priceElement.classList.add('animating');
         
         setTimeout(() => {
@@ -4483,25 +4639,43 @@ const pricingToggle = {
                 priceWrapper.appendChild(periodElement);
             }
             
+            // Remove old classes
+            card.classList.remove('pricing-quarterly-highlight', 'pricing-yearly-highlight');
+            
             // Savings badge
             let savingsBadge = card.querySelector('.pricing-savings-badge');
-            if (this.currentBilling === 'quarterly') {
+            
+            if (this.currentBilling !== 'monthly') {
+                const discount = this.discounts[this.currentBilling];
+                const savings = Math.round(monthlyPrice * discount);
+                const multiplier = this.currentBilling === 'quarterly' ? 3 : 12;
+                const totalSavings = savings * multiplier;
+                const period = this.currentBilling === 'quarterly' ? 'quarter' : 'year';
+                
                 if (!savingsBadge) {
                     savingsBadge = document.createElement('div');
                     savingsBadge.className = 'pricing-savings-badge';
                     priceWrapper.insertBefore(savingsBadge, priceWrapper.firstChild);
                 }
-                const quarterlySavings = Math.round(monthlyPrice * this.discountRate * 3);
-                savingsBadge.textContent = `Save $${this.formatPrice(quarterlySavings)}/quarter`;
-                setTimeout(() => savingsBadge.classList.add('show'), 50);
+                
+                savingsBadge.textContent = `💎 Save $${this.formatPrice(totalSavings)}/${period}`;
+                setTimeout(() => savingsBadge.classList.add('show'), 80);
+                
+                // Add highlight
+                if (this.currentBilling === 'quarterly') {
+                    card.classList.add('pricing-quarterly-highlight');
+                } else {
+                    card.classList.add('pricing-yearly-highlight');
+                }
             } else if (savingsBadge) {
                 savingsBadge.classList.remove('show');
-                setTimeout(() => savingsBadge.remove(), 300);
+                setTimeout(() => savingsBadge.remove(), 400);
             }
             
             // Original price
             let originalPrice = card.querySelector('.pricing-price-original');
-            if (this.currentBilling === 'quarterly') {
+            
+            if (this.currentBilling !== 'monthly') {
                 if (!originalPrice) {
                     originalPrice = document.createElement('div');
                     originalPrice.className = 'pricing-price-original';
@@ -4510,9 +4684,8 @@ const pricingToggle = {
                 originalPrice.textContent = `$${this.formatPrice(monthlyPrice)}`;
                 originalPrice.style.display = 'block';
                 
-                const quarterlyPrice = this.calculateQuarterlyPrice(monthlyPrice);
-                priceElement.textContent = `$${this.formatPrice(quarterlyPrice)}`;
-                periodElement.textContent = 'per month';
+                const newPrice = this.calculatePrice(monthlyPrice);
+                priceElement.textContent = `$${this.formatPrice(newPrice)}`;
                 
                 let discountNote = card.querySelector('.pricing-discount-note');
                 if (!discountNote) {
@@ -4520,10 +4693,17 @@ const pricingToggle = {
                     discountNote.className = 'pricing-discount-note';
                     priceWrapper.appendChild(discountNote);
                 }
-                discountNote.textContent = `$${this.formatPrice(quarterlyPrice * 3)} billed quarterly`;
-                setTimeout(() => discountNote.classList.add('show'), 100);
                 
-                card.classList.add('pricing-quarterly-highlight');
+                if (this.currentBilling === 'quarterly') {
+                    periodElement.textContent = 'per month';
+                    discountNote.textContent = `💳 $${this.formatPrice(newPrice * 3)} billed every 3 months`;
+                } else {
+                    periodElement.textContent = 'per month';
+                    discountNote.textContent = `💳 $${this.formatPrice(newPrice * 12)} billed annually`;
+                }
+                
+                setTimeout(() => discountNote.classList.add('show'), 120);
+                
             } else {
                 if (originalPrice) originalPrice.style.display = 'none';
                 
@@ -4533,20 +4713,26 @@ const pricingToggle = {
                 const discountNote = card.querySelector('.pricing-discount-note');
                 if (discountNote) {
                     discountNote.classList.remove('show');
-                    setTimeout(() => discountNote.remove(), 300);
+                    setTimeout(() => discountNote.remove(), 400);
                 }
-                
-                card.classList.remove('pricing-quarterly-highlight');
             }
             
-            setTimeout(() => priceElement.classList.remove('animating'), 50);
-        }, 150);
+            // Animate in
+            setTimeout(() => priceElement.classList.remove('animating'), 80);
+            
+        }, 200);
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => pricingToggle.init());
+// Auto-init
+document.addEventListener('DOMContentLoaded', () => {
+    pricingToggle.updateAllPricing();
+});
+
 window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') setTimeout(() => pricingToggle.init(), 100);
+    if (window.location.hash === '#pricing') {
+        setTimeout(() => pricingToggle.updateAllPricing(), 100);
+    }
 });
     </script>
 </body>
