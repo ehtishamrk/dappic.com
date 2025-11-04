@@ -2808,7 +2808,7 @@ body.loaded .hero-buttons {
 /* ===== ULTRA SLEEK PREMIUM TOGGLE ===== */
 .pricing-toggle-container {
     text-align: center;
-    margin: 0 auto 4rem;
+    margin: 0 auto 3rem;
     max-width: 480px;
 }
 
@@ -2879,6 +2879,7 @@ body.loaded .hero-buttons {
     color: var(--accent);
     opacity: 0.65;
     margin-top: 1rem;
+    margin-bottom: 0;
 }
 
 /* ===== SMOOTH PRICE ANIMATIONS ===== */
@@ -3309,11 +3310,11 @@ body.loaded .hero-buttons {
     <div id="pricing" class="page">
         <div class="content-page">
             <div class="section-container">
-                <div class="section-header">
-                    <div class="section-label">Investment</div>
-                    <h1 class="section-title">Pricing</h1>
-                    <p class="section-desc">Transparent pricing for businesses at every stage</p>
-                </div>
+                <div class="section-header" style="margin-bottom: 3rem;">
+    <div class="section-label">Investment</div>
+    <h1 class="section-title">Pricing</h1>
+    <p class="section-desc">Transparent pricing for businesses at every stage</p>
+</div>
            <!-- PRICING TOGGLE -->
 <div class="pricing-toggle-container">
     <div class="pricing-toggle-wrapper" id="pricingToggle">
@@ -3335,8 +3336,8 @@ body.loaded .hero-buttons {
   No pretense, no hidden costs.
 </p>
 </div>
-                <div style="margin-bottom: 5rem;">
-                    <h2 style="font-size: 1.75rem; font-weight: 200; color: var(--secondary); margin-bottom: 2.5rem;">One-Stop Solution Packages</h2>
+                <div style="margin-bottom: 5rem; margin-top: 3rem;">
+    <h2 style="font-size: 1.75rem; font-weight: 200; color: var(--secondary); margin-bottom: 2.5rem;">One-Stop Solution Packages</h2>
                     <div class="pricing-grid">
                         <div class="pricing-card scroll-reveal"><div class="pricing-badge">Starter</div><div class="pricing-name">Essential</div><div class="pricing-price">$450</div><div class="pricing-period">per month</div><ul class="pricing-features"><li>Unlimited graphic design</li><li>One brand</li><li>1 social platform</li><li>1 request at a time</li><li>20-30h turnaround</li></ul><button class="pricing-btn" onclick="navigateTo('contact')">Get Started</button></div>
                         <div class="pricing-card scroll-reveal"><div class="pricing-badge">Growth</div><div class="pricing-name">Professional</div><div class="pricing-price">$900</div><div class="pricing-period">per month</div><ul class="pricing-features"><li>All Essential features</li><li>All social platforms</li><li>Motion graphics</li><li>1 request at a time</li><li>Priority support</li></ul><button class="pricing-btn" onclick="navigateTo('contact')">Get Started</button></div>
@@ -4426,10 +4427,24 @@ const pricingToggle = {
     },
     
     currentBilling: 'monthly',
+    initialized: false,
     
     init: function() {
         const options = document.querySelectorAll('.pricing-toggle-option');
         const bg = document.getElementById('toggleBg');
+        
+        if (!bg || !options.length) return;
+        
+        // Set initial position immediately
+        const activeOption = document.querySelector('.pricing-toggle-option.active');
+        if (activeOption && !this.initialized) {
+            const width = activeOption.offsetWidth;
+            const left = activeOption.offsetLeft - 4.8;
+            bg.style.width = `${width}px`;
+            bg.style.transform = `translateX(${left}px)`;
+            bg.style.opacity = '1';
+            this.initialized = true;
+        }
         
         options.forEach(option => {
             option.addEventListener('click', () => {
@@ -4446,7 +4461,7 @@ const pricingToggle = {
                 
                 // Move background
                 const width = option.offsetWidth;
-                const left = option.offsetLeft - 4.8; // 0.3rem padding
+                const left = option.offsetLeft - 4.8;
                 bg.style.width = `${width}px`;
                 bg.style.transform = `translateX(${left}px)`;
                 
@@ -4458,13 +4473,6 @@ const pricingToggle = {
                 }
             });
         });
-        
-        // Set initial position
-        const activeOption = document.querySelector('.pricing-toggle-option.active');
-        if (activeOption) {
-            bg.style.width = `${activeOption.offsetWidth}px`;
-            bg.style.transform = `translateX(${activeOption.offsetLeft - 4.8}px)`;
-        }
     },
     
     calculatePrice: function(monthlyPrice) {
@@ -4583,17 +4591,33 @@ const pricingToggle = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    pricingToggle.init();
-    pricingToggle.updatePricing();
+    // Small delay to ensure layout is ready
+    setTimeout(() => {
+        pricingToggle.init();
+        pricingToggle.updatePricing();
+    }, 50);
 });
 
 window.addEventListener('hashchange', () => {
     if (window.location.hash === '#pricing') {
         setTimeout(() => {
+            pricingToggle.initialized = false;
             pricingToggle.init();
             pricingToggle.updatePricing();
         }, 100);
     }
+});
+
+// Re-initialize on window resize to fix positioning
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (window.location.hash === '#pricing' || document.getElementById('pricing').classList.contains('active')) {
+            pricingToggle.initialized = false;
+            pricingToggle.init();
+        }
+    }, 250);
 });
     </script>
 </body>
