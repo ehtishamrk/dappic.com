@@ -2809,7 +2809,7 @@ body.loaded .hero-buttons {
 .pricing-toggle-container {
     text-align: center;
     margin: 0 auto 3rem;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
     max-width: 480px;
 }
 
@@ -2985,13 +2985,13 @@ body.loaded .hero-buttons {
         font-size: 0.625rem;
     }
 }
-        /* ===== PREMIUM ROTATING TEXT ANIMATION ===== */
+        /* ===== SMOOTH SLIDING WORD ANIMATION ===== */
 .section-desc-animated {
     font-size: 1.125rem;
     font-weight: 300;
     color: var(--accent);
     max-width: 700px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.5rem;
     line-height: 1.8;
     opacity: 0.9;
     display: flex;
@@ -3004,10 +3004,10 @@ body.loaded .hero-buttons {
 .rotating-word-container {
     display: inline-block;
     position: relative;
-    height: 1.8rem;
+    height: 2rem;
+    width: 130px;
     overflow: hidden;
-    vertical-align: bottom;
-    min-width: 120px;
+    vertical-align: middle;
 }
 
 .rotating-word {
@@ -3020,63 +3020,31 @@ body.loaded .hero-buttons {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    transform: translateY(100%);
     opacity: 0;
-    transform: translateY(100%) rotateX(-90deg);
-    transform-origin: center bottom;
-    animation: none;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .rotating-word.active {
+    transform: translateY(0);
     opacity: 1;
-    transform: translateY(0) rotateX(0deg);
-    animation: wordRotateIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .rotating-word.exit {
-    animation: wordRotateOut 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform: translateY(-100%);
+    opacity: 0;
 }
 
-@keyframes wordRotateIn {
-    0% {
-        opacity: 0;
-        transform: translateY(100%) rotateX(-90deg) scale(0.8);
-        filter: blur(10px);
-    }
-    60% {
-        transform: translateY(-10%) rotateX(5deg) scale(1.05);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg) scale(1);
-        filter: blur(0);
-    }
-}
-
-@keyframes wordRotateOut {
-    0% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg) scale(1);
-        filter: blur(0);
-    }
-    40% {
-        transform: translateY(-10%) rotateX(5deg) scale(1.05);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100%) rotateX(90deg) scale(0.8);
-        filter: blur(10px);
-    }
-}
-
-/* Mobile adjustments */
+/* Mobile */
 @media (max-width: 640px) {
     .section-desc-animated {
         font-size: 1rem;
+        margin-bottom: 1.25rem;
     }
     
     .rotating-word-container {
-        height: 1.6rem;
-        min-width: 100px;
+        height: 1.8rem;
+        width: 110px;
     }
 }
     </style>
@@ -4724,7 +4692,7 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
-        // ===== PREMIUM WORD ROTATOR =====
+      // ===== SMOOTH WORD SLIDER =====
 const wordRotator = {
     words: ['start', 'grow', 'scale', 'dominate', 'lead'],
     currentIndex: 0,
@@ -4735,65 +4703,57 @@ const wordRotator = {
     },
     
     startRotation: function() {
-        // Clear any existing interval
         if (this.interval) clearInterval(this.interval);
         
-        // Rotate every 3 seconds
+        // Change word every 2 seconds (optimal timing)
         this.interval = setInterval(() => {
-            this.rotateWord();
-        }, 3000);
+            this.slideWord();
+        }, 2000);
     },
     
-    rotateWord: function() {
+    slideWord: function() {
         const allWords = document.querySelectorAll('.rotating-word');
         if (!allWords.length) return;
         
         const currentWord = allWords[this.currentIndex];
-        
-        // Calculate next index
         const nextIndex = (this.currentIndex + 1) % this.words.length;
         const nextWord = allWords[nextIndex];
         
-        // Animate out current word
+        // Slide out current
         currentWord.classList.remove('active');
         currentWord.classList.add('exit');
         
-        // After exit animation, animate in next word
+        // Slide in next
         setTimeout(() => {
             currentWord.classList.remove('exit');
             nextWord.classList.add('active');
             this.currentIndex = nextIndex;
-        }, 600);
+        }, 50);
     },
     
     stop: function() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.interval = null;
-        }
+        if (this.interval) clearInterval(this.interval);
     }
 };
 
-// Initialize word rotator when pricing page is active
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === '#pricing' || window.location.hash === '') {
-        setTimeout(() => wordRotator.init(), 500);
+        setTimeout(() => wordRotator.init(), 300);
     }
 });
 
-// Handle navigation to pricing page
 window.addEventListener('hashchange', () => {
     if (window.location.hash === '#pricing') {
         wordRotator.stop();
         wordRotator.currentIndex = 0;
         
-        // Reset all words
         document.querySelectorAll('.rotating-word').forEach((word, i) => {
             word.classList.remove('active', 'exit');
             if (i === 0) word.classList.add('active');
         });
         
-        setTimeout(() => wordRotator.init(), 500);
+        setTimeout(() => wordRotator.init(), 300);
     } else {
         wordRotator.stop();
     }
