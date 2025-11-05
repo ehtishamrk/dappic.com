@@ -2985,66 +2985,83 @@ body.loaded .hero-buttons {
         font-size: 0.625rem;
     }
 }
-        /* ===== SMOOTH SLIDING WORD ANIMATION ===== */
+       /* ===== ULTRA PREMIUM WORD ANIMATION ===== */
 .section-desc-animated {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 300;
     color: var(--accent);
-    max-width: 700px;
-    margin: 0 auto 1.5rem;
-    line-height: 1.8;
+    max-width: 750px;
+    margin: 0 auto 1.25rem;
+    line-height: 1.6;
     opacity: 0.9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    text-align: center;
+    letter-spacing: 0.01em;
 }
 
 .rotating-word-container {
     display: inline-block;
     position: relative;
-    height: 2rem;
-    width: 130px;
+    vertical-align: baseline;
+    margin: 0 0.15rem;
+}
+
+.rotating-word-inner {
+    position: relative;
+    display: inline-block;
+    height: 1.6rem;
     overflow: hidden;
-    vertical-align: middle;
 }
 
 .rotating-word {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: left;
+    display: block;
     font-weight: 500;
-    background: var(--gradient-1);
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transform: translateY(100%);
+    position: relative;
     opacity: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(100%);
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    white-space: nowrap;
 }
 
 .rotating-word.active {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
 }
 
 .rotating-word.exit {
-    transform: translateY(-100%);
     opacity: 0;
+    transform: translateY(-100%);
+}
+
+.rotating-word-container::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0093BA 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.rotating-word.active ~ .rotating-word-container::after,
+.rotating-word-container:has(.rotating-word.active)::after {
+    opacity: 0.3;
 }
 
 /* Mobile */
 @media (max-width: 640px) {
     .section-desc-animated {
-        font-size: 1rem;
-        margin-bottom: 1.25rem;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
     }
     
-    .rotating-word-container {
-        height: 1.8rem;
-        width: 110px;
+    .rotating-word-inner {
+        height: 1.5rem;
     }
 }
     </style>
@@ -3379,11 +3396,13 @@ body.loaded .hero-buttons {
     <p class="section-desc-animated">
         Packages built for businesses ready to
         <span class="rotating-word-container">
-            <span class="rotating-word active" data-word="start">start</span>
-            <span class="rotating-word" data-word="grow">grow</span>
-            <span class="rotating-word" data-word="scale">scale</span>
-            <span class="rotating-word" data-word="dominate">dominate</span>
-            <span class="rotating-word" data-word="lead">lead</span>
+            <span class="rotating-word-inner">
+                <span class="rotating-word active">start</span>
+                <span class="rotating-word">grow</span>
+                <span class="rotating-word">scale</span>
+                <span class="rotating-word">dominate</span>
+                <span class="rotating-word">lead</span>
+            </span>
         </span>
     </p>
 </div>
@@ -4692,71 +4711,90 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
-      // ===== SMOOTH WORD SLIDER =====
+     // ===== PREMIUM WORD ROTATOR =====
 const wordRotator = {
-    words: ['start', 'grow', 'scale', 'dominate', 'lead'],
     currentIndex: 0,
     interval: null,
+    words: null,
     
     init: function() {
-        this.startRotation();
+        this.words = document.querySelectorAll('.rotating-word');
+        if (!this.words.length) return;
+        
+        // Start rotation after brief delay
+        setTimeout(() => this.startRotation(), 800);
     },
     
     startRotation: function() {
         if (this.interval) clearInterval(this.interval);
         
-        // Change word every 2 seconds (optimal timing)
+        // 2.5 second timing - optimal for reading
         this.interval = setInterval(() => {
-            this.slideWord();
-        }, 2000);
+            this.transition();
+        }, 2500);
     },
     
-    slideWord: function() {
-        const allWords = document.querySelectorAll('.rotating-word');
-        if (!allWords.length) return;
+    transition: function() {
+        if (!this.words || !this.words.length) return;
         
-        const currentWord = allWords[this.currentIndex];
+        const currentWord = this.words[this.currentIndex];
         const nextIndex = (this.currentIndex + 1) % this.words.length;
-        const nextWord = allWords[nextIndex];
+        const nextWord = this.words[nextIndex];
         
-        // Slide out current
+        // Exit current
         currentWord.classList.remove('active');
         currentWord.classList.add('exit');
         
-        // Slide in next
+        // Enter next after brief pause
         setTimeout(() => {
             currentWord.classList.remove('exit');
             nextWord.classList.add('active');
             this.currentIndex = nextIndex;
-        }, 50);
+        }, 100);
+    },
+    
+    reset: function() {
+        if (this.interval) clearInterval(this.interval);
+        this.currentIndex = 0;
+        
+        if (this.words) {
+            this.words.forEach((word, i) => {
+                word.classList.remove('active', 'exit');
+                if (i === 0) word.classList.add('active');
+            });
+        }
     },
     
     stop: function() {
-        if (this.interval) clearInterval(this.interval);
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
     }
 };
 
-// Initialize
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === '#pricing' || window.location.hash === '') {
-        setTimeout(() => wordRotator.init(), 300);
+    const hash = window.location.hash;
+    if (hash === '#pricing' || hash === '' || !hash) {
+        setTimeout(() => wordRotator.init(), 200);
     }
 });
 
+// Handle navigation
 window.addEventListener('hashchange', () => {
     if (window.location.hash === '#pricing') {
         wordRotator.stop();
-        wordRotator.currentIndex = 0;
-        
-        document.querySelectorAll('.rotating-word').forEach((word, i) => {
-            word.classList.remove('active', 'exit');
-            if (i === 0) word.classList.add('active');
-        });
-        
-        setTimeout(() => wordRotator.init(), 300);
+        wordRotator.reset();
+        setTimeout(() => wordRotator.init(), 200);
     } else {
         wordRotator.stop();
     }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    wordRotator.stop();
 });
     </script>
 </body>
