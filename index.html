@@ -2985,83 +2985,54 @@ body.loaded .hero-buttons {
         font-size: 0.625rem;
     }
 }
-       /* ===== ULTRA PREMIUM WORD ANIMATION ===== */
+      /* ===== PREMIUM WORD SLIDER ===== */
 .section-desc-animated {
     font-size: 1.25rem;
     font-weight: 300;
     color: var(--accent);
     max-width: 750px;
-    margin: 0 auto 1.25rem;
-    line-height: 1.6;
+    margin: 0 auto 1.5rem;
+    line-height: 1.8;
     opacity: 0.9;
     text-align: center;
-    letter-spacing: 0.01em;
 }
 
-.rotating-word-container {
+.rotating-text-wrapper {
     display: inline-block;
     position: relative;
-    vertical-align: baseline;
-    margin: 0 0.15rem;
-}
-
-.rotating-word-inner {
-    position: relative;
-    display: inline-block;
-    height: 1.6rem;
+    height: 1.8rem;
+    min-width: 140px;
+    vertical-align: bottom;
     overflow: hidden;
+    margin-left: 0.35rem;
 }
 
-.rotating-word {
-    display: block;
+.rotating-text {
+    position: absolute;
+    left: 0;
+    width: 100%;
     font-weight: 500;
+    font-size: 1.25rem;
     background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    position: relative;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    white-space: nowrap;
-}
-
-.rotating-word.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.rotating-word.exit {
-    opacity: 0;
-    transform: translateY(-100%);
-}
-
-.rotating-word-container::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #0093BA 50%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.rotating-word.active ~ .rotating-word-container::after,
-.rotating-word-container:has(.rotating-word.active)::after {
-    opacity: 0.3;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 /* Mobile */
 @media (max-width: 640px) {
     .section-desc-animated {
         font-size: 1.125rem;
-        margin-bottom: 1rem;
     }
     
-    .rotating-word-inner {
-        height: 1.5rem;
+    .rotating-text-wrapper {
+        height: 1.6rem;
+        min-width: 120px;
+    }
+    
+    .rotating-text {
+        font-size: 1.125rem;
     }
 }
     </style>
@@ -3394,16 +3365,7 @@ body.loaded .hero-buttons {
     <div class="section-label">Investment</div>
     <h1 class="section-title">Pricing</h1>
     <p class="section-desc-animated">
-        Packages built for businesses ready to
-        <span class="rotating-word-container">
-            <span class="rotating-word-inner">
-                <span class="rotating-word active">start</span>
-                <span class="rotating-word">grow</span>
-                <span class="rotating-word">scale</span>
-                <span class="rotating-word">dominate</span>
-                <span class="rotating-word">lead</span>
-            </span>
-        </span>
+        Packages built for businesses ready to<span class="rotating-text-wrapper" id="rotatingText"></span>
     </p>
 </div>
            <!-- PRICING TOGGLE -->
@@ -4711,90 +4673,93 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
-     // ===== PREMIUM WORD ROTATOR =====
+     // ===== WORD ROTATOR THAT ACTUALLY WORKS =====
 const wordRotator = {
+    words: ['start', 'grow', 'scale', 'dominate', 'lead'],
     currentIndex: 0,
+    container: null,
     interval: null,
-    words: null,
     
     init: function() {
-        this.words = document.querySelectorAll('.rotating-word');
-        if (!this.words.length) return;
+        this.container = document.getElementById('rotatingText');
+        if (!this.container) return;
         
-        // Start rotation after brief delay
-        setTimeout(() => this.startRotation(), 800);
+        // Create all word elements
+        this.words.forEach((word, index) => {
+            const span = document.createElement('span');
+            span.className = 'rotating-text';
+            span.textContent = word;
+            span.style.transform = `translateY(${index === 0 ? 0 : 100}%)`;
+            span.style.opacity = index === 0 ? '1' : '0';
+            this.container.appendChild(span);
+        });
+        
+        // Start rotating
+        setTimeout(() => this.start(), 1000);
     },
     
-    startRotation: function() {
+    start: function() {
         if (this.interval) clearInterval(this.interval);
         
-        // 2.5 second timing - optimal for reading
         this.interval = setInterval(() => {
-            this.transition();
-        }, 2500);
+            this.rotate();
+        }, 2200);
     },
     
-    transition: function() {
-        if (!this.words || !this.words.length) return;
+    rotate: function() {
+        const spans = this.container.querySelectorAll('.rotating-text');
+        if (!spans.length) return;
         
-        const currentWord = this.words[this.currentIndex];
+        const current = spans[this.currentIndex];
         const nextIndex = (this.currentIndex + 1) % this.words.length;
-        const nextWord = this.words[nextIndex];
+        const next = spans[nextIndex];
         
-        // Exit current
-        currentWord.classList.remove('active');
-        currentWord.classList.add('exit');
+        // Slide out current
+        current.style.transform = 'translateY(-100%)';
+        current.style.opacity = '0';
         
-        // Enter next after brief pause
-        setTimeout(() => {
-            currentWord.classList.remove('exit');
-            nextWord.classList.add('active');
-            this.currentIndex = nextIndex;
-        }, 100);
-    },
-    
-    reset: function() {
-        if (this.interval) clearInterval(this.interval);
-        this.currentIndex = 0;
+        // Slide in next
+        next.style.transform = 'translateY(0)';
+        next.style.opacity = '1';
         
-        if (this.words) {
-            this.words.forEach((word, i) => {
-                word.classList.remove('active', 'exit');
-                if (i === 0) word.classList.add('active');
-            });
-        }
+        // Reset old ones
+        spans.forEach((span, i) => {
+            if (i !== this.currentIndex && i !== nextIndex) {
+                span.style.transform = 'translateY(100%)';
+                span.style.opacity = '0';
+            }
+        });
+        
+        this.currentIndex = nextIndex;
     },
     
     stop: function() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.interval = null;
-        }
+        if (this.interval) clearInterval(this.interval);
+    },
+    
+    reset: function() {
+        this.stop();
+        if (this.container) this.container.innerHTML = '';
+        this.currentIndex = 0;
     }
 };
 
-// Initialize on page load
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash;
     if (hash === '#pricing' || hash === '' || !hash) {
-        setTimeout(() => wordRotator.init(), 200);
+        setTimeout(() => wordRotator.init(), 100);
     }
 });
 
 // Handle navigation
 window.addEventListener('hashchange', () => {
     if (window.location.hash === '#pricing') {
-        wordRotator.stop();
         wordRotator.reset();
-        setTimeout(() => wordRotator.init(), 200);
+        setTimeout(() => wordRotator.init(), 100);
     } else {
         wordRotator.stop();
     }
-});
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    wordRotator.stop();
 });
     </script>
 </body>
