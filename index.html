@@ -3483,6 +3483,355 @@ body.loaded .hero-buttons {
         font-size: 3rem;
     }
 }
+        /* ===== LUXURY ROTATING TEXT ===== */
+.section-desc-luxury {
+    font-size: 1.375rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
+}
+
+.rotating-text-inline {
+    display: inline-block;
+    position: relative;
+    min-width: 150px;
+    height: 1.8rem;
+    vertical-align: bottom;
+    margin-left: 0.35rem;
+}
+
+.rotating-word-luxury {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.375rem;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rotating-word-luxury.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rotating-word-luxury.exit {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+/* Trust Badges */
+.trust-section {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+}
+
+.trust-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.trust-item {
+    text-align: center;
+    padding: 1.25rem 1rem;
+    background: white;
+    border: 1px solid rgba(0, 147, 186, 0.08);
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+}
+
+.trust-item:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: rgba(0, 147, 186, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.12);
+}
+
+.trust-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+}
+
+.trust-item:hover .trust-icon {
+    filter: grayscale(0);
+}
+
+.trust-text {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+
+/* Activation Note */
+.activation-note {
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 147, 186, 0.06) 0%, rgba(35, 62, 126, 0.04) 100%);
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+}
+
+.activation-note.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.activation-note p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1.7;
+    margin: 0;
+    text-align: center;
+}
+
+.activation-note strong {
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+/* Enhanced Card Hover Effects */
+.premium-pricing-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-pricing-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 147, 186, 0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.premium-pricing-card:hover::before {
+    opacity: 1;
+    animation: rotateGlow 10s linear infinite;
+}
+
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.card-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.premium-pricing-card:hover .card-badge::after {
+    left: 100%;
+}
+
+.card-cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
+
+.card-cta:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* Infinite Package Enhanced */
+.infinite-package-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.infinite-package-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(from 0deg at 50% 50%, 
+        transparent 0deg, 
+        rgba(0, 147, 186, 0.1) 90deg, 
+        transparent 180deg,
+        rgba(35, 62, 126, 0.1) 270deg,
+        transparent 360deg);
+    animation: infiniteSpin 15s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.infinite-package-wrapper:hover::after {
+    opacity: 1;
+}
+
+@keyframes infiniteSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.infinite-badge {
+    position: relative;
+}
+
+.infinite-badge::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #0093BA, #233E7E, #0093BA);
+    background-size: 300% 300%;
+    border-radius: 20px;
+    opacity: 0;
+    filter: blur(8px);
+    z-index: -1;
+    animation: gradientFlow 3s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.infinite-package-wrapper:hover .infinite-badge::before {
+    opacity: 0.6;
+}
+
+/* Additional Services Hover */
+.additional-service-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.additional-service-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 147, 186, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
+
+.additional-service-card:hover::after {
+    width: 300%;
+    height: 300%;
+}
+
+.additional-service-name {
+    transition: all 0.3s ease;
+}
+
+.additional-service-card:hover .additional-service-name {
+    color: var(--primary);
+    transform: scale(1.05);
+}
+
+/* Staggered Grid Animation */
+.premium-pricing-grid .premium-pricing-card {
+    animation: fadeInScale 0.6s ease forwards;
+    opacity: 0;
+}
+
+.premium-pricing-grid.visible .premium-pricing-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.premium-pricing-grid.visible .premium-pricing-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.premium-pricing-grid.visible .premium-pricing-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Additional Services Stagger */
+.additional-services-grid .additional-service-card {
+    animation: fadeInScale 0.5s ease forwards;
+    opacity: 0;
+}
+
+.additional-services-section.visible .additional-service-card:nth-child(1) { animation-delay: 0.1s; }
+.additional-services-section.visible .additional-service-card:nth-child(2) { animation-delay: 0.15s; }
+.additional-services-section.visible .additional-service-card:nth-child(3) { animation-delay: 0.2s; }
+.additional-services-section.visible .additional-service-card:nth-child(4) { animation-delay: 0.25s; }
+.additional-services-section.visible .additional-service-card:nth-child(5) { animation-delay: 0.3s; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .section-desc-luxury {
+        font-size: 1.125rem;
+    }
+    
+    .rotating-word-luxury {
+        font-size: 1.125rem;
+    }
+    
+    .rotating-text-inline {
+        min-width: 110px;
+        height: 1.6rem;
+    }
+    
+    .trust-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -3812,10 +4161,29 @@ body.loaded .hero-buttons {
             <div class="section-container">
                 <!-- Header -->
                 <div class="section-header">
-                    <div class="section-label">Investment</div>
-                    <h1 class="section-title">Pricing</h1>
-                    <p class="section-desc">Transparent pricing for businesses at every stage</p>
-                </div>
+    <div class="section-label">Investment</div>
+    <h1 class="section-title">Pricing</h1>
+    <p class="section-desc-luxury">
+        Packages built for businesses ready to
+        <span class="rotating-text-inline" id="rotatingLuxury"></span>
+    </p>
+</div>
+
+<!-- Trust Badges -->
+<div class="trust-section">
+    <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Straightforward and transparent pricing</div>
+    </div>
+    <div class="trust-item">
+        <div class="trust-icon">✦</div>
+        <div class="trust-text">No pretense, no hidden costs</div>
+    </div>
+    <div class="trust-item">
+        <div class="trust-icon">⟳</div>
+        <div class="trust-text">Pause or cancel anytime</div>
+    </div>
+</div>
                 
                 <!-- Service Toggle -->
                 <div class="service-toggle-container">
@@ -3959,7 +4327,10 @@ body.loaded .hero-buttons {
                     <div class="infinite-period">per month</div>
                     <a href="#" class="infinite-cta" onclick="navigateTo('contact')">Get Infinite</a>
                 </div>
-                
+                <!-- Activation Note -->
+<div class="activation-note">
+    <p><strong>Your plan activates only when you assign your first task, not at checkout.</strong> Take your time, we start when you do.</p>
+</div>
                 <!-- Additional Services -->
                 <div class="additional-services-section">
                     <div class="section-header" style="margin-bottom: 2rem;">
@@ -5358,10 +5729,45 @@ const lightPricing = {
     currentBilling: 'monthly',
     
     init: function() {
-        this.initServiceToggle();
-        this.initBillingToggle();
-        this.initScrollAnimations();
-    },
+    this.initRotatingText();
+    this.initServiceToggle();
+    this.initBillingToggle();
+    this.initScrollAnimations();
+},
+
+initRotatingText: function() {
+    const container = document.getElementById('rotatingLuxury');
+    if (!container) return;
+    
+    const words = ['start', 'grow', 'scale', 'dominate', 'lead'];
+    let currentIndex = 0;
+    
+    // Create word elements
+    words.forEach((word, index) => {
+        const span = document.createElement('span');
+        span.className = 'rotating-word-luxury';
+        span.textContent = word;
+        if (index === 0) span.classList.add('active');
+        container.appendChild(span);
+    });
+    
+    // Rotate words
+    setInterval(() => {
+        const spans = container.querySelectorAll('.rotating-word-luxury');
+        const current = spans[currentIndex];
+        const nextIndex = (currentIndex + 1) % words.length;
+        const next = spans[nextIndex];
+        
+        current.classList.remove('active');
+        current.classList.add('exit');
+        
+        setTimeout(() => {
+            current.classList.remove('exit');
+            next.classList.add('active');
+            currentIndex = nextIndex;
+        }, 100);
+    }, 2300);
+},
     
     initServiceToggle: function() {
         const options = document.querySelectorAll('.service-toggle-option');
@@ -5489,19 +5895,19 @@ const lightPricing = {
     },
     
     initScrollAnimations: function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        
-        document.querySelectorAll('.premium-pricing-grid, .infinite-package-wrapper, .additional-services-section').forEach(el => {
-            observer.observe(el);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
         });
-    }
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.premium-pricing-grid, .infinite-package-wrapper, .additional-services-section, .trust-section, .activation-note').forEach(el => {
+        observer.observe(el);
+    });
+}
 };
 
 document.addEventListener('DOMContentLoaded', () => {
