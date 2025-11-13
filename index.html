@@ -3035,102 +3035,109 @@ body.loaded .hero-buttons {
         font-size: 1.125rem;
     }
 }
-        /* Keep this scoped and minimal to avoid collisions */
-.pricing-luxury-page { background: transparent; color: var(--secondary); --lux-shadow: 0 18px 48px rgba(19,35,72,0.06); }
+        /* Basic reset for this block */
+.pricing-ultralux { background: transparent; --ux-shadow: 0 30px 80px rgba(19,35,72,0.12); }
+.pricing-ultralux .section-label { letter-spacing: .4em; color: var(--primary); font-weight:700; display:inline-block; margin-bottom:.6rem; }
+.ulx-hero { padding: 1.25rem 0 1rem; text-align:center; margin-bottom:0.75rem; }
+.hero-h1 { font-size: clamp(2.4rem, 6.2vw, 4.4rem); font-weight:200; color:var(--secondary); margin:0; line-height:1.02; }
+.hero-sub { color:var(--accent); font-weight:300; margin-top:.5rem; font-size:1.05rem; display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:wrap; }
 
-/* Hero */
-.pricing-hero { padding: 6rem 0 2rem; text-align:center; position:relative; }
-.pricing-hero .hero-inner { max-width:1000px; margin:0 auto; }
-.pricing-hero .hero-eyebrow { display:inline-block; letter-spacing:.35em; text-transform:uppercase; color:var(--primary); font-weight:600; margin-bottom:1rem; background:rgba(0,147,186,0.04); padding:.55rem 1rem; border-radius:999px; }
-.pricing-hero .hero-title { font-size: clamp(2.25rem,5vw,3.5rem); font-weight:200; margin:.75rem 0; line-height:1.02; color:var(--secondary); }
-.pricing-hero .hero-sub { color:var(--accent); font-weight:300; max-width:760px; margin:0 auto 1.25rem; }
+/* Rotating capsule */
+.rotating-capsule { display:inline-grid; place-items:center; min-width:160px; height:42px; padding:6px 14px; border-radius:999px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(19,35,72,0.04); position:relative; margin-left:.6rem; }
+.rotating-capsule .rotating-word { position:absolute; left:0; right:0; text-align:center; font-weight:600; font-size:1.15rem; background: linear-gradient(135deg, #0093BA, #233E7E); -webkit-background-clip:text; -webkit-text-fill-color:transparent; opacity:0; transform:translateY(14px) scale(.98); transition:all .55s cubic-bezier(.2,.9,.3,1); }
+.rotating-capsule .rotating-word.active { opacity:1; transform:translateY(0) scale(1); }
+
+/* Punchlines */
+.ulx-punchlines { display:flex; justify-content:center; gap:20px; max-width:1100px; margin:1.25rem auto; align-items:stretch; }
+.punchline { flex:1; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:1.1rem 1.4rem; text-align:center; box-shadow:var(--ux-shadow); border:1px solid rgba(19,35,72,0.04); }
+.p-title { font-weight:600; color:var(--secondary); font-size:1.05rem; margin-bottom:.35rem; }
+.p-sub { color:var(--accent); font-weight:300; font-size:.95rem; }
 
 /* Controls */
-.hero-controls { display:flex; gap:1.25rem; justify-content:center; align-items:center; margin-top:1.25rem; flex-wrap:wrap; }
-.service-switch { position:relative; display:inline-flex; gap:.25rem; background:rgba(19,35,72,0.03); padding:6px; border-radius:999px; }
-.switch-btn { background:transparent; border:0; padding:.55rem .9rem; border-radius:999px; cursor:pointer; font-weight:700; color:var(--accent); }
-.switch-active { background:transparent; color:var(--secondary); }
-.switch-slider { position:absolute; top:4px; left:4px; width:0; height:0; transition:all .28s cubic-bezier(.2,.9,.3,1); border-radius:999px; box-shadow:var(--shadow-sm); pointer-events:none; }
+.ulx-controls { display:flex; gap:1rem; justify-content:center; align-items:center; margin: .6rem auto 1rem; max-width:880px; flex-wrap:wrap; }
+.service-capsule, .billing-capsule { position:relative; display:inline-flex; gap:6px; background:rgba(19,35,72,0.03); padding:6px; border-radius:999px; }
+.svc-option, .bill-option { border:0; background:transparent; padding:.55rem .9rem; border-radius:999px; font-weight:700; color:var(--accent); cursor:pointer; position:relative; z-index:2; }
+.svc-option.active, .bill-option.active { color: #fff; }
+.svc-slider, .bill-slider { position:absolute; top:4px; left:4px; height:calc(100% - 8px); width:0; border-radius:999px; transition: all .35s cubic-bezier(.2,.9,.3,1); box-shadow: 0 6px 30px rgba(0,0,0,0.12); z-index:1; background: linear-gradient(135deg,#0093BA,#233E7E); }
 
-.billing-switch { display:flex; align-items:center; gap:.6rem; }
-.billing-label { color:var(--accent); font-size:.9rem; font-weight:500; margin-right:.25rem; }
-.billing-options { position:relative; display:inline-flex; gap:.25rem; background:rgba(19,35,72,0.03); padding:6px; border-radius:999px; }
-.billing-btn { border:0; background:transparent; padding:.5rem .8rem; font-weight:700; cursor:pointer; color:var(--accent); border-radius:999px; }
-.billing-active { background:linear-gradient(135deg,#0093BA,#233E7E); color:#fff; box-shadow: 0 8px 30px rgba(0,147,186,0.12); }
+/* Help CTA */
+.ulx-help-cta { max-width:1100px; margin: 1rem auto; padding:1rem; border-radius:14px; border:1px solid rgba(19,35,72,0.04); background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.help-inner { display:flex; justify-content:space-between; align-items:center; width:100%; gap:1rem; }
+.help-text strong { display:block; font-size:1.05rem; color:var(--secondary); margin-bottom:.25rem; }
+.help-desc { color:var(--accent); font-weight:300; }
+.ulx-call { padding:.75rem 1.2rem; border-radius:10px; }
 
-/* Grid */
-.pricing-grid-wrap { margin-top:2rem; }
-.pricing-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.5rem; max-width:1200px; margin:0 auto; align-items:start; padding:1rem; }
-.lux-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:1.5rem; box-shadow:var(--lux-shadow); border:1px solid rgba(19,35,72,0.04); transform:translateY(0); transition:transform .45s cubic-bezier(.2,.9,.3,1), box-shadow .45s; display:flex; flex-direction:column; min-height:420px; position:relative; overflow:hidden; }
-.lux-card--featured { transform:translateY(-10px) scale(1.01); border:2px solid rgba(0,147,186,0.12); box-shadow:0 28px 68px rgba(0,147,186,0.08); }
+/* Grid & Cards */
+.ulx-grid-wrap { max-width:1200px; margin:1.2rem auto 1rem; padding:0 1rem; }
+.ulx-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:1.25rem; align-items:stretch; }
+.ulx-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01)); border-radius:14px; padding:1.4rem; border:1px solid rgba(19,35,72,0.04); box-shadow: 0 20px 50px rgba(10,14,30,0.04); display:flex; flex-direction:column; gap: .8rem; min-height:420px; position:relative; overflow:hidden; transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s; }
+.ulx-card:hover { transform: translateY(-8px); box-shadow: var(--ux-shadow); }
+.ulx-card--featured { transform: translateY(-10px); border:1px solid rgba(0,147,186,0.12); box-shadow: 0 28px 68px rgba(0,147,186,0.06); }
+.ribbon { position:absolute; top:18px; right:-36px; transform:rotate(42deg); background:var(--primary); color:#fff; padding:.4rem 2.8rem; font-weight:700; border-radius:6px; box-shadow:0 12px 30px rgba(0,0,0,0.12); font-size:.82rem; }
+.card-badge { font-size:.72rem; color:var(--primary); font-weight:700; letter-spacing:.2em; text-transform:uppercase; }
+.card-name { font-weight:300; font-size:1.35rem; color:var(--secondary); margin-top:.4rem; }
+.card-sub { color:var(--accent); font-weight:300; font-size:.95rem; margin-top:-.2rem; }
+.card-price { font-size:2.6rem; font-weight:200; color:var(--primary); margin-top:.6rem; transition: all .28s ease; }
+.card-period { color:var(--accent); font-weight:300; margin-top:.25rem; font-size:.95rem; opacity:.85; }
+.card-features { list-style:none; padding:0; margin:1rem 0; flex:1; }
+.card-features li { padding:.6rem 0; border-bottom:1px solid rgba(19,35,72,0.03); color:var(--accent); display:flex; gap:.6rem; align-items:center; font-weight:300; }
+.card-features li::before { content:'✓'; display:inline-block; min-width:22px; height:22px; background:linear-gradient(135deg,#0093BA,#233E7E); color:white; border-radius:6px; text-align:center; line-height:22px; font-weight:700; margin-right:.6rem; }
+.card-actions { display:flex; gap:.6rem; margin-top:.45rem; }
 
-.ribbon { position:absolute; top:18px; right:-44px; transform:rotate(40deg); background:var(--primary); color:white; padding:.35rem 3.25rem; font-weight:700; font-size:.78rem; box-shadow:0 8px 30px rgba(0,0,0,0.12); border-radius:6px; }
+/* Buttons */
+.btn { padding:.75rem 1rem; border-radius:10px; font-weight:700; border:0; cursor:pointer; }
+.btn-primary { background: linear-gradient(135deg,#0093BA,#233E7E); color:white; box-shadow: 0 12px 30px rgba(0,147,186,0.12); }
+.btn-secondary { background:transparent; border:1px solid rgba(19,35,72,0.06); color:var(--secondary); }
+.btn-outline { background:transparent; color:var(--accent); border:1px solid rgba(19,35,72,0.03); }
 
-.card-top .card-label { color:var(--primary); font-weight:700; letter-spacing:.2em; text-transform:uppercase; font-size:.72rem; }
-.card-title { font-size:1.5rem; font-weight:300; margin:.5rem 0; color:var(--secondary); }
-.card-sub { color:var(--accent); font-weight:300; margin-top:-.25rem; font-size:.95rem; }
+/* Ultimate card styling preserved */
+.ultimate-card { border: 2px solid rgba(0,147,186,0.18); background: linear-gradient(135deg, rgba(0,147,186,0.04), rgba(35,62,126,0.03)); }
+.ultimate-badge { background: linear-gradient(135deg,#0093BA,#233E7E); color:#fff; padding:.3rem .65rem; border-radius:8px; font-weight:700; }
 
-.card-price-wrap { display:flex; align-items:baseline; gap:.5rem; margin:1rem 0; }
-.price { font-size:2.4rem; font-weight:200; color:var(--primary); transition:all .35s cubic-bezier(.2,.9,.3,1); }
-.period { color:var(--accent); font-size:.9rem; margin-left:.25rem; opacity:.85; }
+/* ADDITIONAL SERVICES single row */
+.ulx-additional { max-width:1100px; margin:1.4rem auto; overflow:hidden; }
+.add-inner { display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:8px; }
+.add-item { min-width:170px; flex:1; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:12px; padding:.9rem; text-align:center; border:1px solid rgba(19,35,72,0.03); color:var(--accent); }
+.add-price { display:block; margin-top:.35rem; font-weight:600; color:var(--secondary); }
 
-.card-features { list-style:none; padding:0; margin:0; margin-top: .5rem; flex:1; }
-.card-features li { padding:.6rem 0; border-bottom:1px solid rgba(19,35,72,0.03); color:var(--accent); font-weight:300; display:flex; gap:.6rem; align-items:center; }
-.feature-dot { display:inline-flex; align-items:center; justify-content:center; min-width:22px; height:22px; border-radius:6px; background:linear-gradient(135deg,#0093BA,#233E7E); color:white; font-weight:700; font-size:.8rem; margin-right:.6rem; transform:translateY(0); transition:transform .35s; }
+/* PAY WHEN READY */
+.ulx-pay-when { max-width:1100px; margin: 1rem auto; border-radius:14px; padding:1.1rem; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border:1px solid rgba(19,35,72,0.03); text-align:center; }
+.pay-title { font-weight:600; color:var(--secondary); font-size:1.1rem; }
+.pay-desc { color:var(--accent); font-weight:300; margin-top:.35rem; }
 
-.card-actions { display:flex; gap:.75rem; margin-top:1rem; align-items:center; }
-.btn { padding:.8rem 1.1rem; border-radius:10px; border:0; cursor:pointer; font-weight:700; font-size:.9rem; }
-.btn-primary { background:linear-gradient(135deg,#0093BA,#233E7E); color:white; box-shadow:0 12px 30px rgba(0,147,186,0.12); }
-.btn-secondary { background:transparent; border:2px solid rgba(19,35,72,0.06); color:var(--secondary); }
-.btn-ghost { background:transparent; color:var(--accent); border:0; }
+/* Referral card */
+.ulx-referral { max-width:400px; margin:1.25rem auto; padding:1rem; border-radius:12px; text-align:center; background: linear-gradient(135deg, rgba(0,147,186,0.04), rgba(35,62,126,0.02)); border:1px solid rgba(0,147,186,0.06); }
+.ref-title { font-weight:700; color:var(--secondary); margin-bottom:.35rem; }
+.ref-desc { color:var(--accent); margin-bottom:.6rem; }
+.ref-note { font-size:.85rem; color:var(--accent); margin-top:.6rem; }
 
-/* Sticky CTA */
-.pricing-sticky-cta { position:fixed; left:50%; transform:translateX(-50%) translateY(120%); bottom:28px; width: min(1100px,calc(100% - 48px)); background:rgba(255,255,255,0.98); border-radius:12px; box-shadow:0 18px 60px rgba(19,35,72,0.12); transition:transform .45s cubic-bezier(.2,.9,.3,1), opacity .45s; opacity:0; z-index:9999; display:flex; align-items:center; }
-.pricing-sticky-cta.show { transform:translateX(-50%) translateY(0); opacity:1; }
-.sticky-inner { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 1.25rem; }
-.sticky-left .sticky-plan { font-weight:700; color:var(--secondary); }
-.sticky-left .sticky-price { color:var(--primary); font-weight:300; font-size:1.1rem; }
+/* HOW IT WORKS */
+.ulx-how { max-width:1100px; margin:2rem auto; padding:1rem; }
+.how-steps { position:relative; }
+.how-path { width:100%; height:120px; display:block; margin-bottom:1rem; }
+.steps { display:flex; gap:2rem; justify-content:space-between; }
+.step { flex:1; text-align:center; opacity:.9; transform:translateY(10px); transition:all .45s; }
+.step .num { width:48px; height:48px; border-radius:999px; display:inline-grid; place-items:center; background: linear-gradient(135deg,#0093BA,#233E7E); color:white; font-weight:700; margin-bottom:.6rem; }
 
-/* FAQ / Referral */
-.faq-ref-wrap { display:grid; grid-template-columns: 1fr 360px; gap:2rem; align-items:start; margin-top:2.25rem; max-width:1200px; margin-left:auto; margin-right:auto; }
-.faq-list { display:flex; flex-direction:column; gap:1rem; }
-.faq-item { border-radius:10px; overflow:hidden; border:1px solid rgba(19,35,72,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01)); }
-.faq-q { width:100%; text-align:left; font-weight:700; padding:1rem 1.25rem; background:transparent; border:0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--secondary); }
-.faq-q:after { content:'+'; font-weight:900; color:var(--primary); }
-.faq-q[aria-expanded="true"]:after { content:'−'; }
-.faq-a { padding: .85rem 1.25rem; color:var(--accent); font-weight:300; border-top:1px solid rgba(19,35,72,0.03); }
-
-/* Referral */
-.ref-card { padding:1.25rem; border-radius:12px; background:linear-gradient(135deg, rgba(0,147,186,0.08), rgba(35,62,126,0.04)); text-align:center; box-shadow:var(--lux-shadow); }
-.ref-title { font-weight:700; color:var(--secondary); margin-bottom:.5rem; }
-.ref-desc { color:var(--accent); margin-bottom:1rem; }
+/* FAQ */
+.ulx-faq { max-width:1100px; margin:2rem auto; padding:1rem; }
+.faq-list details { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:10px; padding:.9rem; margin-bottom:.6rem; border:1px solid rgba(19,35,72,0.03); }
 
 /* Modal */
-.pricing-modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:100000; }
-.pricing-modal.show { display:flex; }
-.modal-backdrop { position:absolute; inset:0; background:rgba(12,18,36,0.6); backdrop-filter: blur(6px); }
-.modal-card { position:relative; background:white; padding:2rem; border-radius:12px; min-width:320px; max-width:520px; box-shadow:0 30px 80px rgba(19,35,72,0.2); transform:translateY(12px); transition:transform .25s; }
-.modal-title { font-size:1.2rem; margin-bottom:.25rem; font-weight:700; color:var(--secondary); }
-.modal-sub { color:var(--accent); margin-bottom:1rem; font-weight:300; }
-.modal-form input, .modal-form select { width:100%; padding:.8rem; margin-top:.5rem; border-radius:8px; border:1px solid rgba(19,35,72,0.06); font-size:1rem; }
-.modal-close { position:absolute; right:12px; top:10px; background:transparent; border:0; font-size:1.4rem; cursor:pointer; color:var(--accent); }
-
-/* Small helpers */
-.small-discount { font-size:.78rem; color:var(--accent); margin-left:.4rem; }
-.btn-tertiary { background:linear-gradient(135deg,#0f1724,#233E7E); color:white; }
-.btn-outline { background:transparent; border:1px solid rgba(19,35,72,0.06); }
+.ulx-modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:99999; }
+.ulx-modal.show { display:flex; }
+.ulx-modal-backdrop { position:absolute; inset:0; background:rgba(12,18,36,0.6); backdrop-filter: blur(6px); }
+.ulx-modal-card { position:relative; background:white; padding:1.2rem; border-radius:12px; min-width:320px; max-width:520px; box-shadow:0 40px 120px rgba(10,14,30,0.25); }
+.ulx-modal-close { position:absolute; right:12px; top:8px; background:transparent; border:0; font-size:1.25rem; cursor:pointer; color:var(--accent); }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .pricing-grid { grid-template-columns: repeat(2,1fr); }
-  .faq-ref-wrap { grid-template-columns:1fr; }
-  .pricing-sticky-cta { width: calc(100% - 32px); left:16px; transform:translateY(120%); }
-}
-@media (max-width: 640px) {
-  .pricing-grid { grid-template-columns: 1fr; gap:1rem; padding:0 1rem; }
-  .hero-sub { padding:0 1rem; }
-  .hero-controls { flex-direction:column; gap:.75rem; }
-  .pricing-sticky-cta { display:none; }
+@media (max-width:1024px) { .ulx-grid { grid-template-columns: repeat(2,1fr); } .ulx-punchlines { flex-direction:column; } .ulx-controls { gap:.6rem; } }
+@media (max-width:640px) {
+  .ulx-grid { grid-template-columns:1fr; }
+  .rotating-capsule { min-width:120px; height:38px; }
+  .ulx-additional .add-inner { overflow-x:auto; padding-bottom:6px; }
+  .ulx-additional .add-item { min-width:220px; flex:0 0 auto; }
+  .ulx-help-cta { flex-direction:column; align-items:stretch; gap:.6rem; }
 }
 </style>
 </head>
@@ -3454,214 +3461,287 @@ body.loaded .hero-buttons {
         </div>
     </div>
     
-    <!-- ===== PRICING PAGE — LUXURY REDESIGN (DROP-IN) ===== -->
-<section id="pricing" class="page pricing-luxury-page" aria-label="Pricing">
-  <div class="content-page">
+    <!-- =====  ULTRA-LUX PRICING PAGE (REPLACE existing <section id="pricing">)  ===== -->
+<section id="pricing" class="page pricing-ultralux" aria-label="Pricing">
+  <div class="content-page" style="padding-top:2.5rem;"> <!-- moved content up: smaller top padding -->
     <div class="section-container">
 
-      <!-- HERO / INTRO -->
-      <header class="pricing-hero">
+      <!-- HERO / HEADER (Apple/Tesla cinematic) -->
+      <header class="ulx-hero" role="banner">
         <div class="hero-inner">
-          <div class="hero-eyebrow">Investment</div>
-          <h1 class="hero-title">Pricing that accelerates ambition</h1>
-          <p class="hero-sub">
-            Crafted plans for brands that want to be remembered — beautiful packaging, strategic depth, and
-            results-first deliverables. Pick a plan or book a consultation — we'll tailor everything to your growth.
+          <div class="section-label">Investment</div>
+          <h1 class="hero-h1">Pricing</h1>
+          <p class="hero-sub">Packages built for businesses ready to
+            <span class="rotating-capsule" aria-hidden="true">
+              <span class="rotating-word">start</span>
+              <span class="rotating-word">grow</span>
+              <span class="rotating-word">scale</span>
+              <span class="rotating-word">dominate</span>
+              <span class="rotating-word">lead</span>
+            </span>
           </p>
-
-          <!-- toggles -->
-          <div class="hero-controls" role="region" aria-label="Pricing controls">
-            <div class="service-switch" role="tablist" aria-label="Service">
-              <button class="switch-btn switch-active" data-service="marketing" role="tab" aria-selected="true">Marketing</button>
-              <button class="switch-btn" data-service="development" role="tab">Development</button>
-              <button class="switch-btn" data-service="allinone" role="tab">All-in-one</button>
-              <div class="switch-slider" aria-hidden="true"></div>
-            </div>
-
-            <div class="billing-switch" aria-label="Billing cycle">
-              <span class="billing-label">Billing</span>
-              <div class="billing-options" role="tablist" aria-label="Billing cycle">
-                <button class="billing-btn billing-active" data-billing="monthly" aria-pressed="true">Monthly</button>
-                <button class="billing-btn" data-billing="quarterly">Quarterly <span class="small-discount">-10%</span></button>
-                <button class="billing-btn" data-billing="yearly">Yearly <span class="small-discount">-20%</span></button>
-                <div class="billing-slider" aria-hidden="true"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
-      <!-- PRICING GRID -->
-      <div class="pricing-grid-wrap">
-        <div class="pricing-grid">
+      <!-- PREMIUM PUNCHLINES (reimagined) -->
+      <div class="ulx-punchlines" aria-hidden="false">
+        <div class="punchline">
+          <div class="p-title">Straightforward & Transparent</div>
+          <div class="p-sub">No pretense — single monthly fee, clear deliverables.</div>
+        </div>
+        <div class="p-sep" aria-hidden="true"></div>
+        <div class="punchline">
+          <div class="p-title">Pause or Cancel Anytime</div>
+          <div class="p-sub">You control the work cadence. Billing pauses when you pause.</div>
+        </div>
+        <div class="p-sep" aria-hidden="true"></div>
+        <div class="punchline">
+          <div class="p-title">No Hidden Costs</div>
+          <div class="p-sub">Everything required is included — transparent scope & upgrades.</div>
+        </div>
+      </div>
 
-          <!-- Card 1 -->
-          <article class="lux-card" data-plan="starter" aria-labelledby="plan-starter">
+      <!-- CONTROLS: SERVICE TOGGLE (capsule) + BILLING (capsule) -->
+      <div class="ulx-controls">
+        <div class="service-capsule" role="tablist" aria-label="Choose service">
+          <button class="svc-option active" data-service="marketing" aria-selected="true">Design & Marketing</button>
+          <button class="svc-option" data-service="development">Design & Development</button>
+          <button class="svc-option" data-service="allinone">All-in-One</button>
+          <div class="svc-slider" aria-hidden="true"></div>
+        </div>
+
+        <div class="billing-capsule" role="tablist" aria-label="Billing cycle">
+          <button class="bill-option active" data-billing="monthly" aria-pressed="true">Monthly</button>
+          <button class="bill-option" data-billing="quarterly">Quarterly <span class="bill-dis">-10%</span></button>
+          <button class="bill-option" data-billing="yearly">Yearly <span class="bill-dis">-20%</span></button>
+          <div class="bill-slider" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- TOP CTA: Don't know which option -->
+      <div class="ulx-help-cta">
+        <div class="help-inner">
+          <div class="help-text">
+            <strong>Not sure which plan fits?</strong>
+            <div class="help-desc">Call our digital strategy experts — we’ll craft a custom package for you. 24/7 support.</div>
+          </div>
+          <div class="help-action">
+            <button class="btn ulx-call" onclick="(function(){ if(typeof navigateTo==='function') navigateTo('contact'); else location.href='#contact'; })()">Contact Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRICING GRID (3-up desktop) -->
+      <div class="ulx-grid-wrap">
+        <div class="ulx-grid" id="ulxPricingGrid" aria-live="polite">
+          <!-- MARKETING set (default shown) -->
+          <div class="ulx-card" data-plan="Prestige" aria-label="Prestige plan">
             <div class="card-top">
-              <div class="card-label">Starter</div>
-              <h3 id="plan-starter" class="card-title">Prestige</h3>
-              <p class="card-sub">Elegant entry-level support for focused growth</p>
+              <div class="card-badge">Starter</div>
+              <h3 class="card-name">Prestige</h3>
+              <div class="card-sub">Great for early-stage brands</div>
             </div>
-
-            <div class="card-price-wrap">
-              <div class="price" data-monthly="495" data-quarterly="446" data-yearly="396" aria-hidden="false">$495</div>
-              <div class="period">/month</div>
-            </div>
-
+            <div class="card-price" data-monthly="495" data-quarterly="446" data-yearly="396">$495</div>
+            <div class="card-period">per month</div>
             <ul class="card-features">
-              <li><span class="feature-dot">✔</span> Brand strategy & identity</li>
-              <li><span class="feature-dot">✔</span> Content & social</li>
-              <li><span class="feature-dot">✔</span> Monthly analytics</li>
-              <li><span class="feature-dot">✔</span> Standard support</li>
+              <li>Brand Strategy & Identity</li>
+              <li>Social Media Management</li>
+              <li>Content Creation</li>
+              <li>Monthly Analytics</li>
             </ul>
-
             <div class="card-actions">
-              <button class="btn btn-ghost" data-action="compare">Compare</button>
-              <button class="btn btn-primary js-open-modal" data-plan="Prestige">Get Started</button>
+              <button class="btn btn-outline" data-action="compare">Compare</button>
+              <button class="btn btn-primary js-cta" data-plan="Prestige">Get Started</button>
             </div>
-          </article>
+          </div>
 
-          <!-- Card 2 (Featured) -->
-          <article class="lux-card lux-card--featured" data-plan="growth" aria-labelledby="plan-growth">
+          <div class="ulx-card ulx-card--featured" data-plan="Elite" aria-label="Elite plan">
             <div class="ribbon">Most Popular</div>
             <div class="card-top">
-              <div class="card-label">Growth</div>
-              <h3 id="plan-growth" class="card-title">Elite</h3>
-              <p class="card-sub">Balanced, ROI-driven campaigns — priority support</p>
+              <div class="card-badge">Popular</div>
+              <h3 class="card-name">Elite</h3>
+              <div class="card-sub">Balanced & scalable marketing</div>
             </div>
-
-            <div class="card-price-wrap">
-              <div class="price" data-monthly="895" data-quarterly="806" data-yearly="716" aria-live="polite">$895</div>
-              <div class="period">/month</div>
-            </div>
-
+            <div class="card-price" data-monthly="895" data-quarterly="806" data-yearly="716">$895</div>
+            <div class="card-period">per month</div>
             <ul class="card-features">
-              <li><span class="feature-dot">✔</span> Everything in Prestige</li>
-              <li><span class="feature-dot">✔</span> SEO & Paid Media</li>
-              <li><span class="feature-dot">✔</span> Motion & design</li>
-              <li><span class="feature-dot">✔</span> Priority support</li>
+              <li>Everything in Prestige</li>
+              <li>SEO Strategy</li>
+              <li>Paid Advertising</li>
+              <li>Motion Graphics</li>
+              <li>Priority Support</li>
             </ul>
-
             <div class="card-actions">
-              <button class="btn btn-ghost" data-action="case">Case studies</button>
-              <button class="btn btn-secondary js-open-modal" data-plan="Elite">Start Consultation</button>
+              <button class="btn btn-outline" data-action="case">Case studies</button>
+              <button class="btn btn-secondary js-cta" data-plan="Elite">Start Consultation</button>
             </div>
-          </article>
+          </div>
 
-          <!-- Card 3 -->
-          <article class="lux-card" data-plan="enterprise" aria-labelledby="plan-enterprise">
+          <div class="ulx-card" data-plan="Luminary" aria-label="Luminary plan">
             <div class="card-top">
-              <div class="card-label">Enterprise</div>
-              <h3 id="plan-enterprise" class="card-title">Luminary</h3>
-              <p class="card-sub">Dedicated teams, SLA, and white-glove delivery</p>
+              <div class="card-badge">Enterprise</div>
+              <h3 class="card-name">Luminary</h3>
+              <div class="card-sub">For larger teams & fast growth</div>
             </div>
-
-            <div class="card-price-wrap">
-              <div class="price" data-monthly="1395" data-quarterly="1256" data-yearly="1116" aria-hidden="false">$1,395</div>
-              <div class="period">/month</div>
-            </div>
-
+            <div class="card-price" data-monthly="1395" data-quarterly="1256" data-yearly="1116">$1,395</div>
+            <div class="card-period">per month</div>
             <ul class="card-features">
-              <li><span class="feature-dot">✔</span> Dedicated manager</li>
-              <li><span class="feature-dot">✔</span> Multichannel campaigns</li>
-              <li><span class="feature-dot">✔</span> Weekly strategy</li>
-              <li><span class="feature-dot">✔</span> VIP support</li>
+              <li>Dedicated Manager</li>
+              <li>Multi-channel Campaigns</li>
+              <li>Weekly Strategy</li>
+              <li>VIP Support</li>
             </ul>
-
             <div class="card-actions">
-              <button class="btn btn-ghost" data-action="talk">Request details</button>
-              <button class="btn btn-primary js-open-modal" data-plan="Luminary">Request Quote</button>
+              <button class="btn btn-outline" data-action="talk">Request details</button>
+              <button class="btn btn-primary js-cta" data-plan="Luminary">Request Quote</button>
             </div>
-          </article>
-
-        </div> <!-- .pricing-grid -->
-      </div> <!-- .pricing-grid-wrap -->
-
-      <!-- STICKY CTA (appears on scroll) -->
-      <div class="pricing-sticky-cta" aria-hidden="true">
-        <div class="sticky-inner">
-          <div class="sticky-left">
-            <div class="sticky-plan">Elite — <span class="sticky-price">$895</span></div>
-            <div class="sticky-sub">Start a project — book a free consultation</div>
           </div>
-          <div class="sticky-actions">
-            <button class="btn btn-tertiary js-open-modal">Book Call</button>
-            <button class="btn btn-outline js-scroll-top">Top</button>
-          </div>
+
+        </div> <!-- .ulx-grid -->
+      </div> <!-- .ulx-grid-wrap -->
+
+      <!-- HIDDEN: Additional sets (development / allinone) are present in the DOM and will be swapped in -->
+      <!-- Development set -->
+      <div id="devSet" class="pricing-hidden-templates" hidden>
+        <div class="ulx-card" data-plan="Architect">
+          <div class="card-top"><div class="card-badge">Starter</div><h3 class="card-name">Architect</h3><div class="card-sub">Custom websites & integrations</div></div>
+          <div class="card-price" data-monthly="695" data-quarterly="626" data-yearly="556">$695</div>
+          <div class="card-period">per month</div>
+          <ul class="card-features"><li>Custom Website Design</li><li>Responsive Development</li><li>CMS Integration</li><li>Basic SEO Setup</li></ul>
+          <div class="card-actions"><button class="btn btn-outline">Compare</button><button class="btn btn-primary js-cta" data-plan="Architect">Get Started</button></div>
+        </div>
+
+        <div class="ulx-card ulx-card--featured" data-plan="Vanguard">
+          <div class="ribbon">Popular</div>
+          <div class="card-top"><div class="card-badge">Popular</div><h3 class="card-name">Vanguard</h3><div class="card-sub">Enterprise-grade development</div></div>
+          <div class="card-price" data-monthly="1195" data-quarterly="1076" data-yearly="956">$1,195</div>
+          <div class="card-period">per month</div>
+          <ul class="card-features"><li>Everything in Architect</li><li>E-commerce Development</li><li>Custom Integrations</li><li>Performance Optimization</li><li>Priority Support</li></ul>
+          <div class="card-actions"><button class="btn btn-outline">Case</button><button class="btn btn-secondary js-cta" data-plan="Vanguard">Get Started</button></div>
+        </div>
+
+        <div class="ulx-card" data-plan="Quantum">
+          <div class="card-top"><div class="card-badge">Enterprise</div><h3 class="card-name">Quantum</h3><div class="card-sub">Full stack & cloud scale</div></div>
+          <div class="card-price" data-monthly="1895" data-quarterly="1706" data-yearly="1516">$1,895</div>
+          <div class="card-period">per month</div>
+          <ul class="card-features"><li>Everything in Vanguard</li><li>Web Applications</li><li>API Development</li><li>Cloud Infrastructure</li><li>24/7 Support</li></ul>
+          <div class="card-actions"><button class="btn btn-outline">Details</button><button class="btn btn-primary js-cta" data-plan="Quantum">Get Started</button></div>
         </div>
       </div>
 
-      <!-- FAQ & Referral -->
-      <div class="pricing-bottom" style="margin-top:3.5rem;">
-        <div class="faq-ref-wrap">
-
-          <!-- FAQ -->
-          <div class="faq-col">
-            <div class="section-label">FAQ</div>
-            <h3 class="section-title" style="font-size:1.5rem;margin-bottom:.6rem;">Questions we get asked</h3>
-
-            <div class="faq-list" aria-live="polite">
-              <div class="faq-item">
-                <button class="faq-q" aria-expanded="false">How does billing work?</button>
-                <div class="faq-a" hidden>
-                  We support monthly, quarterly and yearly billing. Yearly saves 20% and quarterly saves 10% — and you can upgrade anytime.
-                </div>
-              </div>
-
-              <div class="faq-item">
-                <button class="faq-q" aria-expanded="false">Do you provide custom contracts?</button>
-                <div class="faq-a" hidden>
-                  Yes. Enterprise & Luminary clients receive bespoke contracts and SLAs. Contact us for details.
-                </div>
-              </div>
-
-              <div class="faq-item">
-                <button class="faq-q" aria-expanded="false">What is included in support?</button>
-                <div class="faq-a" hidden>
-                  Standard support includes email & chat during business hours. Priority & VIP include dedicated managers and faster SLAs.
-                </div>
-              </div>
-            </div>
+      <!-- All-in-one (Ultimate Solution) — MOVED INTO main cards when All-in-One selected
+           (I used your existing 'ultimate-card' markup & features and only changed placement/price to 3500) -->
+      <!-- Source for original ultimate card features preserved: see file. --> 
+      <div id="allInOneTemplate" class="pricing-hidden-templates" hidden>
+        <div class="ulx-card ultimate-card" data-plan="Infinite" aria-label="Infinite (All-in-One)">
+          <div class="card-badge ultimate-badge">Ultimate Solution</div>
+          <h3 class="card-name">Infinite</h3>
+          <p class="card-sub">Complete design, development, and marketing excellence</p>
+          <div class="card-price" data-monthly="3500" data-quarterly="3150" data-yearly="2800">$3,500</div>
+          <div class="card-period">per month</div>
+          <ul class="card-features">
+            <li>Everything from All Packages</li>
+            <li>Unlimited Design & Development</li>
+            <li>Complete Marketing Suite</li>
+            <li>Dedicated Team</li>
+            <li>White Glove Service</li>
+            <li>24/7 Priority Support</li>
+          </ul>
+          <div class="card-actions">
+            <button class="btn btn-outline">Discover</button>
+            <button class="btn btn-primary js-cta" data-plan="Infinite">Get Infinite</button>
           </div>
+        </div>
+      </div>
+      <!-- (Ultimate Solution markup above is taken from your file and preserved — price updated to 3500.) -->
+      <!-- Reference: existing ultimate markup + styling in your file. :contentReference[oaicite:7]{index=7} -->
 
-          <!-- Referral CTA -->
-          <aside class="ref-col">
-            <div class="ref-card">
-              <div class="ref-title">Refer a friend & earn</div>
-              <p class="ref-desc">Give friends 10% off their first month. You get a credit when they subscribe.</p>
-              <button class="btn btn-primary js-open-ref" data-ref-target="referral">Join Now</button>
-            </div>
-          </aside>
+      <!-- ADDITIONAL SERVICES — single-row premium strip (becomes horizontal scroll on mobile) -->
+      <section class="ulx-additional">
+        <div class="add-inner" aria-hidden="false">
+          <div class="add-item">Website Design <span class="add-price">$500/mo</span></div>
+          <div class="add-item">Shopify Store <span class="add-price">$200/mo</span></div>
+          <div class="add-item">Social Media <span class="add-price">$1,000/mo</span></div>
+          <div class="add-item">Lead Generation <span class="add-price">$999/mo</span></div>
+        </div>
+      </section>
 
+      <!-- PAY WHEN YOU'RE READY - premium feature -->
+      <div class="ulx-pay-when">
+        <div class="pay-inner">
+          <div class="pay-title">Pay When You're Ready</div>
+          <div class="pay-desc">Your plan activates only when you assign your first task — not at checkout. Explore, plan, and start when you're ready.</div>
         </div>
       </div>
 
-    </div><!-- .section-container -->
-  </div><!-- .content-page -->
-
-  <!-- MODAL: Simple booking / capture -->
-  <div class="pricing-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-card" role="document">
-      <button class="modal-close" aria-label="Close modal">&times;</button>
-      <h3 class="modal-title">Start a 15-min consultation</h3>
-      <p class="modal-sub">Tell us a little about your business and we'll prepare a tailored plan.</p>
-      <form class="modal-form" onsubmit="return false;">
-        <input name="name" placeholder="Your full name" required />
-        <input name="email" type="email" placeholder="Email address" required />
-        <select name="plan" class="modal-plan-select">
-          <option>Prestige</option>
-          <option selected>Elite</option>
-          <option>Luminary</option>
-        </select>
-        <div style="display:flex;gap:.5rem;margin-top:.75rem;">
-          <button class="btn btn-primary modal-submit">Book Call</button>
-          <button class="btn btn-ghost modal-cancel">Cancel</button>
+      <!-- REFERRAL CARD -->
+      <aside class="ulx-referral">
+        <div class="ref-inner">
+          <div class="ref-title">Refer a friend &amp; earn</div>
+          <div class="ref-desc">Earn 10% monthly recurring commission for each referral.</div>
+          <button class="btn btn-primary js-referral">Join Now</button>
+          <div class="ref-note">If you are already a customer, rewards are applied as account credit toward your dues (see terms).</div>
         </div>
-      </form>
+      </aside>
+
+      <!-- HOW IT WORKS — sequential draw (1 -> 2 -> 3) -->
+      <section class="ulx-how" aria-label="How it works">
+        <h2 class="how-title">How it works</h2>
+        <div class="how-steps">
+          <svg viewBox="0 0 900 160" class="how-path" preserveAspectRatio="none" aria-hidden="true">
+            <path id="ulxPathBase" d="M40 80 L420 80 L860 80" stroke="rgba(0,0,0,0.06)" stroke-width="2" fill="none"></path>
+            <path id="ulxPathActive" d="M40 80 L420 80 L860 80" stroke="url(#ulxGrad)" stroke-width="4" fill="none"
+                  stroke-dasharray="2000" stroke-dashoffset="2000"></path>
+            <defs>
+              <linearGradient id="ulxGrad" x1="0" x2="1">
+                <stop offset="0%" stop-color="#0093BA"></stop>
+                <stop offset="100%" stop-color="#233E7E"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <div class="steps">
+            <div class="step" data-step="1"><div class="num">1</div><h4>Subscribe</h4><p>Choose a plan and billing cycle.</p></div>
+            <div class="step" data-step="2"><div class="num">2</div><h4>Onboard</h4><p>Share briefs; we assign a manager.</p></div>
+            <div class="step" data-step="3"><div class="num">3</div><h4>Launch</h4><p>We deliver and iterate until perfect.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="ulx-faq" aria-label="Frequently asked questions">
+        <h2 class="faq-title">FAQs</h2>
+        <div class="faq-list">
+          <details class="faq-item"><summary>Why wouldn't I just hire a full-time designer?</summary><div class="faq-body">Subscription gives you a team, lower overhead, faster ramp, and flexible skate of resources.</div></details>
+          <details class="faq-item"><summary>Why wouldn't I just hire another agency or freelancer?</summary><div class="faq-body">We provide cross-discipline teams, SLAs, and consistency — with monthly predictability and dedicated PMs.</div></details>
+          <details class="faq-item"><summary>What types of designs can you create, and what is included in the scope of your work?</summary><div class="faq-body">Web, brand, UI/UX, motion, ads, print-ready files. Scope per plan — see features list.</div></details>
+          <details class="faq-item"><summary>What is “unlimited design” and “unlimited revisions”?</summary><div class="faq-body">You can request continuous tasks. Revisions are iterative — we aim to finalize within the expected SLA.</div></details>
+          <details class="faq-item"><summary>How do I request designs?</summary><div class="faq-body">Through your dashboard or by email — we respond via your manager or project channel.</div></details>
+          <details class="faq-item"><summary>How fast will I receive my designs?</summary><div class="faq-body">Typical turnaround is 24–72 hours depending on complexity and queue.</div></details>
+          <details class="faq-item"><summary>Who are the designers?</summary><div class="faq-body">Experienced in-house designers and vetted seniors who worked with top agencies and startups.</div></details>
+          <details class="faq-item"><summary>How does the pause feature work?</summary><div class="faq-body">Pause from your dashboard — billing and services pause until you resume.</div></details>
+          <details class="faq-item"><summary>What if I don't like the design?</summary><div class="faq-body">We offer revisions and will realign the brief until you’re satisfied.</div></details>
+          <details class="faq-item"><summary>Are there any refunds if I don't like the service?</summary><div class="faq-body">We offer a trial/money-back window per plan; consult terms for details.</div></details>
+        </div>
+      </section>
+
     </div>
   </div>
 
+  <!-- Modal (reuse or adapt from site-wide) -->
+  <div id="ulxModal" class="ulx-modal" aria-hidden="true">
+    <div class="ulx-modal-backdrop"></div>
+    <div class="ulx-modal-card" role="dialog" aria-modal="true">
+      <button class="ulx-modal-close" aria-label="Close">&times;</button>
+      <h3>Book a free 15-minute consultation</h3>
+      <form class="ulx-modal-form" onsubmit="return false;">
+        <input name="name" placeholder="Name" required />
+        <input name="email" type="email" placeholder="Email" required />
+        <select name="plan" class="ulx-plan-select"><option>Prestige</option><option selected>Elite</option><option>Luminary</option><option>Infinite</option></select>
+        <div class="modal-actions"><button class="btn btn-primary modal-submit">Book Call</button><button class="btn btn-ghost modal-cancel">Cancel</button></div>
+      </form>
+    </div>
+  </div>
 </section>
     
     <!-- LOCATIONS PAGE -->
@@ -4925,257 +5005,307 @@ window.addEventListener('resize', () => {
     }, 250);
 });
     
-        (() => {
-  // Utilities
-  const $ = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
+        <!-- ===== Scoped JS (handles toggles, price updates, FAQ, referral, modal, how-it-works sequential draw) ===== -->
+<script>
+(function(){
+  // helper selectors
+  const qs = s => document.querySelector(s);
+  const qsa = s => Array.from(document.querySelectorAll(s));
 
-  /* -------------------------
-     Smooth reveal + parallax via IntersectionObserver
-     ------------------------- */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.transform = 'translateY(0)';
-        entry.target.style.opacity = '1';
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+  /* ROTATING WORDS — preserve words; animate in capsule */
+  (function rotatingWords(){
+    const words = qsa('.rotating-capsule .rotating-word');
+    if (!words.length) return;
+    let idx = 0;
+    words.forEach((w,i)=> { if(i!==0) w.classList.remove('active'); else w.classList.add('active'); });
+    setInterval(()=> {
+      words[idx].classList.remove('active');
+      idx = (idx+1) % words.length;
+      words[idx].classList.add('active');
+    }, 2600);
+  })();
 
-  // reveal all card elements
-  $$('.lux-card').forEach((c, idx) => {
-    c.style.transform = 'translateY(18px)';
-    c.style.opacity = '0';
-    c.style.transition = 'transform .7s cubic-bezier(.2,.9,.3,1) .08s, opacity .7s .08s';
-    revealObserver.observe(c);
-  });
+  /* SERVICE & BILLING SLIDERS */
+  const svcOptions = qsa('.svc-option');
+  const svcSlider = qs('.svc-slider');
+  const billOptions = qsa('.bill-option');
+  const billSlider = qs('.bill-slider');
 
-  /* -------------------------
-     Billing toggle (animated)
-     ------------------------- */
-  const billingBtns = $$('.billing-btn');
-  const priceEls = $$('.price');
-
-  function updatePrices(billing) {
-    billingBtns.forEach(b => {
-      const on = b.dataset.billing === billing;
-      b.classList.toggle('billing-active', on);
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-    });
-
-    priceEls.forEach(el => {
-      const newVal = el.dataset[billing];
-      if (!newVal) return;
-      // smooth opacity pulse + value change
-      el.style.transition = 'opacity .2s';
-      el.style.opacity = '0';
-      setTimeout(() => {
-        el.textContent = '$' + Number(newVal).toLocaleString();
-        el.style.opacity = '1';
-      }, 200);
-    });
-
-    // update sticky price (mirrors featured)
-    const featuredPrice = document.querySelector('.lux-card--featured .price');
-    if (featuredPrice) {
-      const sticky = document.querySelector('.sticky-price');
-      if (sticky) sticky.textContent = featuredPrice.textContent;
-    }
+  function positionSlider(slider, activeBtn) {
+    if(!slider || !activeBtn) return;
+    const parentRect = activeBtn.parentElement.getBoundingClientRect();
+    const rect = activeBtn.getBoundingClientRect();
+    const left = rect.left - parentRect.left + 6;
+    const width = rect.width - 12;
+    slider.style.left = left + 'px';
+    slider.style.width = width + 'px';
+    slider.style.top = '4px';
+    slider.style.height = (rect.height - 8) + 'px';
   }
 
-  billingBtns.forEach(btn => {
-    btn.addEventListener('click', () => updatePrices(btn.dataset.billing));
+  // initialize sliders after layout
+  window.addEventListener('load', () => {
+    positionSlider(svcSlider, document.querySelector('.svc-option.active'));
+    positionSlider(billSlider, document.querySelector('.bill-option.active'));
+  });
+  window.addEventListener('resize', ()=> {
+    positionSlider(svcSlider, document.querySelector('.svc-option.active'));
+    positionSlider(billSlider, document.querySelector('.bill-option.active'));
   });
 
-  // init default monthly
+  svcOptions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      svcOptions.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      svcOptions.forEach(b => { if(b!==btn) b.setAttribute('aria-selected','false'); });
+      positionSlider(svcSlider, btn);
+      // swap pricing sets: marketing (default), development, allinone
+      const svc = btn.dataset.service;
+      swapSet(svc);
+    });
+  });
+
+  billOptions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      billOptions.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      billOptions.forEach(b => b.setAttribute('aria-pressed', b===btn ? 'true':'false'));
+      positionSlider(billSlider, btn);
+      updatePrices(btn.dataset.billing);
+    });
+  });
+
+  // mobile defaults
+  function setMobileDefaults(){
+    if(window.innerWidth <= 640){
+      // service default: marketing
+      const m = document.querySelector('.svc-option[data-service="marketing"]');
+      if(m) m.click();
+      // billing default: monthly
+      const mo = document.querySelector('.bill-option[data-billing="monthly"]');
+      if(mo) mo.click();
+    }
+  }
+  setMobileDefaults();
+  window.addEventListener('resize', setMobileDefaults);
+
+  /* PRICE UPDATE: uses data attributes already present on .card-price elements */
+  function updatePrices(billing){
+    const priceEls = qsa('.ulx-grid .card-price');
+    priceEls.forEach(el => {
+      const val = el.dataset[billing];
+      if(!val) return;
+      // small fade animation
+      el.style.transition = 'opacity .18s ease';
+      el.style.opacity = '0';
+      setTimeout(()=> {
+        el.textContent = '$' + Number(val).toLocaleString();
+        el.style.opacity = '1';
+      }, 160);
+    });
+    // sticky or ribbons can be updated here as needed
+  }
+
+  // initial price set (monthly)
   updatePrices('monthly');
 
-  /* -------------------------
-     Service toggle & slider movement
-     ------------------------- */
-  const serviceBtns = $$('.switch-btn');
-  const switchSlider = document.querySelector('.switch-slider');
+  /* SWAP sets: marketing (default) / development / allinone (inserts ultimate card) */
+  function swapSet(type){
+    const grid = qs('#ulxPricingGrid');
+    if(!grid) return;
+    // clear
+    grid.innerHTML = '';
 
-  function moveSwitchSlider(activeBtn) {
-    if (!switchSlider || !activeBtn) return;
-    const rect = activeBtn.getBoundingClientRect();
-    const parentRect = activeBtn.parentElement.getBoundingClientRect();
-    const left = (rect.left - parentRect.left) + 4;
-    switchSlider.style.left = left + 'px';
-    switchSlider.style.width = (rect.width - 8) + 'px';
-    switchSlider.style.height = (rect.height - 8) + 'px';
-    switchSlider.style.background = 'linear-gradient(135deg,#0093BA,#233E7E)';
-    switchSlider.style.borderRadius = '999px';
-  }
+    if(type === 'marketing'){
+      // insert the 3 marketing cards (already present as first set in this replacement)
+      const templateCards = [
+        qsa('.ulx-card[data-plan="Prestige"]')[0],
+        qsa('.ulx-card[data-plan="Elite"]')[0],
+        qsa('.ulx-card[data-plan="Luminary"]')[0]
+      ];
+      // Because we are replacing the DOM, we need to recreate similar markup
+      // Simpler route: clone templates from document fragments (we stored devSet/allInOne templates)
+      // Marketing were initially placed inline — recreate from current content of page (we used inline originals)
+      // To be robust, let's recreate via innerHTML snippets
+      const mHTML = `
+        ${document.querySelector('[data-plan="Prestige"]').outerHTML}
+        ${document.querySelector('[data-plan="Elite"]').outerHTML}
+        ${document.querySelector('[data-plan="Luminary"]').outerHTML}
+      `;
+      grid.innerHTML = mHTML;
+      // re-bind CTA handlers after rebuilding
+      bindCTAs();
+      updatePrices(document.querySelector('.bill-option.active').dataset.billing || 'monthly');
+      return;
+    }
 
-  serviceBtns.forEach(b => {
-    b.addEventListener('click', (e) => {
-      serviceBtns.forEach(x => x.classList.remove('switch-active'));
-      b.classList.add('switch-active');
-      serviceBtns.forEach(x => x.setAttribute('aria-selected', x === b ? 'true' : 'false'));
-      // show/hide original sets if exist (non-destructive)
-      const service = b.dataset.service;
-      const marketingSet = document.getElementById('marketingCards');
-      const devSet = document.getElementById('developmentCards');
-      const allinone = document.getElementById('allinoneCard');
-      if (marketingSet) marketingSet.style.display = service === 'marketing' ? 'grid' : 'none';
-      if (devSet) devSet.style.display = service === 'development' ? 'grid' : 'none';
-      if (allinone) allinone.style.display = service === 'allinone' ? 'flex' : 'none';
-      moveSwitchSlider(b);
-    });
-  });
-
-  // position slider on load
-  window.addEventListener('load', () => {
-    const active = document.querySelector('.switch-btn.switch-active');
-    moveSwitchSlider(active);
-  });
-  window.addEventListener('resize', () => {
-    const active = document.querySelector('.switch-btn.switch-active');
-    moveSwitchSlider(active);
-  });
-
-  /* -------------------------
-     Sticky CTA observe scroll
-     ------------------------- */
-  const stickyEl = document.querySelector('.pricing-sticky-cta');
-  const hero = document.querySelector('.pricing-hero');
-  const heroObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!stickyEl) return;
-      // show sticky when hero is out of view
-      stickyEl.classList.toggle('show', !e.isIntersecting);
-    });
-  }, { threshold: [0, 0.01] });
-
-  if (hero) heroObserver.observe(hero);
-
-  // top scroll button
-  $$('.js-scroll-top').forEach(btn => btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })));
-
-  /* -------------------------
-     Smooth modal (booking)
-     ------------------------- */
-  const modal = document.querySelector('.pricing-modal');
-  const openers = $$('.js-open-modal');
-  const closeBtn = document.querySelector('.modal-close');
-  const cancelBtn = document.querySelector('.modal-cancel');
-  const modalSubmit = document.querySelector('.modal-submit');
-
-  function openModal(plan) {
-    if (!modal) return;
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
-    const sel = modal.querySelector('.modal-plan-select');
-    if (sel && plan) sel.value = plan;
-  }
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden', 'true');
-  }
-
-  openers.forEach(op => op.addEventListener('click', (e) => {
-    const plan = op.dataset.plan || null;
-    openModal(plan);
-  }));
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
-  if (modal) modal.addEventListener('click', (ev) => {
-    if (ev.target === modal.querySelector('.modal-backdrop')) closeModal();
-  });
-
-  // simulate form submission (replace with your API)
-  if (modalSubmit) {
-    modalSubmit.addEventListener('click', () => {
-      const form = modal.querySelector('.modal-form');
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const plan = form.plan.value;
-      if (!name || !email) {
-        alert('Please provide name and email.');
-        return;
+    if(type === 'development'){
+      // dev templates are in #devSet
+      const dev = qs('#devSet');
+      if(dev) {
+        grid.innerHTML = dev.innerHTML;
+        bindCTAs();
+        updatePrices(document.querySelector('.bill-option.active').dataset.billing || 'monthly');
       }
-      // Temporary UX: show thanks and close
-      modalSubmit.textContent = 'Sending...';
-      setTimeout(() => {
-        modalSubmit.textContent = 'Book Call';
-        closeModal();
-        alert('Thanks! We received your request. We will reach out to you to schedule the call.');
-      }, 900);
+      return;
+    }
+
+    if(type === 'allinone'){
+      const template = qs('#allInOneTemplate');
+      if(template){
+        // place ultimate in center + two supporting cards from marketing for context
+        const left = document.querySelector('[data-plan="Prestige"]').outerHTML;
+        const center = template.innerHTML;
+        const right = document.querySelector('[data-plan="Luminary"]').outerHTML;
+        grid.innerHTML = left + center + right;
+        bindCTAs();
+        updatePrices(document.querySelector('.bill-option.active').dataset.billing || 'monthly');
+      }
+      return;
+    }
+  }
+
+  // initial display: marketing
+  // ensure swap uses the type 'marketing' at start (the initial svc-option active is marketing)
+  swapSet('marketing');
+
+  /* CTA binding (open modal or navigate) */
+  function bindCTAs(){
+    qsa('.js-cta').forEach(btn => {
+      btn.removeEventListener('click', openModalForPlan);
+      btn.addEventListener('click', openModalForPlan);
+    });
+    qsa('.js-referral').forEach(b => {
+      b.removeEventListener('click', openReferral);
+      b.addEventListener('click', openReferral);
     });
   }
 
-  /* -------------------------
-     FAQ accordion fix (was broken)
-     ------------------------- */
-  $$('.faq-item').forEach(item => {
-    const q = item.querySelector('.faq-q');
-    const a = item.querySelector('.faq-a');
-    q.addEventListener('click', () => {
-      const opened = q.getAttribute('aria-expanded') === 'true';
-      // close all
-      $$('.faq-item .faq-q').forEach(x => x.setAttribute('aria-expanded', 'false'));
-      $$('.faq-item .faq-a').forEach(x => x.hidden = true);
-      if (!opened) {
-        q.setAttribute('aria-expanded', 'true');
-        a.hidden = false;
-      }
+  // modal handlers
+  const modal = qs('#ulxModal');
+  function openModalForPlan(e){
+    const plan = e.currentTarget.dataset.plan || 'Elite';
+    // set plan select
+    const sel = modal ? modal.querySelector('.ulx-plan-select') : null;
+    if(sel) { sel.value = plan; }
+    if(modal) { modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }
+  }
+
+  bindCTAs();
+
+  // modal close / submit
+  if(modal){
+    modal.querySelector('.ulx-modal-close').addEventListener('click', ()=> { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); });
+    modal.querySelector('.modal-cancel').addEventListener('click', ()=> { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); });
+    modal.querySelector('.modal-submit').addEventListener('click', ()=> {
+      const form = modal.querySelector('.ulx-modal-form');
+      const name = form.name.value.trim(); const email = form.email.value.trim();
+      if(!name || !email){ alert('Please add name and email'); return; }
+      // placeholder: connect to your API / CRM here
+      modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+      setTimeout(()=> alert('Thanks — we will contact you to schedule the call.'), 350);
+    });
+  }
+
+  /* REFERRAL: open existing referral page in your site (id="referral" exists in your file) */
+  function openReferral(){
+    // try site function navigateTo if available
+    if(typeof navigateTo === 'function') { navigateTo('referral'); return; }
+    // else try in-page id
+    const el = document.getElementById('referral');
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.setAttribute('tabindex','-1'); el.focus({preventScroll:true}); return; }
+    // fallback URL
+    window.location.href = '/referral';
+  }
+
+  // attach referral button
+  qsa('.js-referral').forEach(b => b.addEventListener('click', openReferral));
+
+  /* FAQ: <details> elements are used so browser handles open/close; no extra JS required.
+     But ensure single-open behaviour (optional) */
+  qsa('.faq-list details').forEach(d => {
+    d.addEventListener('toggle', (ev) => {
+      if(!d.open) return;
+      qsa('.faq-list details').forEach(other => { if(other !== d) other.open = false; });
     });
   });
 
-  /* -------------------------
-     Referral / Join Now logic (fixes broken Join Now)
-     ------------------------- */
-  $$('.js-open-ref').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.refTarget || 'referral';
-      // If an element with the id exists on the page, scroll to it
-      const el = document.getElementById(target);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // optional: focus
-        el.setAttribute('tabindex', '-1');
-        el.focus({ preventScroll: true });
-        return;
-      }
-      // Otherwise try to navigate to a known referral URL (fallback)
-      const fallback = '/referral';
-      window.location.href = fallback;
-    });
-  });
+  /* HOW-IT-WORKS: sequential draw of SVG path from 1->2->3 and reverse on scroll up
+     Strategy:
+     - compute total path length and lengths of segments (we have two segments: 40->420 and 420->860)
+     - map scroll progress (0..1) across the container to sequential fill:
+       0..0.33 -> draw segment 1
+       0.33..0.66 -> draw segment 2
+       0.66..1 -> draw segment 3 (if exists) — we have 2 segments effectively so we stage accordingly.
+  */
+  (function sequentialPath(){
+    const pathActive = document.getElementById('ulxPathActive');
+    const container = document.querySelector('.ulx-how');
+    if(!pathActive || !container) return;
+    const total = pathActive.getTotalLength();
+    pathActive.style.strokeDasharray = total;
+    pathActive.style.strokeDashoffset = total;
 
-  /* -------------------------
-     Accessibility tiny improvements
-     ------------------------- */
-  // keyboard support for billing buttons (left/right)
-  document.addEventListener('keydown', e => {
-    if (['ArrowLeft','ArrowRight'].includes(e.key)) {
-      const active = document.querySelector('.billing-btn.billing-active');
-      const list = $$('.billing-btn');
-      if (!active || list.length < 2) return;
-      const idx = list.indexOf(active);
-      const next = e.key === 'ArrowRight' ? list[Math.min(list.length - 1, idx + 1)] : list[Math.max(0, idx - 1)];
-      if (next) next.click();
+    // create observer to watch container in viewport
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const rect = entry.boundingClientRect;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        // progress: 0 when top of container at bottom of viewport, 1 when bottom of container hits top (i.e. fully scrolled)
+        const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
+        // split into 3 staged phases
+        // phase thresholds
+        const p1 = 0.33, p2 = 0.66;
+        let drawPct = 0;
+        if(progress <= p1) {
+          // first stage: 0..p1 -> 0..0.33 of line
+          drawPct = (progress / p1) * 0.33;
+        } else if(progress <= p2) {
+          // second stage: p1..p2 -> 0.33..0.66
+          drawPct = 0.33 + ((progress - p1) / (p2 - p1)) * 0.33;
+        } else {
+          // third stage: p2..1 -> 0.66..1
+          drawPct = 0.66 + ((progress - p2) / (1 - p2)) * 0.34;
+        }
+        // apply: lower dashoffset as drawPct increases
+        const offset = total * (1 - drawPct);
+        pathActive.style.strokeDashoffset = offset;
+        // subtle per-step highlight of step circles
+        const steps = qsa('.ulx-how .step');
+        steps.forEach((s,i)=> {
+          const threshold = (i+1) * (1/steps.length);
+          s.style.transform = (drawPct >= threshold*0.95) ? 'translateY(0)' : 'translateY(10px)';
+          s.style.opacity = (drawPct >= (i*0.32)) ? '1' : '0.6';
+        });
+      });
+    }, {threshold: Array.from({length:101},(_,i)=>i/100)});
+
+    io.observe(container);
+  })();
+
+  /* Micro animations: reveal cards with IntersectionObserver */
+  (function revealCards(){
+    const cards = qsa('.ulx-card');
+    const obs = new IntersectionObserver((entries, observer) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.opacity = '1';
+          observer.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.12});
+    cards.forEach(c => { c.style.transform='translateY(18px)'; c.style.opacity='0'; obs.observe(c); });
+  })();
+
+  // ensure CTAs are bound for dynamically inserted content
+  document.addEventListener('click', (ev) => {
+    if(ev.target && ev.target.matches && ev.target.matches('.card-actions .js-cta')) {
+      ev.preventDefault();
+      openModalForPlan({ currentTarget: ev.target });
     }
   });
-
-  /* -------------------------
-     Polished micro animations - feature dots pop when reveal
-     ------------------------- */
-  setTimeout(() => {
-    $$('.lux-card').forEach(card => {
-      const dots = card.querySelectorAll('.feature-dot');
-      dots.forEach((d, i) => {
-        d.style.transform = 'translateY(8px)';
-        d.style.opacity = '0';
-        d.style.transition = `transform .45s cubic-bezier(.2,.9,.3,1) ${i*80}ms, opacity .45s ${i*80}ms`;
-        setTimeout(() => { d.style.transform = 'translateY(0)'; d.style.opacity = '1'; }, 220);
-      });
-    });
-  }, 420);
 
 })();
     </script>
