@@ -3035,1133 +3035,647 @@ body.loaded .hero-buttons {
         font-size: 1.125rem;
     }
 }
-        /* ===== ULTRA PREMIUM PRICING PAGE ===== */
-
-/* Background Effects - Match Global Style */
-.pricing-page-wrapper {
-    background: var(--light);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Compact Header */
-.pricing-header-section {
-    padding: 6rem 3rem 2rem;
-    text-align: center;
-}
-
-/* Luxury Rotating Text */
-.section-desc-luxury {
-    font-size: 1.5rem;
+        /* PREMIUM WORD SLIDER */
+.section-desc-animated {
+    font-size: 1.25rem;
     font-weight: 300;
     color: var(--accent);
-    margin: 0 auto 3rem;
-    line-height: 1.6;
+    max-width: 750px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.8;
+    opacity: 0.9;
     text-align: center;
-    max-width: 850px;
 }
 
-.rotating-text-inline {
+.rotating-text-wrapper {
     display: inline-block;
     position: relative;
-    vertical-align: middle;
-    margin: 0 0.5rem;
-}
-
-.rotating-pill {
-    position: relative;
-    display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.12) 0%, rgba(35, 62, 126, 0.08) 100%);
-    border: 1px solid rgba(0, 147, 186, 0.2);
-    border-radius: 50px;
+    height: 1.8rem;
     min-width: 140px;
-    height: 3rem;
+    vertical-align: bottom;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 147, 186, 0.1);
+    margin-left: 0.35rem;
 }
 
-.rotating-word-container {
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rotating-word-luxury {
+.rotating-text {
     position: absolute;
+    left: 0;
+    width: 100%;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    width: 100%;
-    left: 0;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.6s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.rotating-word-luxury.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.rotating-word-luxury.exit {
-    opacity: 0;
-    transform: translateY(-100%);
-}
-
-/* Premium Trust Section */
-.trust-section {
-    max-width: 1100px;
-    margin: 0 auto 3rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding: 0 3rem;
-}
-
-.trust-item {
-    text-align: center;
-    padding: 1.75rem 1.5rem;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 147, 186, 0.1);
-    border-radius: 16px;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.trust-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-}
-
-.trust-item:hover::before {
-    transform: scaleX(1);
-}
-
-.trust-item:hover {
-    transform: translateY(-8px);
-    border-color: rgba(0, 147, 186, 0.3);
-    box-shadow: 0 12px 32px rgba(0, 147, 186, 0.15);
-    background: white;
-}
-
-.trust-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 1rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.15) 0%, rgba(35, 62, 126, 0.1) 100%);
-    border-radius: 12px;
+/* ULTRA-SLEEK PREMIUM TOGGLE */
+.pricing-controls {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: var(--primary);
-    transition: all 0.3s ease;
-}
-
-.trust-item:hover .trust-icon {
-    transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    color: white;
-}
-
-.trust-text {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--secondary);
-    line-height: 1.5;
-}
-
-/* Toggles Container */
-.toggles-wrapper {
-    max-width: 1100px;
-    margin: 0 auto 2rem;
-    padding: 0 3rem;
-    display: flex;
+    flex-direction: column;
     gap: 2rem;
+    max-width: 900px;
+    margin: 3rem auto;
     align-items: center;
 }
 
-/* Service Toggle - Heaven Level */
-.service-toggle-container {
-    flex: 1;
-    max-width: 420px;
-}
-
-.service-toggle-wrapper {
-    display: flex;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border-radius: 14px;
-    padding: 0.35rem;
-    border: 1px solid rgba(0, 147, 186, 0.15);
-    box-shadow: 
-        0 4px 16px rgba(0, 147, 186, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    position: relative;
-}
-
-.service-toggle-bg {
-    position: absolute;
-    top: 0.35rem;
-    left: 0.35rem;
-    height: calc(100% - 0.7rem);
-    width: calc(50% - 0.35rem);
-    background: linear-gradient(135deg, #0093BA 0%, #1fa5c4 50%, #233E7E 100%);
-    background-size: 200% 200%;
-    border-radius: 11px;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 
-        0 4px 16px rgba(0, 147, 186, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    z-index: 1;
-    animation: gradientSlide 3s ease infinite;
-}
-
-@keyframes gradientSlide {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-
-.service-toggle-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
-    border-radius: 11px;
-}
-
-.service-toggle-option {
-    flex: 1;
-    padding: 0.875rem 1.25rem;
-    text-align: center;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--accent);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-    user-select: none;
-}
-
-.service-toggle-option.active {
-    color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Billing Toggle - Heaven Level */
-.billing-toggle-container {
-    flex: 1;
-    max-width: 400px;
-}
-
+.service-toggle-wrapper,
 .billing-toggle-wrapper {
-    display: flex;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border-radius: 14px;
-    padding: 0.35rem;
-    border: 1px solid rgba(0, 147, 186, 0.15);
-    box-shadow: 
-        0 4px 16px rgba(0, 147, 186, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    position: relative;
-}
-
-.billing-toggle-bg {
-    position: absolute;
-    top: 0.35rem;
-    left: 0.35rem;
-    height: calc(100% - 0.7rem);
-    background: linear-gradient(135deg, #0093BA 0%, #1fa5c4 50%, #233E7E 100%);
-    background-size: 200% 200%;
-    border-radius: 11px;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 
-        0 4px 16px rgba(0, 147, 186, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    z-index: 1;
-    animation: gradientSlide 3s ease infinite;
-}
-
-.billing-toggle-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
-    border-radius: 11px;
-}
-
-.billing-toggle-option {
-    flex: 1;
-    padding: 0.75rem 1rem;
     text-align: center;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--accent);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-    white-space: nowrap;
-    user-select: none;
 }
 
-.billing-toggle-option.active {
-    color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.billing-discount {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    padding: 0.2rem 0.5rem;
-    background: rgba(0, 147, 186, 0.2);
-    color: var(--primary);
-    border-radius: 6px;
-    margin-left: 0.35rem;
-    transition: all 0.3s ease;
-}
-
-.billing-toggle-option.active .billing-discount {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-}
-
-/* Compact Cards Grid */
-.premium-pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
-    max-width: 1100px;
-    margin: 0 auto 3rem;
-    padding: 0 3rem;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.premium-pricing-grid.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.premium-pricing-card {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 147, 186, 0.12);
-    border-radius: 16px;
-    padding: 2rem 1.75rem;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.premium-pricing-card::before {
-    content: '';
-    position: absolute;
-    inset: -100%;
-    background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 147, 186, 0.1) 90deg, transparent 180deg);
-    animation: cardRotate 8s linear infinite;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-@keyframes cardRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.premium-pricing-card:hover::before {
-    opacity: 1;
-}
-
-.premium-pricing-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 
-        0 20px 60px rgba(0, 147, 186, 0.2),
-        0 8px 24px rgba(35, 62, 126, 0.1);
-    border-color: rgba(0, 147, 186, 0.3);
-}
-
-.premium-pricing-card.featured {
-    border: 2px solid rgba(0, 147, 186, 0.25);
-    box-shadow: 0 8px 32px rgba(0, 147, 186, 0.12);
-}
-
-.card-badge {
-    display: inline-block;
-    padding: 0.4rem 0.875rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.12) 0%, rgba(35, 62, 126, 0.08) 100%);
-    color: var(--primary);
+.toggle-label {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-radius: 8px;
-    margin-bottom: 1.25rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.card-badge::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    transition: left 0.6s;
-}
-
-.premium-pricing-card:hover .card-badge::after {
-    left: 100%;
-}
-
-.premium-pricing-card.featured .card-badge {
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    color: white;
-}
-
-.card-name {
-    font-size: 1.625rem;
-    font-weight: 300;
-    color: var(--secondary);
+    color: var(--accent);
     margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
-.premium-pricing-card:hover .card-name {
-    transform: translateX(4px);
-}
-
-.card-price-wrapper {
-    min-height: 90px;
-    margin-bottom: 1.75rem;
-}
-
-.card-price {
-    font-size: 2.75rem;
-    font-weight: 200;
-    color: var(--primary);
-    line-height: 1;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.card-price.animating {
-    opacity: 0;
-    transform: scale(0.95) translateY(10px);
-}
-
-.card-period {
-    font-size: 0.875rem;
-    font-weight: 300;
-    color: var(--accent);
     opacity: 0.7;
-    margin-top: 0.5rem;
 }
 
-.card-savings {
-    display: inline-block;
-    padding: 0.4rem 0.875rem;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 8px;
-    margin-top: 0.75rem;
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 4px 12px rgba(0, 147, 186, 0.3);
-}
-
-.card-savings.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.card-features {
-    list-style: none;
-    margin-bottom: 1.75rem;
-}
-
-.card-features li {
-    padding: 0.65rem 0;
-    font-size: 0.9375rem;
-    font-weight: 300;
-    color: var(--accent);
-    border-bottom: 1px solid rgba(0, 147, 186, 0.08);
-    padding-left: 1.5rem;
+.service-toggle,
+.billing-toggle {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 100px;
+    padding: 0.35rem;
+    box-shadow: 
+        0 4px 20px rgba(0, 147, 186, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
     position: relative;
-    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 147, 186, 0.1);
 }
 
-.card-features li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 5px;
-    background: var(--primary);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.premium-pricing-card:hover .card-features li::before {
-    width: 8px;
-    height: 8px;
-}
-
-.card-cta {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    color: white;
+.service-option,
+.billing-option {
+    padding: 0.75rem 1.5rem;
+    background: none;
     border: none;
     font-size: 0.875rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 10px;
+    color: var(--accent);
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    font-family: inherit;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 147, 186, 0.3);
+    z-index: 2;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
 }
 
-.card-cta::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.6s ease;
+.service-option.active,
+.billing-option.active {
+    color: white;
 }
 
-.card-cta:hover::before {
-    width: 400%;
-    height: 400%;
+.option-icon {
+    font-size: 1rem;
 }
 
-.card-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.4);
-}
-
-/* Infinite Package */
-.infinite-package-wrapper {
-    max-width: 800px;
-    margin: 0 auto 3rem;
-    padding: 3rem 2.5rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.1) 0%, rgba(35, 62, 126, 0.06) 100%);
-    backdrop-filter: blur(30px);
-    border: 2px solid rgba(0, 147, 186, 0.25);
+.discount-badge {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    background: rgba(0, 147, 186, 0.1);
+    color: var(--primary);
     border-radius: 20px;
-    text-align: center;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.billing-option.active .discount-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.service-slider,
+.billing-slider {
+    position: absolute;
+    height: calc(100% - 0.7rem);
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    top: 0.35rem;
+    box-shadow: 
+        0 4px 15px rgba(0, 147, 186, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+/* PREMIUM PUNCHLINES */
+.pricing-punchlines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.punchline-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 249, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(0, 147, 186, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 147, 186, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.punchline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 147, 186, 0.1);
+}
+
+.punchline-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 147, 186, 0.1) 0%, rgba(35, 62, 126, 0.05) 100%);
+    border-radius: 15px;
+}
+
+.punchline-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 0.25rem;
+}
+
+.punchline-content p {
+    font-size: 0.875rem;
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+/* HELP CTA */
+.pricing-help-cta {
+    background: linear-gradient(135deg, rgba(0, 147, 186, 0.05) 0%, rgba(35, 62, 126, 0.03) 100%);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    border: 1px solid rgba(0, 147, 186, 0.1);
+}
+
+.help-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.help-text h3 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+.help-text p {
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+.help-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.help-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 147, 186, 0.3);
+}
+
+/* PAY WHEN READY */
+.pay-when-ready {
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    border-radius: 24px;
+    padding: 3rem;
+    margin: 4rem 0;
     position: relative;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(40px);
 }
 
-.infinite-package-wrapper.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.infinite-package-wrapper::after {
+.pay-when-ready::before {
     content: '';
     position: absolute;
-    inset: -150%;
-    background: conic-gradient(from 0deg at 50% 50%, 
-        transparent 0deg, 
-        rgba(0, 147, 186, 0.15) 60deg, 
-        transparent 120deg,
-        rgba(35, 62, 126, 0.12) 180deg,
-        transparent 240deg,
-        rgba(0, 147, 186, 0.15) 300deg,
-        transparent 360deg);
-    animation: infiniteSpin 12s linear infinite;
-    opacity: 0;
-    transition: opacity 0.5s;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
 }
 
-@keyframes infiniteSpin {
+@keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-.infinite-package-wrapper:hover::after {
-    opacity: 1;
-}
-
-.infinite-package-wrapper:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 
-        0 24px 72px rgba(0, 147, 186, 0.25),
-        0 12px 36px rgba(35, 62, 126, 0.15);
-}
-
-.infinite-content {
+.pwr-content {
     position: relative;
     z-index: 1;
+    text-align: center;
 }
 
-.infinite-badge {
+.pwr-badge {
     display: inline-block;
-    padding: 0.6rem 1.75rem;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    font-size: 0.8125rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
     font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    border-radius: 30px;
-    margin-bottom: 1.75rem;
-    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.4);
-    position: relative;
-    overflow: hidden;
+    margin-bottom: 1.5rem;
 }
 
-.infinite-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+.pwr-content h3 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 0.75rem;
 }
 
-.infinite-package-wrapper:hover .infinite-badge::before {
-    animation: badgeShine 1.5s ease infinite;
-}
-
-@keyframes badgeShine {
-    to { left: 100%; }
-}
-
-.infinite-name {
-    font-size: 3rem;
-    font-weight: 200;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1.25rem;
-}
-
-.infinite-desc {
+.pwr-content p {
     font-size: 1.125rem;
-    font-weight: 300;
-    color: var(--accent);
-    margin-bottom: 2.5rem;
-    max-width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-}
-
-.infinite-price {
-    font-size: 4rem;
-    font-weight: 200;
-    color: var(--primary);
-    line-height: 1;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.infinite-price.animating {
-    opacity: 0;
-    transform: scale(0.9);
-}
-
-.infinite-period {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--accent);
-    opacity: 0.7;
-    margin-top: 0.75rem;
-    margin-bottom: 2.5rem;
-}
-
-.infinite-cta {
-    display: inline-block;
-    padding: 1.25rem 3rem;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     color: white;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 8px 32px rgba(0, 147, 186, 0.4);
-    position: relative;
-    overflow: hidden;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2rem;
 }
 
-.infinite-cta::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.6s ease;
-}
-
-.infinite-cta:hover::before {
-    width: 400%;
-    height: 400%;
-}
-
-.infinite-cta:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 40px rgba(0, 147, 186, 0.5);
-}
-
-/* Premium Activation Note */
-.activation-note {
-    max-width: 800px;
-    margin: 0 auto 4rem;
-    padding: 2.5rem 3rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.08) 0%, rgba(35, 62, 126, 0.05) 100%);
-    border: 1px solid rgba(0, 147, 186, 0.2);
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.activation-note.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.activation-note::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, #0093BA 0%, #233E7E 100%);
-}
-
-.activation-icon {
-    display: inline-block;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
-    border-radius: 50%;
+.pwr-timeline {
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 1.75rem;
-    color: white;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.3);
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.activation-note h3 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--secondary);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.activation-note p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--accent);
-    line-height: 1.8;
-    margin: 0;
-    text-align: center;
-}
-
-.activation-note strong {
-    font-weight: 500;
-    color: var(--primary);
-}
-
-/* How It Works Section */
-.how-it-works-section {
-    max-width: 1100px;
-    margin: 0 auto 4rem;
-    padding: 0 3rem;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.how-it-works-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.how-it-works-title {
-    text-align: center;
-    font-size: 2.25rem;
-    font-weight: 200;
-    color: var(--secondary);
-    margin-bottom: 4rem;
-}
-
-.steps-container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-}
-
-.connecting-line {
-    position: absolute;
-    top: 64px;
-    left: 16.66%;
-    right: 16.66%;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        rgba(0, 147, 186, 0.2) 0%, 
-        rgba(0, 147, 186, 0.4) 50%, 
-        rgba(0, 147, 186, 0.2) 100%);
-    z-index: 0;
-}
-
-.connecting-line-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
-    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.how-it-works-section.visible .connecting-line-fill {
-    width: 100%;
-}
-
-.step-item {
-    position: relative;
-    text-align: center;
-    z-index: 1;
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .step-number {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1.5rem;
-    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.timeline-step.active .step-number {
+    background: white;
+    color: var(--primary);
+}
+
+.step-text {
+    font-size: 0.875rem;
+    color: white;
+    opacity: 0.9;
+}
+
+.timeline-line {
+    width: 100px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+/* ADDITIONAL SERVICES ULTRA */
+.additional-services-ultra {
+    margin: 4rem 0;
+}
+
+.as-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--secondary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.as-carousel {
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.as-track {
+    display: flex;
+    gap: 1.5rem;
+    min-width: max-content;
+}
+
+.as-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 249, 0.95) 100%);
+    border: 1px solid rgba(0, 147, 186, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.as-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 147, 186, 0.15);
+}
+
+.as-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.as-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+.as-price {
+    font-size: 1.75rem;
+    font-weight: 200;
+    color: var(--primary);
+}
+
+.as-price span {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+/* REFERRAL CARD ULTRA */
+.referral-card-ultra {
+    background: linear-gradient(135deg, rgba(0, 147, 186, 0.05) 0%, rgba(35, 62, 126, 0.03) 100%);
+    border-radius: 24px;
+    padding: 3rem;
+    text-align: center;
+    border: 1px solid rgba(0, 147, 186, 0.1);
+    margin: 3rem 0;
+}
+
+.referral-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.referral-content h3 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+}
+
+.referral-content p {
+    font-size: 1.125rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.referral-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.referral-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 147, 186, 0.3);
+}
+
+.referral-note {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+/* HOW IT WORKS ULTRA */
+.how-it-works-ultra {
+    margin: 4rem 0;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 249, 0.95) 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(0, 147, 186, 0.08);
+}
+
+.how-it-works-ultra h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--secondary);
+    margin-bottom: 3rem;
+}
+
+.hiw-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.hiw-path {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 2rem;
+}
+
+.hiw-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.hiw-step {
+    text-align: center;
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+}
+
+.hiw-step.active {
+    opacity: 1;
+}
+
+.step-circle {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    font-weight: 500;
-    color: white;
-    box-shadow: 
-        0 8px 24px rgba(0, 147, 186, 0.3),
-        0 0 0 8px rgba(255, 255, 255, 1);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
+    font-weight: 600;
+    transition: transform 0.3s ease;
 }
 
-.step-number::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, #0093BA, #233E7E) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
-}
-
-.step-item:hover .step-number::before {
-    opacity: 1;
-}
-
-.step-item:hover .step-number {
+.hiw-step.active .step-circle {
     transform: scale(1.1);
-    box-shadow: 
-        0 12px 32px rgba(0, 147, 186, 0.4),
-        0 0 0 8px rgba(255, 255, 255, 1);
+    box-shadow: 0 10px 30px rgba(0, 147, 186, 0.3);
 }
 
-.step-title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--secondary);
-    margin-bottom: 0.75rem;
+/* FAQ ULTRA */
+.faq-section-ultra {
+    margin: 4rem 0;
 }
 
-.step-desc {
-    font-size: 0.9375rem;
-    font-weight: 300;
-    color: var(--accent);
-    line-height: 1.6;
-}
-
-.step-note {
-    font-size: 0.8125rem;
-    font-weight: 300;
-    color: var(--accent);
-    opacity: 0.6;
-    margin-top: 0.75rem;
-    font-style: italic;
-}
-
-/* Additional Services */
-.additional-services-section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 3rem 4rem;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.additional-services-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.additional-services-header {
+.faq-section-ultra h2 {
     text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--secondary);
     margin-bottom: 3rem;
 }
 
-.additional-services-header h2 {
-    font-size: 2.25rem;
-    font-weight: 200;
-    color: var(--secondary);
-    margin-bottom: 0.75rem;
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.additional-services-header p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--accent);
-}
-
-.additional-services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-
-.additional-service-card {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 147, 186, 0.12);
-    border-radius: 14px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.additional-service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
-    transform: translateX(-50%);
-    transition: width 0.4s ease;
-}
-
-.additional-service-card:hover::before {
-    width: 100%;
-}
-
-.additional-service-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(0, 147, 186, 0.3);
-    box-shadow: 0 12px 32px rgba(0, 147, 186, 0.15);
-}
-
-.additional-service-name {
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: var(--secondary);
+.faq-item {
+    background: white;
+    border: 1px solid rgba(0, 147, 186, 0.08);
+    border-radius: 16px;
     margin-bottom: 1rem;
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
-.additional-service-card:hover .additional-service-name {
-    color: var(--primary);
+.faq-item[open] {
+    box-shadow: 0 10px 30px rgba(0, 147, 186, 0.1);
 }
 
-.additional-service-price {
-    font-size: 2rem;
-    font-weight: 200;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
+.faq-item summary {
+    padding: 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--secondary);
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+    padding-right: 3rem;
 }
 
-.additional-service-note {
-    font-size: 0.8125rem;
-    font-weight: 300;
+.faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-content {
+    padding: 0 1.5rem 1.5rem;
     color: var(--accent);
-    opacity: 0.7;
+    line-height: 1.8;
 }
 
-/* Staggered Animations */
-.premium-pricing-grid .premium-pricing-card {
-    animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    opacity: 0;
-}
-
-.premium-pricing-grid.visible .premium-pricing-card:nth-child(1) { animation-delay: 0.1s; }
-.premium-pricing-grid.visible .premium-pricing-card:nth-child(2) { animation-delay: 0.2s; }
-.premium-pricing-grid.visible .premium-pricing-card:nth-child(3) { animation-delay: 0.3s; }
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.additional-services-grid .additional-service-card {
-    animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    opacity: 0;
-}
-
-.additional-services-section.visible .additional-service-card:nth-child(1) { animation-delay: 0.1s; }
-.additional-services-section.visible .additional-service-card:nth-child(2) { animation-delay: 0.15s; }
-.additional-services-section.visible .additional-service-card:nth-child(3) { animation-delay: 0.2s; }
-.additional-services-section.visible .additional-service-card:nth-child(4) { animation-delay: 0.25s; }
-.additional-services-section.visible .additional-service-card:nth-child(5) { animation-delay: 0.3s; }
-
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-    .premium-pricing-grid {
-        grid-template-columns: 1fr;
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .pricing-controls {
+        gap: 1.5rem;
     }
     
-    .toggles-wrapper {
-        flex-direction: column;
-        gap: 1rem;
+    .service-option,
+    .billing-option {
+        padding: 0.65rem 1rem;
+        font-size: 0.8125rem;
     }
     
-    .service-toggle-container,
-    .billing-toggle-container {
-        max-width: 100%;
-    }
-    
-    .steps-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-    
-    .connecting-line {
+    .option-icon {
         display: none;
     }
     
-    .trust-section {
+    .help-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .pricing-punchlines {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .pricing-header-section {
-        padding: 4rem 1.5rem 1.5rem;
+        gap: 1rem;
     }
     
-    .section-desc-luxury {
-        font-size: 1.125rem;
+    .pwr-timeline {
+        flex-direction: column;
     }
     
-    .rotating-word-luxury {
-        font-size: 1.125rem;
+    .timeline-line {
+        width: 2px;
+        height: 40px;
     }
     
-    .rotating-pill {
-        min-width: 110px;
-        height: 2.5rem;
-    }
-    
-    .premium-pricing-grid,
-    .how-it-works-section,
-    .additional-services-section,
-    .toggles-wrapper {
-        padding: 0 1.5rem;
-    }
-    
-    .infinite-package-wrapper {
-        padding: 2.5rem 2rem;
-    }
-    
-    .infinite-name {
-        font-size: 2.25rem;
-    }
-    
-    .infinite-price {
-        font-size: 3rem;
-    }
-    
-    .activation-note {
-        padding: 2rem 1.5rem;
-    }
-    
-    .card-price {
-        font-size: 2.25rem;
+    .as-carousel {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
 @media (max-width: 480px) {
-    .premium-pricing-card {
-        padding: 1.75rem 1.5rem;
+    .service-toggle,
+    .billing-toggle {
+        flex-direction: column;
+        border-radius: 16px;
+        width: 100%;
     }
     
-    .how-it-works-title {
-        font-size: 1.875rem;
+    .service-slider,
+    .billing-slider {
+        border-radius: 12px;
     }
 }
     </style>
@@ -4486,257 +4000,274 @@ body.loaded .hero-buttons {
         </div>
     </div>
     
-    <!-- PRICING PAGE -->
+    <!-- ULTRA-PREMIUM PRICING PAGE -->
 <div id="pricing" class="page">
-        <div class="content-page">
-            <div class="section-container">
-                <!-- Header -->
-                <div class="pricing-header-section">
-                    <div class="section-label">Investment</div>
-                    <h1 class="section-title">Pricing</h1>
-                    <p class="section-desc-luxury">
-                        Packages built for businesses ready to
-                        <span class="rotating-text-inline">
-                            <div class="rotating-pill">
-                                <div class="rotating-word-container" id="rotatingLuxury"></div>
-                            </div>
-                        </span>
-                    </p>
-                </div>
-                
-                <!-- Trust Section -->
-                <div class="trust-section">
-                    <div class="trust-item">
-                        <div class="trust-icon">✓</div>
-                        <div class="trust-text">Straightforward and transparent pricing</div>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">◆</div>
-                        <div class="trust-text">No pretense, no hidden costs</div>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">↻</div>
-                        <div class="trust-text">Pause or cancel anytime</div>
+    <div class="content-page" style="padding-top: 6rem;">
+        <div class="section-container">
+            
+            <!-- HERO WITH ROTATING WORDS -->
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <div class="section-label">Investment</div>
+                <h1 class="section-title">Pricing</h1>
+                <p class="section-desc-animated">
+                    Packages built for businesses ready to
+                    <span class="rotating-text-wrapper">
+                        <span class="rotating-text active">start</span>
+                        <span class="rotating-text">grow</span>
+                        <span class="rotating-text">scale</span>
+                        <span class="rotating-text">dominate</span>
+                        <span class="rotating-text">lead</span>
+                    </span>
+                </p>
+            </div>
+
+            <!-- PREMIUM PUNCHLINES -->
+            <div class="pricing-punchlines">
+                <div class="punchline-card">
+                    <div class="punchline-icon">◆</div>
+                    <div class="punchline-content">
+                        <h3>Straightforward & Transparent</h3>
+                        <p>No pretense, no hidden costs</p>
                     </div>
                 </div>
-                
-                <!-- Toggles -->
-                <div class="toggles-wrapper">
-                    <div class="service-toggle-container">
-                        <div class="service-toggle-wrapper">
-                            <div class="service-toggle-bg" id="serviceToggleBg"></div>
-                            <div class="service-toggle-option active" data-service="marketing">
-                                Design & Marketing
-                            </div>
-                            <div class="service-toggle-option" data-service="development">
-                                Design & Development
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="billing-toggle-container">
-                        <div class="billing-toggle-wrapper">
-                            <div class="billing-toggle-bg" id="billingToggleBg"></div>
-                            <div class="billing-toggle-option active" data-billing="monthly">Monthly</div>
-                            <div class="billing-toggle-option" data-billing="quarterly">
-                                Quarterly<span class="billing-discount">-10%</span>
-                            </div>
-                            <div class="billing-toggle-option" data-billing="yearly">
-                                Yearly<span class="billing-discount">-20%</span>
-                            </div>
-                        </div>
+                <div class="punchline-card">
+                    <div class="punchline-icon">↻</div>
+                    <div class="punchline-content">
+                        <h3>Pause or Cancel Anytime</h3>
+                        <p>Full control, zero commitment</p>
                     </div>
                 </div>
-                
-                <!-- Marketing Cards -->
-                <div class="premium-pricing-grid" id="marketingCards">
-                    <div class="premium-pricing-card">
-                        <div class="card-badge">Starter</div>
-                        <h3 class="card-name">Prestige</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$495</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Brand Strategy & Identity</li>
-                            <li>Social Media Management</li>
-                            <li>Content Creation</li>
-                            <li>Monthly Analytics</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
-                    </div>
-                    
-                    <div class="premium-pricing-card featured">
-                        <div class="card-badge">Popular</div>
-                        <h3 class="card-name">Elite</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$895</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Everything in Prestige</li>
-                            <li>SEO Strategy</li>
-                            <li>Paid Advertising</li>
-                            <li>Motion Graphics</li>
-                            <li>Priority Support</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
-                    </div>
-                    
-                    <div class="premium-pricing-card">
-                        <div class="card-badge">Enterprise</div>
-                        <h3 class="card-name">Luminary</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$1,395</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Everything in Elite</li>
-                            <li>Dedicated Manager</li>
-                            <li>Multi-channel Campaigns</li>
-                            <li>Weekly Strategy</li>
-                            <li>VIP Support</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
+                <div class="punchline-card">
+                    <div class="punchline-icon">✓</div>
+                    <div class="punchline-content">
+                        <h3>Start When Ready</h3>
+                        <p>Billing begins with first task</p>
                     </div>
                 </div>
-                
-                <!-- Development Cards -->
-                <div class="premium-pricing-grid" id="developmentCards" style="display: none;">
-                    <div class="premium-pricing-card">
-                        <div class="card-badge">Starter</div>
-                        <h3 class="card-name">Architect</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$695</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Custom Website Design</li>
-                            <li>Responsive Development</li>
-                            <li>CMS Integration</li>
-                            <li>Basic SEO Setup</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
-                    </div>
-                    
-                    <div class="premium-pricing-card featured">
-                        <div class="card-badge">Popular</div>
-                        <h3 class="card-name">Vanguard</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$1,195</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Everything in Architect</li>
-                            <li>E-commerce Development</li>
-                            <li>Custom Integrations</li>
-                            <li>Performance Optimization</li>
-                            <li>Priority Support</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
-                    </div>
-                    
-                    <div class="premium-pricing-card">
-                        <div class="card-badge">Enterprise</div>
-                        <h3 class="card-name">Quantum</h3>
-                        <div class="card-price-wrapper">
-                            <div class="card-price">$1,895</div>
-                            <div class="card-period">per month</div>
-                        </div>
-                        <ul class="card-features">
-                            <li>Everything in Vanguard</li>
-                            <li>Web Applications</li>
-                            <li>API Development</li>
-                            <li>Cloud Infrastructure</li>
-                            <li>24/7 Support</li>
-                        </ul>
-                        <button class="card-cta" onclick="navigateTo('contact')">Get Started</button>
+            </div>
+
+            <!-- ULTRA-SLEEK TOGGLE CONTROLS -->
+            <div class="pricing-controls">
+                <!-- Service Type Toggle -->
+                <div class="service-toggle-wrapper">
+                    <div class="toggle-label">Choose Your Service</div>
+                    <div class="service-toggle">
+                        <button class="service-option active" data-service="marketing">
+                            <span class="option-icon">🎨</span>
+                            Design & Marketing
+                        </button>
+                        <button class="service-option" data-service="development">
+                            <span class="option-icon">⚡</span>
+                            Design & Development
+                        </button>
+                        <button class="service-option" data-service="allinone">
+                            <span class="option-icon">🚀</span>
+                            All-in-One
+                        </button>
+                        <div class="service-slider"></div>
                     </div>
                 </div>
-                
-                <!-- Infinite Package -->
-                <div class="infinite-package-wrapper">
-                    <div class="infinite-content">
-                        <div class="infinite-badge">Ultimate Solution</div>
-                        <h2 class="infinite-name">Infinite</h2>
-                        <p class="infinite-desc">Complete design, development, and marketing excellence. Everything you need to dominate your industry.</p>
-                        <div class="infinite-price">$2,495</div>
-                        <div class="infinite-period">per month</div>
-                        <a href="#" class="infinite-cta" onclick="navigateTo('contact')">Get Infinite</a>
+
+                <!-- Billing Cycle Toggle -->
+                <div class="billing-toggle-wrapper">
+                    <div class="toggle-label">Billing Cycle</div>
+                    <div class="billing-toggle">
+                        <button class="billing-option active" data-billing="monthly">Monthly</button>
+                        <button class="billing-option" data-billing="quarterly">
+                            Quarterly
+                            <span class="discount-badge">-10%</span>
+                        </button>
+                        <button class="billing-option" data-billing="yearly">
+                            Yearly
+                            <span class="discount-badge">-20%</span>
+                        </button>
+                        <div class="billing-slider"></div>
                     </div>
                 </div>
-                
-                <!-- How It Works -->
-                <div class="how-it-works-section">
-                    <h2 class="how-it-works-title">How It Works</h2>
-                    <div class="steps-container">
-                        <div class="connecting-line">
-                            <div class="connecting-line-fill"></div>
-                        </div>
-                        
-                        <div class="step-item">
-                            <div class="step-number">1</div>
-                            <h3 class="step-title">Subscribe</h3>
-                            <p class="step-desc">Choose your plan and complete the subscription process</p>
-                        </div>
-                        
-                        <div class="step-item">
-                            <div class="step-number">2</div>
-                            <h3 class="step-title">Get Your Manager</h3>
-                            <p class="step-desc">You'll be assigned a dedicated account manager within 24-48 hours</p>
-                        </div>
-                        
-                        <div class="step-item">
-                            <div class="step-number">3</div>
-                            <h3 class="step-title">Start Creating</h3>
-                            <p class="step-desc">Assign your first task and we begin immediately</p>
-                            <p class="step-note">Your subscription starts when you assign your first task</p>
-                        </div>
+            </div>
+
+            <!-- HELP CTA -->
+            <div class="pricing-help-cta">
+                <div class="help-content">
+                    <div class="help-text">
+                        <h3>Not sure which option suits you best?</h3>
+                        <p>Our digital solution experts will craft a custom package just for your needs. Available 24/7.</p>
                     </div>
+                    <button class="help-btn" onclick="navigateTo('contact')">
+                        <span>Contact Expert Now</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
                 </div>
-                
-                <!-- Activation Note -->
-                <div class="activation-note">
-                    <div class="activation-icon">⚡</div>
+            </div>
+
+            <!-- PRICING CARDS CONTAINER -->
+            <div class="pricing-grid" id="pricingGrid">
+                <!-- Cards will be dynamically inserted based on toggle selection -->
+            </div>
+
+            <!-- PAY WHEN READY FEATURE -->
+            <div class="pay-when-ready">
+                <div class="pwr-content">
+                    <div class="pwr-badge">Premium Feature</div>
                     <h3>Pay When You're Ready</h3>
-                    <p><strong>Your plan activates only when you assign your first task, not at checkout.</strong> Take your time to explore, plan your strategy, and start when you're ready. We're here when you need us.</p>
-                </div>
-                
-                <!-- Additional Services -->
-                <div class="additional-services-section">
-                    <div class="additional-services-header">
-                        <h2>Additional Services</h2>
-                        <p>Specialized solutions to complement your growth</p>
-                    </div>
-                    <div class="additional-services-grid">
-                        <div class="additional-service-card">
-                            <h3 class="additional-service-name">SEO Services</h3>
-                            <div class="additional-service-price">$400</div>
-                            <div class="additional-service-note">Starting from / month</div>
+                    <p>Your plan activates only when you assign your first task, not at checkout.</p>
+                    <div class="pwr-timeline">
+                        <div class="timeline-step active">
+                            <span class="step-number">1</span>
+                            <span class="step-text">Choose Plan</span>
                         </div>
-                        <div class="additional-service-card">
-                            <h3 class="additional-service-name">Shopify Store</h3>
-                            <div class="additional-service-price">$200</div>
-                            <div class="additional-service-note">Starting from / month</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-step">
+                            <span class="step-number">2</span>
+                            <span class="step-text">Explore Platform</span>
                         </div>
-                        <div class="additional-service-card">
-                            <h3 class="additional-service-name">Website Design</h3>
-                            <div class="additional-service-price">$500</div>
-                            <div class="additional-service-note">Starting from</div>
-                        </div>
-                        <div class="additional-service-card">
-                            <h3 class="additional-service-name">Social Media Marketing</h3>
-                            <div class="additional-service-price">$1,000</div>
-                            <div class="additional-service-note">Starting from / month</div>
-                        </div>
-                        <div class="additional-service-card">
-                            <h3 class="additional-service-name">Lead Generation</h3>
-                            <div class="additional-service-price">$999</div>
-                            <div class="additional-service-note">Starting from / month</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-step">
+                            <span class="step-number">3</span>
+                            <span class="step-text">Start Billing</span>
                         </div>
                     </div>
                 </div>
-                
+            </div>
+
+            <!-- ADDITIONAL SERVICES - SINGLE LINE -->
+            <div class="additional-services-ultra">
+                <h3 class="as-title">Additional Services</h3>
+                <div class="as-carousel">
+                    <div class="as-track">
+                        <div class="as-card">
+                            <div class="as-icon">🌐</div>
+                            <div class="as-name">Website Design</div>
+                            <div class="as-price">$500<span>/mo</span></div>
+                        </div>
+                        <div class="as-card">
+                            <div class="as-icon">🛍️</div>
+                            <div class="as-name">Shopify Store</div>
+                            <div class="as-price">$200<span>/mo</span></div>
+                        </div>
+                        <div class="as-card">
+                            <div class="as-icon">📱</div>
+                            <div class="as-name">Social Media</div>
+                            <div class="as-price">$1,000<span>/mo</span></div>
+                        </div>
+                        <div class="as-card">
+                            <div class="as-icon">🎯</div>
+                            <div class="as-name">Lead Generation</div>
+                            <div class="as-price">$999<span>/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REFERRAL PROGRAM -->
+            <div class="referral-card-ultra">
+                <div class="referral-content">
+                    <div class="referral-badge">Earn Rewards</div>
+                    <h3>Refer a Friend & Earn</h3>
+                    <p>Earn 10% monthly recurring commission for each referral</p>
+                    <button class="referral-btn" onclick="navigateTo('referral')">
+                        Join Now
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <small class="referral-note">*Existing customers receive account credits instead of cash</small>
+                </div>
+            </div>
+
+            <!-- HOW IT WORKS WITH SEQUENTIAL ANIMATION -->
+            <div class="how-it-works-ultra">
+                <h2>How It Works</h2>
+                <div class="hiw-container">
+                    <svg class="hiw-path" viewBox="0 0 800 100" preserveAspectRatio="none">
+                        <path id="progressPath" d="M 50 50 L 400 50 L 750 50" stroke="#e0e0e0" stroke-width="2" fill="none"/>
+                        <path id="animatedPath" d="M 50 50 L 400 50 L 750 50" stroke="url(#gradient)" stroke-width="3" fill="none" stroke-dasharray="700" stroke-dashoffset="700"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#0093BA"/>
+                                <stop offset="100%" style="stop-color:#233E7E"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="hiw-steps">
+                        <div class="hiw-step" data-step="1">
+                            <div class="step-circle">1</div>
+                            <h4>Subscribe</h4>
+                            <p>Choose your perfect plan</p>
+                        </div>
+                        <div class="hiw-step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <h4>Onboard</h4>
+                            <p>Share your requirements</p>
+                        </div>
+                        <div class="hiw-step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <h4>Launch</h4>
+                            <p>Watch your vision come to life</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ SECTION -->
+            <div class="faq-section-ultra">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <details class="faq-item">
+                        <summary>Why wouldn't I just hire a full-time designer?</summary>
+                        <div class="faq-content">
+                            A full-time senior designer costs $100k+ annually. With our subscription, you get an entire team of specialists for a fraction of the cost, with the flexibility to pause or scale as needed.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Why wouldn't I just hire another agency or freelancer?</summary>
+                        <div class="faq-content">
+                            Agencies often have lengthy contracts and hidden fees. Freelancers can be unreliable. We offer consistent quality, transparent pricing, and the ability to cancel anytime.
+                        </div>
+                    </details>
+                    <!-- Add remaining FAQs following the same pattern -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <!-- REFERRAL PAGE -->
+<div id="referral" class="page">
+    <div class="content-page">
+        <div class="content-container">
+            <div class="content-header">
+                <h1 class="content-title">Referral Program</h1>
+                <p class="content-date">Earn While You Share</p>
+            </div>
+            <div class="content-body">
+                <section>
+                    <h2>Terms & Conditions</h2>
+                    <p>Welcome to the Dappic Referral Program. By participating, you agree to the following terms:</p>
+                </section>
+                <section>
+                    <h2>1. Commission Structure</h2>
+                    <p>Earn 10% monthly recurring commission for each successful referral who maintains an active subscription for at least 90 days.</p>
+                </section>
+                <section>
+                    <h2>2. Existing Customers</h2>
+                    <p>If you are an existing Dappic customer, your referral commissions will be credited to your account as a balance adjustment against your monthly dues rather than cash payments.</p>
+                </section>
+                <section>
+                    <h2>3. Qualifying Referrals</h2>
+                    <p>A qualifying referral must be a new customer who has not previously held an account with Dappic and subscribes to a paid plan.</p>
+                </section>
+                <section>
+                    <h2>4. Payment Terms</h2>
+                    <p>Commissions are paid monthly, 30 days after the referred customer's payment is processed. Minimum payout threshold is $100.</p>
+                </section>
+                <section>
+                    <h2>5. Program Rules</h2>
+                    <p>Self-referrals, spam, or misleading marketing practices are prohibited and will result in immediate termination from the program.</p>
+                </section>
             </div>
         </div>
     </div>
@@ -4766,6 +4297,7 @@ body.loaded .hero-buttons {
             </div>
         </div>
     </div>
+    
     
     <!-- CONTACT PAGE -->
     <div id="contact" class="page">
@@ -5434,7 +4966,7 @@ body.loaded .hero-buttons {
                 return;
             }
             
-            const validPages = ['home', 'work', 'services', 'pricing', 'locations', 'contact', 'careers', 'blog' , 'terms', 'privacy'];
+            const validPages = ['home', 'work', 'services', 'pricing', 'locations', 'contact', 'careers', 'blog' , 'terms', 'privacy', 'referral'];
             if (!validPages.includes(page)) return;
             
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -5734,7 +5266,7 @@ body.loaded .hero-buttons {
             cookieConsent.init();
             // Handle initial hash
             const hash = window.location.hash.substring(1);
-            const validPages = ['home', 'work', 'services', 'pricing', 'careers', 'blog', 'locations', 'contact', 'terms', 'privacy'];
+            const validPages = ['home', 'work', 'services', 'pricing', 'careers', 'blog', 'locations', 'contact', 'terms', 'privacy', 'referral'];
             if (hash && validPages.includes(hash)) {
                 navigateTo(hash);
             }
@@ -5794,511 +5326,300 @@ body.loaded .hero-buttons {
                 revealOnScroll();
             }, 250);
         }, { passive: true });
-// ===== SLEEK PREMIUM TOGGLE =====
-const pricingToggle = {
-    monthlyPrices: {
-        'Essential': 450,
-        'Professional': 900,
-        'Business': 1200,
-        'Enterprise': 1500
-    },
-    
-    discounts: {
-        'monthly': 0,
-        'quarterly': 0.10,
-        'yearly': 0.20
-    },
-    
-    currentBilling: 'monthly',
-    initialized: false,
-    
-    init: function() {
-        const options = document.querySelectorAll('.pricing-toggle-option');
-        const bg = document.getElementById('toggleBg');
-        
-        if (!bg || !options.length) return;
-        
-        // Set initial position immediately
-        const activeOption = document.querySelector('.pricing-toggle-option.active');
-        if (activeOption && !this.initialized) {
-            const width = activeOption.offsetWidth;
-            const left = activeOption.offsetLeft - 4.8;
-            bg.style.width = `${width}px`;
-            bg.style.transform = `translateX(${left}px)`;
-            bg.style.opacity = '1';
-            this.initialized = true;
+// ===== ULTRA-PREMIUM PRICING PAGE FUNCTIONALITY =====
+(function() {
+    // Only run if on pricing page
+    function initPricingPage() {
+        const pricingPage = document.getElementById('pricing');
+        if (!pricingPage || !pricingPage.classList.contains('active')) return;
+
+        // Rotating text animation
+        const rotatingTexts = document.querySelectorAll('.rotating-text');
+        if (rotatingTexts.length > 0) {
+            let currentIndex = 0;
+            
+            function rotateWords() {
+                rotatingTexts.forEach(text => text.classList.remove('active'));
+                rotatingTexts[currentIndex].classList.add('active');
+                currentIndex = (currentIndex + 1) % rotatingTexts.length;
+            }
+            
+            rotatingTexts[0].classList.add('active');
+            setInterval(rotateWords, 2500);
         }
+
+        // Service toggle functionality
+        const serviceOptions = document.querySelectorAll('.service-option');
+        const serviceSlider = document.querySelector('.service-slider');
+        const pricingGrid = document.getElementById('pricingGrid');
         
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                const billing = option.dataset.billing;
-                const index = parseInt(option.dataset.index);
-                
-                if (this.currentBilling === billing) return;
-                
-                this.currentBilling = billing;
-                
-                // Update active state
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                
-                // Move background
-                const width = option.offsetWidth;
-                const left = option.offsetLeft - 4.8;
-                bg.style.width = `${width}px`;
-                bg.style.transform = `translateX(${left}px)`;
-                
-                // Update prices
-                this.updatePricing();
-                
-                if (typeof gtag === 'function') {
-                    gtag('event', 'pricing_toggle', { 'billing_type': billing });
+        // Pricing data with your actual prices
+        const pricingData = {
+            marketing: [
+                {
+                    name: 'Prestige',
+                    monthlyPrice: 495,
+                    features: ['Brand Strategy & Identity', 'Social Media Management', 'Content Creation', 'Monthly Analytics']
+                },
+                {
+                    name: 'Elite',
+                    monthlyPrice: 895,
+                    features: ['Everything in Prestige', 'SEO Strategy', 'Paid Advertising', 'Motion Graphics', 'Priority Support'],
+                    featured: true
+                },
+                {
+                    name: 'Luminary',
+                    monthlyPrice: 1395,
+                    features: ['Dedicated Manager', 'Multi-channel Campaigns', 'Weekly Strategy', 'VIP Support']
                 }
+            ],
+            development: [
+                {
+                    name: 'Architect',
+                    monthlyPrice: 695,
+                    features: ['Custom Website Design', 'Responsive Development', 'CMS Integration', 'Basic SEO Setup']
+                },
+                {
+                    name: 'Vanguard',
+                    monthlyPrice: 1195,
+                    features: ['Everything in Architect', 'E-commerce Development', 'Custom Integrations', 'Performance Optimization', 'Priority Support'],
+                    featured: true
+                },
+                {
+                    name: 'Quantum',
+                    monthlyPrice: 1895,
+                    features: ['Everything in Vanguard', 'Web Applications', 'API Development', 'Cloud Infrastructure', '24/7 Support']
+                }
+            ],
+            allinone: [
+                {
+                    name: 'Infinite',
+                    monthlyPrice: 3500,
+                    features: [
+                        'Everything from All Packages',
+                        'Unlimited Design & Development',
+                        'Complete Marketing Suite',
+                        'Dedicated Team',
+                        'White Glove Service',
+                        '24/7 Priority Support'
+                    ],
+                    ultimate: true
+                }
+            ]
+        };
+
+        let currentBilling = 'monthly';
+        const billingDiscounts = {
+            monthly: 0,
+            quarterly: 0.10,
+            yearly: 0.20
+        };
+
+        function createPricingCard(data) {
+            const discountedPrice = Math.round(data.monthlyPrice * (1 - billingDiscounts[currentBilling]));
+            const card = document.createElement('div');
+            card.className = `pricing-card ${data.featured ? 'featured' : ''} ${data.ultimate ? 'ultimate-card' : ''}`;
+            
+            card.innerHTML = `
+                ${data.featured ? '<div class="pricing-badge">Most Popular</div>' : ''}
+                ${data.ultimate ? '<div class="pricing-badge ultimate-badge">Ultimate Solution</div>' : ''}
+                <div class="pricing-name">${data.name}</div>
+                <div class="pricing-price-wrapper">
+                    ${currentBilling !== 'monthly' ? `<div class="pricing-savings-badge show">Save $${Math.round(data.monthlyPrice * billingDiscounts[currentBilling] * (currentBilling === 'quarterly' ? 3 : 12))}/${currentBilling === 'quarterly' ? 'quarter' : 'year'}</div>` : ''}
+                    <div class="pricing-price">$${discountedPrice.toLocaleString()}</div>
+                    <div class="pricing-period">per month</div>
+                    ${currentBilling === 'quarterly' ? `<div class="pricing-discount-note show">$${(discountedPrice * 3).toLocaleString()} billed quarterly</div>` : ''}
+                    ${currentBilling === 'yearly' ? `<div class="pricing-discount-note show">$${(discountedPrice * 12).toLocaleString()} billed annually</div>` : ''}
+                </div>
+                <ul class="pricing-features">
+                    ${data.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+                <button class="pricing-btn" onclick="navigateTo('contact')">Get Started</button>
+            `;
+            return card;
+        }
+
+        function updatePricingCards(service) {
+            if (!pricingGrid) return;
+            const cards = pricingData[service];
+            pricingGrid.innerHTML = '';
+            
+            cards.forEach((card, index) => {
+                const cardElement = createPricingCard(card);
+                setTimeout(() => {
+                    pricingGrid.appendChild(cardElement);
+                }, index * 100);
             });
-        });
-    },
-    
-    calculatePrice: function(monthlyPrice) {
-        const discount = this.discounts[this.currentBilling];
-        return Math.round(monthlyPrice * (1 - discount));
-    },
-    
-    formatPrice: function(price) {
-        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    
-    updatePricing: function() {
-        const cards = document.querySelectorAll('.pricing-card');
-        cards.forEach((card, i) => {
-            setTimeout(() => this.updateCard(card), i * 60);
-        });
-    },
-    
-    updateCard: function(card) {
-        const nameElement = card.querySelector('.pricing-name');
-        if (!nameElement) return;
-        
-        const tierName = nameElement.textContent.trim();
-        const monthlyPrice = this.monthlyPrices[tierName];
-        if (!monthlyPrice) return;
-        
-        const priceElement = card.querySelector('.pricing-price');
-        const periodElement = card.querySelector('.pricing-period');
-        if (!priceElement || !periodElement) return;
-        
-        priceElement.classList.add('animating');
-        
-        setTimeout(() => {
-            let priceWrapper = card.querySelector('.pricing-price-wrapper');
-            if (!priceWrapper) {
-                priceWrapper = document.createElement('div');
-                priceWrapper.className = 'pricing-price-wrapper';
-                priceElement.parentNode.insertBefore(priceWrapper, priceElement);
-                priceWrapper.appendChild(priceElement);
-                priceWrapper.appendChild(periodElement);
-            }
-            
-            card.classList.remove('pricing-quarterly-highlight', 'pricing-yearly-highlight');
-            
-            let savingsBadge = card.querySelector('.pricing-savings-badge');
-            
-            if (this.currentBilling !== 'monthly') {
-                const discount = this.discounts[this.currentBilling];
-                const savings = Math.round(monthlyPrice * discount);
-                const multiplier = this.currentBilling === 'quarterly' ? 3 : 12;
-                const totalSavings = savings * multiplier;
-                const period = this.currentBilling === 'quarterly' ? 'quarter' : 'year';
-                
-                if (!savingsBadge) {
-                    savingsBadge = document.createElement('div');
-                    savingsBadge.className = 'pricing-savings-badge';
-                    priceWrapper.insertBefore(savingsBadge, priceWrapper.firstChild);
-                }
-                
-                savingsBadge.textContent = `Save $${this.formatPrice(totalSavings)}/${period}`;
-                setTimeout(() => savingsBadge.classList.add('show'), 60);
-                
-                card.classList.add(this.currentBilling === 'quarterly' ? 'pricing-quarterly-highlight' : 'pricing-yearly-highlight');
-            } else if (savingsBadge) {
-                savingsBadge.classList.remove('show');
-                setTimeout(() => savingsBadge.remove(), 350);
-            }
-            
-            let originalPrice = card.querySelector('.pricing-price-original');
-            
-            if (this.currentBilling !== 'monthly') {
-                if (!originalPrice) {
-                    originalPrice = document.createElement('div');
-                    originalPrice.className = 'pricing-price-original';
-                    priceWrapper.insertBefore(originalPrice, priceElement);
-                }
-                originalPrice.textContent = `$${this.formatPrice(monthlyPrice)}`;
-                originalPrice.style.display = 'block';
-                
-                const newPrice = this.calculatePrice(monthlyPrice);
-                priceElement.textContent = `$${this.formatPrice(newPrice)}`;
-                
-                let discountNote = card.querySelector('.pricing-discount-note');
-                if (!discountNote) {
-                    discountNote = document.createElement('div');
-                    discountNote.className = 'pricing-discount-note';
-                    priceWrapper.appendChild(discountNote);
-                }
-                
-                if (this.currentBilling === 'quarterly') {
-                    periodElement.textContent = 'per month';
-                    discountNote.textContent = `$${this.formatPrice(newPrice * 3)} billed quarterly`;
-                } else {
-                    periodElement.textContent = 'per month';
-                    discountNote.textContent = `$${this.formatPrice(newPrice * 12)} billed annually`;
-                }
-                
-                setTimeout(() => discountNote.classList.add('show'), 100);
-                
-            } else {
-                if (originalPrice) originalPrice.style.display = 'none';
-                
-                priceElement.textContent = `$${this.formatPrice(monthlyPrice)}`;
-                periodElement.textContent = 'per month';
-                
-                const discountNote = card.querySelector('.pricing-discount-note');
-                if (discountNote) {
-                    discountNote.classList.remove('show');
-                    setTimeout(() => discountNote.remove(), 350);
-                }
-            }
-            
-            setTimeout(() => priceElement.classList.remove('animating'), 60);
-        }, 175);
-    }
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Small delay to ensure layout is ready
-    setTimeout(() => {
-        pricingToggle.init();
-        pricingToggle.updatePricing();
-    }, 50);
-});
-
-window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') {
-        setTimeout(() => {
-            pricingToggle.initialized = false;
-            pricingToggle.init();
-            pricingToggle.updatePricing();
-        }, 100);
-    }
-});
-
-// Re-initialize on window resize to fix positioning
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        if (window.location.hash === '#pricing' || document.getElementById('pricing').classList.contains('active')) {
-            pricingToggle.initialized = false;
-            pricingToggle.init();
         }
-    }, 250);
-});
-     // ===== WORD ROTATOR THAT ACTUALLY WORKS =====
-const wordRotator = {
-    words: ['start', 'grow', 'scale', 'dominate', 'lead'],
-    currentIndex: 0,
-    container: null,
-    interval: null,
-    
-    init: function() {
-        this.container = document.getElementById('rotatingText');
-        if (!this.container) return;
-        
-        // Create all word elements
-        this.words.forEach((word, index) => {
-            const span = document.createElement('span');
-            span.className = 'rotating-text';
-            span.textContent = word;
-            span.style.transform = `translateY(${index === 0 ? 0 : 100}%)`;
-            span.style.opacity = index === 0 ? '1' : '0';
-            this.container.appendChild(span);
-        });
-        
-        // Start rotating
-        setTimeout(() => this.start(), 1000);
-    },
-    
-    start: function() {
-        if (this.interval) clearInterval(this.interval);
-        
-        this.interval = setInterval(() => {
-            this.rotate();
-        }, 2200);
-    },
-    
-    rotate: function() {
-        const spans = this.container.querySelectorAll('.rotating-text');
-        if (!spans.length) return;
-        
-        const current = spans[this.currentIndex];
-        const nextIndex = (this.currentIndex + 1) % this.words.length;
-        const next = spans[nextIndex];
-        
-        // Slide out current
-        current.style.transform = 'translateY(-100%)';
-        current.style.opacity = '0';
-        
-        // Slide in next
-        next.style.transform = 'translateY(0)';
-        next.style.opacity = '1';
-        
-        // Reset old ones
-        spans.forEach((span, i) => {
-            if (i !== this.currentIndex && i !== nextIndex) {
-                span.style.transform = 'translateY(100%)';
-                span.style.opacity = '0';
-            }
-        });
-        
-        this.currentIndex = nextIndex;
-    },
-    
-    stop: function() {
-        if (this.interval) clearInterval(this.interval);
-    },
-    
-    reset: function() {
-        this.stop();
-        if (this.container) this.container.innerHTML = '';
-        this.currentIndex = 0;
-    }
-};
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash;
-    if (hash === '#pricing' || hash === '' || !hash) {
-        setTimeout(() => wordRotator.init(), 100);
-    }
-});
+        function updateServiceToggle(option) {
+            if (!option || !serviceSlider) return;
+            
+            serviceOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            
+            // Position slider
+            const rect = option.getBoundingClientRect();
+            const parentRect = option.parentElement.getBoundingClientRect();
+            serviceSlider.style.width = `${rect.width}px`;
+            serviceSlider.style.left = `${rect.left - parentRect.left}px`;
+            
+            // Update cards
+            const service = option.dataset.service;
+            updatePricingCards(service);
+        }
 
-// Handle navigation
-window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') {
-        wordRotator.reset();
-        setTimeout(() => wordRotator.init(), 100);
-    } else {
-        wordRotator.stop();
-    }
-});
-        // ===== ULTRA PREMIUM PRICING SYSTEM =====
-const premiumPricing = {
-    prices: {
-        marketing: { prestige: 495, elite: 895, luminary: 1395 },
-        development: { architect: 695, vanguard: 1195, quantum: 1895 },
-        infinite: 2495
-    },
-    discounts: { monthly: 0, quarterly: 0.10, yearly: 0.20 },
-    currentService: 'marketing',
-    currentBilling: 'monthly',
-    
-    init: function() {
-        this.initRotatingText();
-        this.initServiceToggle();
-        this.initBillingToggle();
-        this.initScrollAnimations();
-    },
-    
-    initRotatingText: function() {
-        const container = document.getElementById('rotatingLuxury');
-        if (!container) return;
-        
-        const words = ['start', 'grow', 'scale', 'dominate', 'lead'];
-        let currentIndex = 0;
-        
-        words.forEach((word, index) => {
-            const span = document.createElement('span');
-            span.className = 'rotating-word-luxury';
-            span.textContent = word;
-            if (index === 0) span.classList.add('active');
-            container.appendChild(span);
-        });
-        
-        setInterval(() => {
-            const spans = container.querySelectorAll('.rotating-word-luxury');
-            const current = spans[currentIndex];
-            const nextIndex = (currentIndex + 1) % words.length;
-            const next = spans[nextIndex];
+        // Initialize service toggle
+        if (serviceOptions.length > 0) {
+            serviceOptions.forEach(option => {
+                option.addEventListener('click', () => updateServiceToggle(option));
+            });
             
-            current.classList.remove('active');
-            current.classList.add('exit');
-            
+            // Set initial state
             setTimeout(() => {
-                current.classList.remove('exit');
-                next.classList.add('active');
-                currentIndex = nextIndex;
+                updateServiceToggle(serviceOptions[0]);
             }, 100);
-        }, 2400);
-    },
-    
-    initServiceToggle: function() {
-        const options = document.querySelectorAll('.service-toggle-option');
-        const bg = document.getElementById('serviceToggleBg');
-        
-        options.forEach((option, index) => {
-            option.addEventListener('click', () => {
-                const service = option.dataset.service;
-                if (this.currentService === service) return;
-                
-                this.currentService = service;
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                bg.style.transform = `translateX(${index * 100}%)`;
-                this.switchCards();
-            });
-        });
-    },
-    
-    initBillingToggle: function() {
-        const options = document.querySelectorAll('.billing-toggle-option');
-        const bg = document.getElementById('billingToggleBg');
-        
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                const billing = option.dataset.billing;
-                if (this.currentBilling === billing) return;
-                
-                this.currentBilling = billing;
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                
-                const width = option.offsetWidth;
-                const left = option.offsetLeft - 5.6;
-                bg.style.width = `${width}px`;
-                bg.style.transform = `translateX(${left}px)`;
-                
-                this.updatePrices();
-            });
-        });
-        
-        const active = document.querySelector('.billing-toggle-option.active');
-        if (active) {
-            bg.style.width = `${active.offsetWidth}px`;
-            bg.style.transform = `translateX(${active.offsetLeft - 5.6}px)`;
         }
-    },
-    
-    switchCards: function() {
-        const marketing = document.getElementById('marketingCards');
-        const development = document.getElementById('developmentCards');
-        
-        marketing.classList.remove('visible');
-        development.classList.remove('visible');
-        
-        setTimeout(() => {
-            if (this.currentService === 'marketing') {
-                marketing.style.display = 'grid';
-                development.style.display = 'none';
-                setTimeout(() => marketing.classList.add('visible'), 50);
-            } else {
-                marketing.style.display = 'none';
-                development.style.display = 'grid';
-                setTimeout(() => development.classList.add('visible'), 50);
-            }
-            this.updatePrices();
-        }, 300);
-    },
-    
-    updatePrices: function() {
-        const grid = this.currentService === 'marketing' ? 
-            document.getElementById('marketingCards') : 
-            document.getElementById('developmentCards');
-        
-        const cards = grid.querySelectorAll('.premium-pricing-card');
-        cards.forEach((card, i) => setTimeout(() => this.updateCard(card), i * 70));
-        
-        this.updateInfinite();
-    },
-    
-    updateCard: function(card) {
-        const priceEl = card.querySelector('.card-price');
-        const name = card.querySelector('.card-name').textContent.toLowerCase();
-        const basePrice = this.prices[this.currentService][name];
-        
-        if (!basePrice) return;
-        
-        priceEl.classList.add('animating');
-        
-        setTimeout(() => {
-            const discount = this.discounts[this.currentBilling];
-            const finalPrice = Math.round(basePrice * (1 - discount));
-            priceEl.textContent = `$${this.formatPrice(finalPrice)}`;
+
+        // Billing toggle functionality
+        const billingOptions = document.querySelectorAll('.billing-option');
+        const billingSlider = document.querySelector('.billing-slider');
+
+        function updateBillingToggle(option) {
+            if (!option || !billingSlider) return;
             
-            let savings = card.querySelector('.card-savings');
-            if (this.currentBilling !== 'monthly') {
-                if (!savings) {
-                    savings = document.createElement('div');
-                    savings.className = 'card-savings';
-                    card.querySelector('.card-price-wrapper').appendChild(savings);
-                }
-                const saved = Math.round(basePrice * discount);
-                const mult = this.currentBilling === 'quarterly' ? 3 : 12;
-                const period = this.currentBilling === 'quarterly' ? 'quarter' : 'year';
-                savings.textContent = `Save $${this.formatPrice(saved * mult)}/${period}`;
-                setTimeout(() => savings.classList.add('show'), 80);
-            } else if (savings) {
-                savings.classList.remove('show');
-                setTimeout(() => savings.remove(), 300);
-            }
+            billingOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
             
-            setTimeout(() => priceEl.classList.remove('animating'), 80);
-        }, 200);
-    },
-    
-    updateInfinite: function() {
-        const priceEl = document.querySelector('.infinite-price');
-        if (!priceEl) return;
+            // Position slider
+            const rect = option.getBoundingClientRect();
+            const parentRect = option.parentElement.getBoundingClientRect();
+            billingSlider.style.width = `${rect.width}px`;
+            billingSlider.style.left = `${rect.left - parentRect.left}px`;
+            
+            // Update billing cycle
+            currentBilling = option.dataset.billing;
+            
+            // Refresh cards with new prices
+            const activeService = document.querySelector('.service-option.active');
+            if (activeService) {
+                updatePricingCards(activeService.dataset.service);
+            }
+        }
+
+        if (billingOptions.length > 0) {
+            billingOptions.forEach(option => {
+                option.addEventListener('click', () => updateBillingToggle(option));
+            });
+            
+            // Set initial state
+            setTimeout(() => {
+                updateBillingToggle(billingOptions[0]);
+            }, 100);
+        }
+
+        // How It Works Sequential Animation
+        const animatedPath = document.getElementById('animatedPath');
+        const steps = document.querySelectorAll('.hiw-step');
         
-        priceEl.classList.add('animating');
-        
-        setTimeout(() => {
-            const discount = this.discounts[this.currentBilling];
-            const finalPrice = Math.round(this.prices.infinite * (1 - discount));
-            priceEl.textContent = `$${this.formatPrice(finalPrice)}`;
-            setTimeout(() => priceEl.classList.remove('animating'), 80);
-        }, 200);
-    },
-    
-    formatPrice: function(price) {
-        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    
-    initScrollAnimations: function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        if (animatedPath) {
+            const observerOptions = {
+                threshold: [0, 0.25, 0.5, 0.75, 1]
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progress = entry.intersectionRatio;
+                        const dashOffset = 700 - (700 * progress);
+                        animatedPath.style.strokeDashoffset = dashOffset;
+                        
+                        steps.forEach((step, index) => {
+                            if (progress > (index * 0.33)) {
+                                step.classList.add('active');
+                            } else {
+                                step.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            const howSection = document.querySelector('.how-it-works-ultra');
+            if (howSection) {
+                observer.observe(howSection);
+            }
+        }
+
+        // FAQ Accordion - Single open behavior
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('toggle', () => {
+                if (item.open) {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.open) {
+                            otherItem.open = false;
+                        }
+                    });
                 }
             });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.premium-pricing-grid, .infinite-package-wrapper, .additional-services-section, .trust-section, .activation-note, .how-it-works-section').forEach(el => {
-            observer.observe(el);
         });
+
+        // Mobile defaults
+        if (window.innerWidth <= 768) {
+            const marketingOption = document.querySelector('[data-service="marketing"]');
+            const monthlyOption = document.querySelector('[data-billing="monthly"]');
+            if (marketingOption) updateServiceToggle(marketingOption);
+            if (monthlyOption) updateBillingToggle(monthlyOption);
+        }
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', initPricingPage);
+
+    // Reinitialize when navigating to pricing page
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#pricing') {
+            setTimeout(initPricingPage, 100);
+        }
+    });
+
+    // Also check if already on pricing page
+    if (window.location.hash === '#pricing') {
+        initPricingPage();
+    }
+})();
+
+// Update navigateTo function to include referral page
+const originalNavigateTo = window.navigateTo;
+window.navigateTo = function(page) {
+    // Add 'referral' to valid pages
+    const validPages = ['home', 'work', 'services', 'pricing', 'locations', 'contact', 'careers', 'blog', 'terms', 'privacy', 'referral'];
+    
+    if (validPages.includes(page)) {
+        // Call original function if it exists
+        if (typeof originalNavigateTo === 'function') {
+            originalNavigateTo.call(this, page);
+        } else {
+            // Fallback navigation
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById(page);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: page }, '', '#' + page);
+            }
+        }
+        
+        // Initialize pricing page if navigating to it
+        if (page === 'pricing') {
+            setTimeout(() => {
+                const event = new Event('DOMContentLoaded');
+                document.dispatchEvent(event);
+            }, 100);
+        }
     }
 };
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === '#pricing' || window.location.hash === '') {
-        setTimeout(() => premiumPricing.init(), 100);
-    }
-});
-
-window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') {
-        setTimeout(() => premiumPricing.init(), 100);
-    }
-});
     </script>
 </body>
 </html>
