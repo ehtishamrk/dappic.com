@@ -2805,108 +2805,134 @@ body.loaded .hero-buttons {
         font-size: 0.9375rem;
     }
 }
-/* ULTRA-LUX PRICING STYLES */
-.lux-hero {
-    text-align: center;
-    padding: 2rem 0 3rem;
+/* APEX PRICING STYLES */
+.apex-pricing {
+    position: relative;
+    padding: 2rem 3rem;
 }
 
-.lux-title {
-    font-size: clamp(3rem, 7vw, 5rem);
-    font-weight: 200;
+/* ENTRANCE ANIMATION */
+.entrance-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0093BA, #233E7E);
+    z-index: 9999;
+    pointer-events: none;
+    animation: entranceReveal 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes entranceReveal {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100%); opacity: 0; }
+}
+
+/* MONUMENTAL HERO */
+.monumental-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: heroFloat 0.8s ease-out 1.2s both;
+}
+
+@keyframes heroFloat {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.5em;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: badgeFade 0.6s ease 1.4s forwards;
+}
+
+@keyframes badgeFade {
+    to { opacity: 1; }
+}
+
+.colossal-title {
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 100;
     letter-spacing: -0.02em;
-    margin: 0.5rem 0 1rem;
-    background: linear-gradient(180deg, var(--secondary) 0%, rgba(19, 35, 72, 0.7) 100%);
+    line-height: 0.9;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.05em;
+}
+
+.title-word {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--secondary) 0%, rgba(19,35,72,0.6) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.lux-subtitle {
-    font-size: 1.25rem;
-    font-weight: 300;
-    color: var(--accent);
-    opacity: 0.9;
-}
-
-.word-rotator {
-    display: inline-block;
-    position: relative;
-    width: 120px;
-    height: 1.5em;
-    vertical-align: bottom;
-    margin-left: 0.5rem;
-}
-
-.word-item {
-    position: absolute;
-    left: 0;
+    animation: letterDrop 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
+    transform: translateY(-60px) rotateX(-90deg);
+    transform-origin: bottom;
+}
+
+.title-word:nth-child(1) { animation-delay: 1.3s; }
+.title-word:nth-child(2) { animation-delay: 1.35s; }
+.title-word:nth-child(3) { animation-delay: 1.4s; }
+.title-word:nth-child(4) { animation-delay: 1.45s; }
+.title-word:nth-child(5) { animation-delay: 1.5s; }
+.title-word:nth-child(6) { animation-delay: 1.55s; }
+.title-word:nth-child(7) { animation-delay: 1.6s; }
+
+@keyframes letterDrop {
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+.hero-tagline {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: taglineFade 0.8s ease 1.8s forwards;
+}
+
+@keyframes taglineFade {
+    to { opacity: 1; }
+}
+
+.word-carousel {
+    position: relative;
+    width: 140px;
+    height: 1.5em;
+    display: inline-block;
+}
+
+.carousel-word {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
     background: linear-gradient(135deg, #0093BA, #233E7E);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.word-item.active {
+.carousel-word.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-/* LUX FEATURES */
-.lux-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 4rem 0;
-}
-
-.lux-feature {
-    position: relative;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(19, 35, 72, 0.05);
-    border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.lux-feature:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 147, 186, 0.08);
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.feature-line {
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(90deg, #0093BA, #233E7E);
-    margin-bottom: 1.5rem;
-    transition: width 0.4s ease;
-}
-
-.lux-feature:hover .feature-line {
-    width: 60px;
-}
-
-.lux-feature h3 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--secondary);
-    margin-bottom: 0.5rem;
-}
-
-.lux-feature p {
-    font-size: 0.9375rem;
-    color: var(--accent);
-    opacity: 0.8;
-}
-
-/* LUX CONTROLS */
-.lux-controls {
+/* FLOATING STATEMENTS */
+.floating-statements {
     display: flex;
     justify-content: center;
     gap: 3rem;
@@ -2914,546 +2940,332 @@ body.loaded .hero-buttons {
     flex-wrap: wrap;
 }
 
-.control-group {
+.statement {
     text-align: center;
-}
-
-.control-label {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0.6;
-    margin-bottom: 1rem;
-}
-
-.lux-toggle {
-    display: inline-flex;
+    opacity: 0;
+    animation: statementFloat 1s ease forwards;
     position: relative;
-    background: white;
-    border: 1px solid rgba(19, 35, 72, 0.08);
+}
+
+.st-1 { animation-delay: 2s; }
+.st-2 { animation-delay: 2.1s; }
+.st-3 { animation-delay: 2.2s; }
+
+@keyframes statementFloat {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+}
+
+.st-main {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 0.25rem;
+}
+
+.st-sub {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+/* SERVICE SELECTOR */
+.service-selector {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.selector-capsule {
+    position: relative;
+    display: inline-flex;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(20px);
     border-radius: 100px;
     padding: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 40px rgba(0,147,186,0.08);
 }
 
-.toggle-item {
-    position: relative;
-    padding: 0.75rem 1.5rem;
-    background: none;
+.sel-btn {
+    padding: 0.75rem 1.75rem;
+    background: transparent;
     border: none;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--accent);
     cursor: pointer;
+    position: relative;
     z-index: 2;
-    transition: color 0.3s ease;
-    white-space: nowrap;
+    transition: color 0.3s;
 }
 
-.toggle-item.active {
+.sel-btn.active {
     color: white;
 }
 
-.discount {
-    display: inline-block;
-    margin-left: 0.5rem;
-    font-size: 0.625rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    background: rgba(0, 147, 186, 0.1);
-    color: var(--primary);
-    border-radius: 20px;
-}
-
-.toggle-item.active .discount {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-.toggle-indicator {
+.sel-indicator {
     position: absolute;
     top: 4px;
     left: 4px;
     height: calc(100% - 8px);
     background: linear-gradient(135deg, #0093BA, #233E7E);
     border-radius: 100px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-    box-shadow: 0 4px 12px rgba(0, 147, 186, 0.3);
-}
-
-/* EXPERT HELP */
-.lux-expert-help {
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.04), rgba(35, 62, 126, 0.02));
-    border: 1px solid rgba(0, 147, 186, 0.08);
-    border-radius: 16px;
-    padding: 2.5rem;
-    margin: 3rem 0;
-}
-
-.expert-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-}
-
-.expert-content h3 {
-    font-size: 1.375rem;
-    font-weight: 400;
-    color: var(--secondary);
-    margin-bottom: 0.5rem;
-}
-
-.expert-content p {
-    color: var(--accent);
-    opacity: 0.9;
-}
-
-.lux-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, #0093BA, #233E7E);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
-}
-
-.lux-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 147, 186, 0.3);
-}
-
-.button-arrow {
-    transition: transform 0.3s ease;
-}
-
-.lux-button:hover .button-arrow {
-    transform: translateX(4px);
-}
-
-/* PRICING GRID */
-.lux-pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin: 4rem 0;
-}
-
-/* PAY WHEN READY */
-.lux-pay-ready {
-    background: linear-gradient(135deg, #0093BA, #233E7E);
-    border-radius: 20px;
-    padding: 3.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    margin: 4rem 0;
-}
-
-.lux-pay-ready::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: slowRotate 30s linear infinite;
-}
-
-@keyframes slowRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.pay-ready-badge {
-    display: inline-block;
-    padding: 0.5rem 1.25rem;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    color: white;
-    border-radius: 100px;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-}
-
-.lux-pay-ready h3 {
-    font-size: 2.5rem;
-    font-weight: 200;
-    color: white;
-    margin-bottom: 1rem;
-    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 1;
 }
 
-.lux-pay-ready p {
-    font-size: 1.125rem;
-    color: white;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    position: relative;
-    z-index: 1;
-}
-
-.ready-timeline {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    position: relative;
-    z-index: 1;
-}
-
-.timeline-item {
+/* BILLING PILL - FAR LEFT */
+.billing-pill {
+    position: sticky;
+    top: 100px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.timeline-item span {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1.125rem;
-    transition: all 0.3s ease;
-}
-
-.timeline-item.active span {
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
-}
-
-.timeline-item label {
-    font-size: 0.875rem;
-    color: white;
-    opacity: 0.9;
-}
-
-.timeline-connector {
-    width: 80px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* ADDITIONAL SERVICES */
-.lux-additional {
-    margin: 4rem 0;
-}
-
-.lux-additional h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--secondary);
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.additional-grid {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    overflow-x: auto;
-    padding: 0.5rem 0;
-}
-
-.additional-item {
-    flex: 1;
-    min-width: 200px;
-    padding: 1.75rem 1.5rem;
-    background: white;
-    border: 1px solid rgba(19, 35, 72, 0.06);
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.additional-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 147, 186, 0.1);
-    border-color: rgba(0, 147, 186, 0.2);
-}
-
-.add-name {
-    display: block;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--secondary);
-    margin-bottom: 0.75rem;
-}
-
-.add-price {
-    font-size: 1.75rem;
-    font-weight: 200;
-    color: var(--primary);
-}
-
-.add-price small {
-    font-size: 0.875rem;
-    opacity: 0.7;
-}
-
-/* REFERRAL */
-.lux-referral {
-    position: relative;
-    background: white;
-    border: 1px solid rgba(19, 35, 72, 0.08);
-    border-radius: 20px;
-    padding: 3rem;
-    text-align: center;
-    overflow: hidden;
-    margin: 3rem 0;
-}
-
-.ref-gradient {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0093BA, #233E7E);
-}
-
-.ref-content {
-    position: relative;
-}
-
-.ref-badge {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, rgba(0, 147, 186, 0.1), rgba(35, 62, 126, 0.05));
-    color: var(--primary);
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(20px);
     border-radius: 100px;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    padding: 3px;
+    box-shadow: 0 8px 32px rgba(0,147,186,0.06);
+    width: 140px;
+    height: fit-content;
 }
 
-.ref-content h3 {
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--secondary);
-    margin-bottom: 0.75rem;
-}
-
-.ref-content p {
-    font-size: 1.125rem;
-    color: var(--accent);
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.ref-button {
-    padding: 0.875rem 2rem;
-    background: linear-gradient(135deg, #0093BA, #233E7E);
-    color: white;
+.bill-btn {
+    padding: 0.6rem 0.8rem;
+    background: transparent;
     border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.ref-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 147, 186, 0.3);
-}
-
-.ref-content small {
-    display: block;
-    margin-top: 1.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
+    font-weight: 600;
     color: var(--accent);
-    opacity: 0.7;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s;
+    text-align: left;
 }
 
-/* HOW IT WORKS */
-.lux-how-works {
-    margin: 4rem 0;
-    padding: 3rem;
-    background: rgba(249, 250, 249, 0.5);
-    border-radius: 20px;
+.bill-btn em {
+    font-size: 0.625rem;
+    font-style: normal;
+    opacity: 0.6;
 }
 
-.lux-how-works h2 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--secondary);
-    margin-bottom: 3rem;
+.bill-btn.active {
+    color: white;
 }
 
-.how-svg {
-    width: 100%;
-    height: 120px;
-    margin-bottom: 2rem;
+.bill-glow {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: calc(100% - 6px);
+    height: 33%;
+    background: linear-gradient(135deg, #0093BA, #233E7E);
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
 }
 
-.path-active {
-    stroke-dasharray: 800;
-    stroke-dashoffset: 800;
-    transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.how-steps {
+/* PRICING ARENA */
+.pricing-arena {
     display: flex;
-    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 3rem auto;
 }
 
-.how-step {
-    text-align: center;
-    opacity: 0.5;
-    transition: opacity 0.5s ease;
+.apex-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    flex: 1;
 }
 
-.how-step.active {
+/* REVOLUTIONARY HOVER EFFECTS */
+.apex-card {
+    background: white;
+    border: 1px solid rgba(0,147,186,0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Liquid Morph Hover */
+.apex-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0,147,186,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.apex-card:hover::before {
+    width: 200%;
+    height: 200%;
+}
+
+/* Magnetic Border */
+.apex-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #0093BA, #233E7E);
+    border-radius: 16px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s;
+}
+
+.apex-card:hover::after {
     opacity: 1;
 }
 
-.step-number {
-    font-size: 3rem;
-    font-weight: 200;
-    background: linear-gradient(135deg, #0093BA, #233E7E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.apex-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    background: white;
+    border-color: transparent;
+}
+
+/* Card Content */
+.card-label {
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--secondary);
     margin-bottom: 0.5rem;
 }
 
-.how-step h4 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--secondary);
-    margin-bottom: 0.25rem;
+.card-price-wrap {
+    margin: 1.5rem 0;
 }
 
-.how-step p {
+.card-price {
+    font-size: 3rem;
+    font-weight: 200;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.card-term {
     font-size: 0.875rem;
     color: var(--accent);
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
-/* FAQ */
-.lux-faq {
-    margin: 4rem 0;
-}
-
-.lux-faq h2 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--secondary);
-    margin-bottom: 3rem;
-}
-
-.faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background: white;
-    border: 1px solid rgba(19, 35, 72, 0.06);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
-.faq-item[open] {
-    box-shadow: 0 10px 30px rgba(0, 147, 186, 0.08);
-    border-color: rgba(0, 147, 186, 0.15);
-}
-
-.faq-item summary {
-    padding: 1.5rem;
-    font-size: 1.0625rem;
-    font-weight: 500;
-    color: var(--secondary);
-    cursor: pointer;
+.card-features {
     list-style: none;
-    position: relative;
+    margin: 1.5rem 0;
 }
 
-.faq-item summary::after {
+.card-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,147,186,0.05);
+    font-size: 0.875rem;
+    color: var(--accent);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.card-features li::before {
     content: '';
     position: absolute;
-    right: 1.5rem;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    border-right: 2px solid var(--primary);
-    border-bottom: 2px solid var(--primary);
-    transform: translateY(-60%) rotate(45deg);
-    transition: transform 0.3s ease;
+    width: 4px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 50%;
 }
 
-.faq-item[open] summary::after {
-    transform: translateY(-40%) rotate(225deg);
+.card-cta {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #0093BA, #233E7E);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-.faq-item p {
-    padding: 0 1.5rem 1.5rem;
-    color: var(--accent);
-    line-height: 1.8;
+/* Quantum Wave Button Hover */
+.card-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateY(-50%) rotate(45deg);
+    transition: left 0.6s;
 }
 
-/* Mobile Responsive */
+.card-cta:hover::before {
+    left: 100%;
+}
+
+/* SCROLL REVEAL */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
-    .lux-controls {
-        flex-direction: column;
-        gap: 2rem;
+    .colossal-title {
+        font-size: clamp(3rem, 10vw, 5rem);
     }
     
-    .expert-content {
+    .floating-statements {
         flex-direction: column;
-        text-align: center;
+        gap: 1.5rem;
     }
     
-    .lux-features {
+    .pricing-arena {
+        flex-direction: column;
+    }
+    
+    .billing-pill {
+        flex-direction: row;
+        width: 100%;
+        position: static;
+    }
+    
+    .apex-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .ready-timeline {
-        flex-direction: column;
-    }
-    
-    .timeline-connector {
-        width: 2px;
-        height: 40px;
-    }
-    
-    .additional-grid {
-        flex-direction: column;
-    }
-    
-    .how-steps {
-        flex-direction: column;
-        gap: 2rem;
     }
 }
     </style>
@@ -3778,230 +3590,175 @@ body.loaded .hero-buttons {
         </div>
     </div>
     
-    <!-- ULTRA-LUX PRICING PAGE -->
+    <!-- REVOLUTIONARY PRICING PAGE -->
 <div id="pricing" class="page">
-    <div class="content-page" style="padding-top: 5rem;">
-        <div class="section-container">
-            
-            <!-- HERO -->
-            <div class="lux-hero">
-                <div class="section-label">Investment</div>
-                <h1 class="lux-title">Pricing</h1>
-                <p class="lux-subtitle">
-                    Packages built for businesses ready to
-                    <span class="word-rotator">
-                        <span class="word-item active">start</span>
-                        <span class="word-item">grow</span>
-                        <span class="word-item">scale</span>
-                        <span class="word-item">dominate</span>
-                        <span class="word-item">lead</span>
-                    </span>
-                </p>
-            </div>
-
-            <!-- PUNCHLINES - PREMIUM CARDS -->
-            <div class="lux-features">
-                <div class="lux-feature">
-                    <div class="feature-line"></div>
-                    <h3>Straightforward & Transparent</h3>
-                    <p>No pretense, no hidden costs</p>
-                </div>
-                <div class="lux-feature">
-                    <div class="feature-line"></div>
-                    <h3>Pause or Cancel Anytime</h3>
-                    <p>Full control over your subscription</p>
-                </div>
-                <div class="lux-feature">
-                    <div class="feature-line"></div>
-                    <h3>Pay When Ready</h3>
-                    <p>Billing starts with first task</p>
+    <div class="apex-pricing">
+        
+        <!-- ENTRANCE ANIMATION OVERLAY -->
+        <div class="entrance-overlay"></div>
+        
+        <!-- MONUMENTAL HERO -->
+        <div class="monumental-hero">
+            <div class="hero-badge">INVESTMENT</div>
+            <h1 class="colossal-title">
+                <span class="title-word">P</span>
+                <span class="title-word">r</span>
+                <span class="title-word">i</span>
+                <span class="title-word">c</span>
+                <span class="title-word">i</span>
+                <span class="title-word">n</span>
+                <span class="title-word">g</span>
+            </h1>
+            <div class="hero-tagline">
+                <span>Packages built for businesses ready to</span>
+                <div class="word-carousel">
+                    <span class="carousel-word active">start</span>
+                    <span class="carousel-word">grow</span>
+                    <span class="carousel-word">scale</span>
+                    <span class="carousel-word">dominate</span>
+                    <span class="carousel-word">lead</span>
                 </div>
             </div>
-
-            <!-- CONTROLS -->
-            <div class="lux-controls">
-                <div class="control-group">
-                    <label class="control-label">Service Type</label>
-                    <div class="lux-toggle" data-toggle="service">
-                        <button class="toggle-item active" data-value="marketing">Design & Marketing</button>
-                        <button class="toggle-item" data-value="development">Design & Development</button>
-                        <button class="toggle-item" data-value="allinone">All-in-One</button>
-                        <div class="toggle-indicator"></div>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label class="control-label">Billing Period</label>
-                    <div class="lux-toggle" data-toggle="billing">
-                        <button class="toggle-item active" data-value="monthly">Monthly</button>
-                        <button class="toggle-item" data-value="quarterly">Quarterly <span class="discount">-10%</span></button>
-                        <button class="toggle-item" data-value="yearly">Yearly <span class="discount">-20%</span></button>
-                        <div class="toggle-indicator"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- EXPERT HELP -->
-            <div class="lux-expert-help">
-                <div class="expert-content">
-                    <div>
-                        <h3>Need guidance choosing the right package?</h3>
-                        <p>Our digital strategy experts are available 24/7 to craft a custom solution for your specific needs</p>
-                    </div>
-                    <button class="lux-button" onclick="navigateTo('contact')">
-                        Schedule Consultation
-                        <svg class="button-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- PRICING CARDS -->
-            <div class="lux-pricing-grid" id="luxPricingGrid">
-                <!-- Dynamically inserted -->
-            </div>
-
-            <!-- PAY WHEN READY - PREMIUM -->
-            <div class="lux-pay-ready">
-                <div class="pay-ready-badge">Premium Feature</div>
-                <h3>Pay When You're Ready</h3>
-                <p>Your subscription activates only when you assign your first task — not at checkout</p>
-                <div class="ready-timeline">
-                    <div class="timeline-item active">
-                        <span>01</span>
-                        <label>Select Plan</label>
-                    </div>
-                    <div class="timeline-connector"></div>
-                    <div class="timeline-item">
-                        <span>02</span>
-                        <label>Explore Platform</label>
-                    </div>
-                    <div class="timeline-connector"></div>
-                    <div class="timeline-item">
-                        <span>03</span>
-                        <label>Begin Billing</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ADDITIONAL SERVICES -->
-            <div class="lux-additional">
-                <h3>Additional Services</h3>
-                <div class="additional-grid">
-                    <div class="additional-item">
-                        <span class="add-name">Website Design</span>
-                        <span class="add-price">$500<small>/mo</small></span>
-                    </div>
-                    <div class="additional-item">
-                        <span class="add-name">Shopify Store</span>
-                        <span class="add-price">$200<small>/mo</small></span>
-                    </div>
-                    <div class="additional-item">
-                        <span class="add-name">Social Media</span>
-                        <span class="add-price">$1,000<small>/mo</small></span>
-                    </div>
-                    <div class="additional-item">
-                        <span class="add-name">Lead Generation</span>
-                        <span class="add-price">$999<small>/mo</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- REFERRAL -->
-            <div class="lux-referral">
-                <div class="ref-gradient"></div>
-                <div class="ref-content">
-                    <span class="ref-badge">Earn Rewards</span>
-                    <h3>Refer & Earn 10% Commission</h3>
-                    <p>Monthly recurring commission for every successful referral</p>
-                    <button class="ref-button" onclick="navigateTo('referral')">Learn More</button>
-                    <small>Existing customers receive account credits</small>
-                </div>
-            </div>
-
-            <!-- HOW IT WORKS -->
-            <div class="lux-how-works">
-                <h2>How It Works</h2>
-                <div class="how-container">
-                    <svg class="how-svg" viewBox="0 0 1000 120">
-                        <path class="path-bg" d="M 100 60 L 500 60 L 900 60" stroke="#f0f0f0" stroke-width="2" fill="none"/>
-                        <path class="path-active" d="M 100 60 L 500 60 L 900 60" stroke="url(#luxGradient)" stroke-width="3" fill="none"/>
-                        <defs>
-                            <linearGradient id="luxGradient">
-                                <stop offset="0%" stop-color="#0093BA"/>
-                                <stop offset="100%" stop-color="#233E7E"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <div class="how-steps">
-                        <div class="how-step" data-step="1">
-                            <div class="step-number">01</div>
-                            <h4>Subscribe</h4>
-                            <p>Choose your plan</p>
-                        </div>
-                        <div class="how-step" data-step="2">
-                            <div class="step-number">02</div>
-                            <h4>Onboard</h4>
-                            <p>Share requirements</p>
-                        </div>
-                        <div class="how-step" data-step="3">
-                            <div class="step-number">03</div>
-                            <h4>Launch</h4>
-                            <p>See results</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ -->
-            <div class="lux-faq">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-list">
-                    <details class="faq-item">
-                        <summary>Why wouldn't I just hire a full-time designer?</summary>
-                        <p>A full-time senior designer costs $100k+ annually. Our subscription provides an entire team of specialists for a fraction of the cost with complete flexibility.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Why wouldn't I just hire another agency or freelancer?</summary>
-                        <p>Traditional agencies require lengthy contracts with hidden fees. Freelancers often lack reliability. We provide consistent quality with transparent pricing and the flexibility to cancel anytime.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>What types of designs can you create?</summary>
-                        <p>We handle everything from brand identity, web design, UI/UX, motion graphics, to marketing materials. Each tier includes different service levels detailed in the package features.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>What is unlimited design and unlimited revisions?</summary>
-                        <p>Submit as many design requests as needed. We work on them sequentially based on your priority. Revisions continue until you're completely satisfied with the result.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>How do I request designs?</summary>
-                        <p>Simply submit requests through our platform, Slack, email, or your preferred communication channel. Your dedicated manager handles the rest.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>How fast will I receive my designs?</summary>
-                        <p>Most requests are completed within 48-72 hours. Complex projects may take longer, but we'll always provide clear timelines upfront.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Who are the designers?</summary>
-                        <p>Our team consists of senior designers with 10+ years experience from top agencies and tech companies, carefully vetted for quality and reliability.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>How does the pause feature work?</summary>
-                        <p>Pause your subscription anytime. Billing stops immediately and resumes only when you're ready to continue. Perfect for seasonal businesses.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>What if I don't like the design?</summary>
-                        <p>We offer unlimited revisions until you're satisfied. If we truly can't meet your needs, you can cancel anytime without penalty.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Are there any refunds?</summary>
-                        <p>Due to the nature of our service, we don't offer refunds. However, you can cancel anytime and we guarantee satisfaction through unlimited revisions.</p>
-                    </details>
-                </div>
-            </div>
-
         </div>
+
+        <!-- FLOATING PUNCHLINES -->
+        <div class="floating-statements">
+            <div class="statement st-1">
+                <span class="st-main">Straightforward & Transparent</span>
+                <span class="st-sub">No pretense, no hidden costs</span>
+            </div>
+            <div class="statement st-2">
+                <span class="st-main">Pause or Cancel Anytime</span>
+                <span class="st-sub">Full control over your subscription</span>
+            </div>
+            <div class="statement st-3">
+                <span class="st-main">Pay When Ready</span>
+                <span class="st-sub">Billing starts with first task</span>
+            </div>
+        </div>
+
+        <!-- SERVICE SELECTOR -->
+        <div class="service-selector">
+            <div class="selector-capsule">
+                <button class="sel-btn active" data-service="marketing">Design & Marketing</button>
+                <button class="sel-btn" data-service="development">Design & Development</button>
+                <button class="sel-btn" data-service="allinone">All-in-One</button>
+                <div class="sel-indicator"></div>
+            </div>
+        </div>
+
+        <!-- EXPERT BANNER -->
+        <div class="expert-banner">
+            <div class="banner-text">
+                <span class="banner-q">Not sure which option suits you best?</span>
+                <span class="banner-a">Our experts craft custom packages 24/7</span>
+            </div>
+            <button class="banner-cta" onclick="navigateTo('contact')">
+                <span>Contact Expert</span>
+                <div class="cta-shine"></div>
+            </button>
+        </div>
+
+        <!-- MAIN PRICING SECTION -->
+        <div class="pricing-arena">
+            
+            <!-- BILLING TOGGLE - FAR LEFT -->
+            <div class="billing-pill">
+                <button class="bill-btn active" data-bill="monthly">Monthly</button>
+                <button class="bill-btn" data-bill="quarterly">Quarterly <em>-10%</em></button>
+                <button class="bill-btn" data-bill="yearly">Yearly <em>-20%</em></button>
+                <div class="bill-glow"></div>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="apex-grid" id="apexGrid">
+                <!-- Cards injected by JS -->
+            </div>
+        </div>
+
+        <!-- PAY WHEN READY -->
+        <div class="ready-feature">
+            <div class="ready-pulse"></div>
+            <h3>Pay When You're Ready</h3>
+            <p>Your plan activates only when you assign your first task, not at checkout</p>
+        </div>
+
+        <!-- ADDITIONAL SERVICES -->
+        <div class="addon-services">
+            <div class="addon-row">
+                <div class="addon">
+                    <span class="addon-name">Website Design</span>
+                    <span class="addon-price">$500<small>/mo</small></span>
+                </div>
+                <div class="addon">
+                    <span class="addon-name">Shopify Store</span>
+                    <span class="addon-price">$200<small>/mo</small></span>
+                </div>
+                <div class="addon">
+                    <span class="addon-name">Social Media</span>
+                    <span class="addon-price">$1,000<small>/mo</small></span>
+                </div>
+                <div class="addon">
+                    <span class="addon-name">Lead Generation</span>
+                    <span class="addon-price">$999<small>/mo</small></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFERRAL -->
+        <div class="referral-zone">
+            <h3>Refer & Earn 10% Commission</h3>
+            <p>Monthly recurring for each referral</p>
+            <button class="refer-btn" onclick="navigateTo('referral')">Join Program</button>
+            <small>Existing customers receive account credits</small>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="process-flow">
+            <h2>How It Works</h2>
+            <svg class="flow-svg" viewBox="0 0 1200 100">
+                <path class="flow-bg" d="M 100 50 L 600 50 L 1100 50" stroke="rgba(0,147,186,0.05)" stroke-width="2" fill="none"/>
+                <path class="flow-active" d="M 100 50 L 600 50 L 1100 50" stroke="url(#flowGrad)" stroke-width="3" fill="none" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+                <defs>
+                    <linearGradient id="flowGrad">
+                        <stop offset="0%" stop-color="#0093BA"/>
+                        <stop offset="100%" stop-color="#233E7E"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="process-steps">
+                <div class="pr-step" data-step="1">
+                    <span class="pr-num">01</span>
+                    <span class="pr-title">Subscribe</span>
+                </div>
+                <div class="pr-step" data-step="2">
+                    <span class="pr-num">02</span>
+                    <span class="pr-title">Onboard</span>
+                </div>
+                <div class="pr-step" data-step="3">
+                    <span class="pr-num">03</span>
+                    <span class="pr-title">Launch</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-zone">
+            <h2>FAQs</h2>
+            <div class="faq-grid">
+                <details class="faq-box"><summary>Why wouldn't I just hire a full-time designer?</summary><p>Senior designers cost $100k+ annually. We provide an entire team for a fraction of the cost.</p></details>
+                <details class="faq-box"><summary>Why wouldn't I just hire another agency?</summary><p>Agencies have lengthy contracts and hidden fees. We offer transparent pricing with flexibility.</p></details>
+                <details class="faq-box"><summary>What types of designs can you create?</summary><p>Everything from brand identity to web design, UI/UX, motion graphics, and marketing materials.</p></details>
+                <details class="faq-box"><summary>What is unlimited design?</summary><p>Submit as many requests as needed. We work through them sequentially based on your priority.</p></details>
+                <details class="faq-box"><summary>How do I request designs?</summary><p>Through our platform, Slack, email, or your preferred channel. Your manager handles the rest.</p></details>
+                <details class="faq-box"><summary>How fast will I receive designs?</summary><p>Most requests completed within 48-72 hours. Complex projects may take longer.</p></details>
+                <details class="faq-box"><summary>Who are the designers?</summary><p>Senior designers with 10+ years from top agencies, vetted for quality.</p></details>
+                <details class="faq-box"><summary>How does pause work?</summary><p>Pause anytime. Billing stops immediately and resumes when you're ready.</p></details>
+                <details class="faq-box"><summary>What if I don't like it?</summary><p>Unlimited revisions until satisfied. Cancel anytime without penalty.</p></details>
+                <details class="faq-box"><summary>Any refunds?</summary><p>No refunds due to service nature, but cancel anytime with unlimited revisions.</p></details>
+            </div>
+        </div>
+
     </div>
 </div>
     <!-- REFERRAL PAGE -->
@@ -5095,136 +4852,162 @@ body.loaded .hero-buttons {
                 revealOnScroll();
             }, 250);
         }, { passive: true });
-// ULTRA-LUX PRICING FUNCTIONALITY
+// APEX PRICING ENGINE
 (function() {
-    // Word rotation
-    const words = document.querySelectorAll('.word-item');
-    let wordIndex = 0;
+    document.addEventListener('DOMContentLoaded', initApexPricing);
     
-    setInterval(() => {
-        words[wordIndex].classList.remove('active');
-        wordIndex = (wordIndex + 1) % words.length;
-        words[wordIndex].classList.add('active');
-    }, 2500);
-    
-    // Toggle functionality
-    document.querySelectorAll('.lux-toggle').forEach(toggle => {
-        const items = toggle.querySelectorAll('.toggle-item');
-        const indicator = toggle.querySelector('.toggle-indicator');
+    function initApexPricing() {
+        // Word Carousel
+        const words = document.querySelectorAll('.carousel-word');
+        let wordIndex = 0;
         
-        items.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                items.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+        if (words.length) {
+            setInterval(() => {
+                words[wordIndex].classList.remove('active');
+                wordIndex = (wordIndex + 1) % words.length;
+                words[wordIndex].classList.add('active');
+            }, 2500);
+        }
+        
+        // Service & Billing Controls
+        const selBtns = document.querySelectorAll('.sel-btn');
+        const selIndicator = document.querySelector('.sel-indicator');
+        const billBtns = document.querySelectorAll('.bill-btn');
+        const billGlow = document.querySelector('.bill-glow');
+        const grid = document.getElementById('apexGrid');
+        
+        // Pricing Data
+        const plans = {
+            marketing: [
+                {title: 'Prestige', price: 495, features: ['Brand Strategy', 'Social Media', 'Content Creation', 'Analytics']},
+                {title: 'Elite', price: 895, features: ['Everything in Prestige', 'SEO Strategy', 'Paid Ads', 'Motion Graphics'], popular: true},
+                {title: 'Luminary', price: 1395, features: ['Dedicated Manager', 'Multi-channel', 'Weekly Strategy', 'VIP Support']}
+            ],
+            development: [
+                {title: 'Architect', price: 695, features: ['Custom Website', 'Responsive', 'CMS Setup', 'Basic SEO']},
+                {title: 'Vanguard', price: 1195, features: ['Everything in Architect', 'E-commerce', 'Integrations', 'Performance'], popular: true},
+                {title: 'Quantum', price: 1895, features: ['Everything in Vanguard', 'Web Apps', 'API', 'Cloud']}
+            ],
+            allinone: [
+                {title: 'Infinite', price: 3500, features: ['All Packages Combined', 'Unlimited Everything', 'Dedicated Team', '24/7 Support'], ultimate: true}
+            ]
+        };
+        
+        let activeService = 'marketing';
+        let activeBilling = 'monthly';
+        const discounts = {monthly: 0, quarterly: 0.1, yearly: 0.2};
+        
+        // Position Indicators
+        function updateIndicator(btns, indicator, isVertical = false) {
+            const active = Array.from(btns).find(b => b.classList.contains('active'));
+            if (!active || !indicator) return;
+            
+            const rect = active.getBoundingClientRect();
+            const parentRect = active.parentElement.getBoundingClientRect();
+            
+            if (isVertical) {
+                indicator.style.top = (rect.top - parentRect.top) + 'px';
+                indicator.style.height = rect.height + 'px';
+            } else {
+                indicator.style.left = (rect.left - parentRect.left) + 'px';
+                indicator.style.width = rect.width + 'px';
+            }
+        }
+        
+        // Render Cards
+        function renderPlans() {
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            const currentPlans = plans[activeService];
+            const discount = discounts[activeBilling];
+            
+            currentPlans.forEach((plan, i) => {
+                const price = Math.round(plan.price * (1 - discount));
+                const card = document.createElement('div');
+                card.className = 'apex-card reveal-up';
                 
-                const width = item.offsetWidth;
-                const left = item.offsetLeft - 4;
-                indicator.style.width = `${width}px`;
-                indicator.style.left = `${left}px`;
+                card.innerHTML = `
+                    ${plan.popular ? '<div class="card-badge">POPULAR</div>' : ''}
+                    ${plan.ultimate ? '<div class="card-badge">ULTIMATE</div>' : ''}
+                    <div class="card-label">${activeService.toUpperCase()}</div>
+                    <h3 class="card-title">${plan.title}</h3>
+                    <div class="card-price-wrap">
+                        <div class="card-price">$${price.toLocaleString()}</div>
+                        <div class="card-term">per month</div>
+                    </div>
+                    <ul class="card-features">
+                        ${plan.features.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                    <button class="card-cta">Get Started</button>
+                `;
                 
-                if (toggle.dataset.toggle === 'service') {
-                    updatePricingCards(item.dataset.value);
-                } else if (toggle.dataset.toggle === 'billing') {
-                    updatePrices(item.dataset.value);
-                }
+                setTimeout(() => {
+                    grid.appendChild(card);
+                    setTimeout(() => card.classList.add('revealed'), 50);
+                }, i * 100);
+            });
+        }
+        
+        // Service Toggle
+        selBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                selBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeService = btn.dataset.service;
+                updateIndicator(selBtns, selIndicator);
+                renderPlans();
             });
         });
         
-        // Initialize position
+        // Billing Toggle
+        billBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                billBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeBilling = btn.dataset.bill;
+                updateIndicator(billBtns, billGlow, true);
+                renderPlans();
+            });
+        });
+        
+        // Initialize Everything
         setTimeout(() => {
-            const active = toggle.querySelector('.active');
-            if (active) active.click();
-        }, 100);
-    });
-    
-    // Pricing data
-    const pricing = {
-        marketing: [
-            {name: 'Prestige', price: 495, features: ['Brand Strategy & Identity', 'Social Media Management', 'Content Creation', 'Monthly Analytics']},
-            {name: 'Elite', price: 895, features: ['Everything in Prestige', 'SEO Strategy', 'Paid Advertising', 'Motion Graphics', 'Priority Support'], featured: true},
-            {name: 'Luminary', price: 1395, features: ['Dedicated Manager', 'Multi-channel Campaigns', 'Weekly Strategy', 'VIP Support']}
-        ],
-        development: [
-            {name: 'Architect', price: 695, features: ['Custom Website Design', 'Responsive Development', 'CMS Integration', 'Basic SEO Setup']},
-            {name: 'Vanguard', price: 1195, features: ['Everything in Architect', 'E-commerce Development', 'Custom Integrations', 'Performance Optimization'], featured: true},
-            {name: 'Quantum', price: 1895, features: ['Everything in Vanguard', 'Web Applications', 'API Development', 'Cloud Infrastructure']}
-        ],
-        allinone: [
-            {name: 'Infinite', price: 3500, features: ['Everything from All Packages', 'Unlimited Design & Development', 'Complete Marketing Suite', 'Dedicated Team', 'White Glove Service', '24/7 Priority Support'], ultimate: true}
-        ]
-    };
-    
-    let currentBilling = 'monthly';
-    const discounts = {monthly: 0, quarterly: 0.1, yearly: 0.2};
-    
-    function updatePricingCards(service) {
-        const grid = document.getElementById('luxPricingGrid');
-        grid.innerHTML = '';
-        
-        pricing[service].forEach((plan, index) => {
-            setTimeout(() => {
-                const card = createCard(plan);
-                grid.appendChild(card);
-            }, index * 100);
-        });
-    }
-    
-    function createCard(plan) {
-        const discount = discounts[currentBilling];
-        const price = Math.round(plan.price * (1 - discount));
-        
-        const card = document.createElement('div');
-        card.className = `pricing-card ${plan.featured ? 'featured' : ''} ${plan.ultimate ? 'ultimate-card' : ''}`;
-        card.innerHTML = `
-            ${plan.featured ? '<div class="pricing-badge">Most Popular</div>' : ''}
-            ${plan.ultimate ? '<div class="pricing-badge ultimate-badge">Ultimate Solution</div>' : ''}
-            <div class="pricing-name">${plan.name}</div>
-            <div class="pricing-price">$${price.toLocaleString()}</div>
-            <div class="pricing-period">per month</div>
-            <ul class="pricing-features">
-                ${plan.features.map(f => `<li>${f}</li>`).join('')}
-            </ul>
-            <button class="pricing-btn">Get Started</button>
-        `;
-        return card;
-    }
-    
-    function updatePrices(billing) {
-        currentBilling = billing;
-        const activeService = document.querySelector('.lux-toggle[data-toggle="service"] .active').dataset.value;
-        updatePricingCards(activeService);
-    }
-    
-    // How it works animation
-    const path = document.querySelector('.path-active');
-    const steps = document.querySelectorAll('.how-step');
-    
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progress = entry.intersectionRatio;
-                path.style.strokeDashoffset = 800 - (800 * progress);
+            updateIndicator(selBtns, selIndicator);
+            updateIndicator(billBtns, billGlow, true);
+            renderPlans();
+            
+            // Scroll Animations
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {threshold: 0.1});
+            
+            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+            
+            // Flow Animation
+            const flowPath = document.querySelector('.flow-active');
+            if (flowPath) {
+                const flowObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            flowPath.style.strokeDashoffset = '0';
+                        }
+                    });
+                }, {threshold: 0.5});
                 
-                steps.forEach((step, i) => {
-                    step.classList.toggle('active', progress > (i * 0.33));
-                });
+                flowObserver.observe(document.querySelector('.process-flow'));
             }
-        });
-    }, { threshold: Array.from({length: 11}, (_, i) => i * 0.1) });
+        }, 100);
+    }
     
-    const howSection = document.querySelector('.lux-how-works');
-    if (howSection) observer.observe(howSection);
-    
-    // FAQ behavior
-    document.querySelectorAll('.faq-item').forEach(item => {
-        item.addEventListener('toggle', () => {
-            if (item.open) {
-                document.querySelectorAll('.faq-item[open]').forEach(other => {
-                    if (other !== item) other.open = false;
-                });
-            }
-        });
-    });
+    // Initialize if already on pricing page
+    if (window.location.hash === '#pricing') {
+        initApexPricing();
+    }
 })();
     </script>
 </body>
