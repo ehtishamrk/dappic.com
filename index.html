@@ -7,10 +7,8 @@
     <meta name="description" content="Dappic - Premium 360° digital solutions for ambitious brands worldwide">
     <meta name="robots" content="index, follow">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com;">    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Dappic - Premium Digital Agency</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
@@ -6726,33 +6724,39 @@ function initMagneticCursor() {
     });
 }
 
-// INITIALIZE ALL
-document.addEventListener('DOMContentLoaded', () => {
-    initLiquidToggles();
-    initScrollReveal();
-    initMagneticCursor();
-});
-
-// RE-INIT ON HASH CHANGE
-window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') {
-        setTimeout(() => {
-            initLiquidToggles();
-            initScrollReveal();
-            initMagneticCursor();
-        }, 100);
+// ===== SINGLE INITIALIZATION POINT =====
+(function() {
+    'use strict';
+    
+    function initAll() {
+        if (typeof initLiquidToggles === 'function') initLiquidToggles();
+        if (typeof initScrollReveal === 'function') initScrollReveal();
+        if (typeof initMagneticCursor === 'function') initMagneticCursor();
+        if (typeof serviceToggle !== 'undefined') serviceToggle.init();
     }
-});
-
-// RE-INIT ON RESIZE (using existing resizeTimer)
-window.addEventListener('resize', () => {
-    clearTimeout(window.dappicResizeTimer);
-    window.dappicResizeTimer = setTimeout(() => {
-        if (typeof initLiquidToggles === 'function') {
-            initLiquidToggles();
+    
+    // Wait for DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+        initAll();
+    }
+    
+    // Re-init on hash change
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#pricing') {
+            setTimeout(initAll, 100);
         }
-    }, 250);
-});
+    });
+    
+    // Re-init on resize - use global variable to avoid conflicts
+    window.addEventListener('resize', () => {
+        clearTimeout(window.pricingResizeTimer);
+        window.pricingResizeTimer = setTimeout(() => {
+            if (typeof initLiquidToggles === 'function') initLiquidToggles();
+        }, 250);
+    });
+})();
     </script>
     
 </body>
