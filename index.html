@@ -6744,11 +6744,14 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-// RE-INIT ON RESIZE
-let resizeTimeout;
+// RE-INIT ON RESIZE (using existing resizeTimer)
 window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(initLiquidToggles, 250);
+    clearTimeout(window.dappicResizeTimer);
+    window.dappicResizeTimer = setTimeout(() => {
+        if (typeof initLiquidToggles === 'function') {
+            initLiquidToggles();
+        }
+    }, 250);
 });
     </script>
     
