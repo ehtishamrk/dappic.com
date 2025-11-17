@@ -215,24 +215,40 @@
     gap: 0.625rem; 
     cursor: pointer; 
     text-decoration: none; 
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     position: relative;
     transform-style: preserve-3d;
+    perspective: 1000px;
+}
+        .logo::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    background: radial-gradient(circle at center, rgba(0, 147, 186, 0.06), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+    filter: blur(20px);
+}
+
+.logo:hover::before {
+    opacity: 1;
 }
 .logo:hover {
-    transform: translateY(-4px) translateZ(20px);
+    transform: translateY(-6px) scale(1.02);
 }        
-        .logo-img { 
+      .logo-img { 
     width: 36px; 
     height: 36px; 
     object-fit: contain; 
-    transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-    filter: drop-shadow(0 2px 4px rgba(0, 147, 186, 0.15));
-    transform-origin: center;
+    transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: brightness(1) drop-shadow(0 2px 6px rgba(0, 147, 186, 0.12));
+    transform-origin: center center;
+    position: relative;
 }
             .logo:hover .logo-img { 
-    transform: scale(1.08) translateZ(30px);
-    filter: drop-shadow(0 8px 16px rgba(0, 147, 186, 0.25));
+    transform: scale(1.12) rotateY(8deg) translateZ(40px);
+    filter: brightness(1.05) drop-shadow(0 12px 24px rgba(0, 147, 186, 0.3));
 }
         
         .logo-text { 
@@ -240,14 +256,23 @@
     font-weight: 500; 
     letter-spacing: 0.1em; 
     color: var(--secondary); 
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    text-shadow: 0 1px 2px rgba(0, 147, 186, 0.08);
+    transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+    text-shadow: none;
+    position: relative;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
         .logo:hover .logo-text { 
-    color: var(--primary);
-    letter-spacing: 0.15em;
-    text-shadow: 0 2px 8px rgba(0, 147, 186, 0.2);
-    transform: translateZ(20px);
+    letter-spacing: 0.18em;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transform: translateX(4px) translateZ(30px);
+    filter: drop-shadow(0 2px 4px rgba(0, 147, 186, 0.15));
 }
         .nav-links { 
             display: flex; 
