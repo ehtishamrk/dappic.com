@@ -4375,6 +4375,193 @@ body.loaded .hero-buttons {
         padding: 10px 12px !important;
     }
 }
+      /* ===== ULTRA PREMIUM HOW IT WORKS ===== */
+.how-it-works-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    gap: 3rem;
+    padding: 4rem 2rem;
+}
+
+.progress-line {
+    position: absolute;
+    top: 5rem;
+    left: 2rem;
+    right: 2rem;
+    height: 2px;
+    background: rgba(0, 147, 186, 0.1);
+    z-index: 0;
+}
+
+.progress-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #0093BA, #233E7E);
+    box-shadow: 0 0 20px rgba(0, 147, 186, 0.5);
+    transition: width 2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.how-it-works-container.visible .progress-line-fill {
+    width: 100%;
+}
+
+.step-card {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.step-card.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.step-number-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border: 2px solid rgba(0, 147, 186, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--primary);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.1);
+}
+
+.step-number::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(0, 147, 186, 0.4) 90deg,
+        transparent 180deg,
+        rgba(35, 62, 126, 0.3) 270deg,
+        transparent 360deg
+    );
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: stepRotate 4s linear infinite;
+    animation-play-state: paused;
+}
+
+@keyframes stepRotate {
+    to { transform: rotate(360deg); }
+}
+
+.step-card:hover .step-number::before {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+.step-card:hover .step-number {
+    background: linear-gradient(135deg, #0093BA, #233E7E);
+    color: white;
+    border-color: transparent;
+    transform: scale(1.15) rotateY(360deg);
+    box-shadow: 0 16px 48px rgba(0, 147, 186, 0.3);
+}
+
+.step-content {
+    text-align: center;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    letter-spacing: -0.01em;
+}
+
+.step-card:hover .step-title {
+    color: var(--primary);
+}
+
+.step-description {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1.7;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.step-card:hover .step-description {
+    opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .how-it-works-container {
+        flex-direction: column;
+        gap: 4rem;
+    }
+    
+    .progress-line {
+        top: 2rem;
+        bottom: 2rem;
+        left: 50%;
+        right: auto;
+        width: 2px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+    
+    .progress-line-fill {
+        width: 100%;
+        height: 0;
+        transition: height 2s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .how-it-works-container.visible .progress-line-fill {
+        height: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .step-number {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
+    }
+    
+    .step-number-wrapper {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .step-title {
+        font-size: 1.25rem;
+    }
+    
+    .step-description {
+        font-size: 0.9375rem;
+    }
+}  
     </style>
 </head>
 <body>
@@ -4597,6 +4784,52 @@ body.loaded .hero-buttons {
                 </div>
             </div>
         </section>
+        <!-- HOW IT WORKS SECTION -->
+<section style="background: white; padding: 8rem 3rem;">
+    <div class="section-container">
+        <div class="section-header scroll-reveal">
+            <div class="section-label">Simple Process</div>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-desc">Three simple steps to transform your digital presence</p>
+        </div>
+        
+        <div class="how-it-works-container">
+            <div class="progress-line">
+                <div class="progress-line-fill"></div>
+            </div>
+            
+            <div class="step-card scroll-reveal-step" style="transition-delay: 0.1s;">
+                <div class="step-number-wrapper">
+                    <div class="step-number">1</div>
+                </div>
+                <div class="step-content">
+                    <h3 class="step-title">Choose Your Package</h3>
+                    <p class="step-description">Select the perfect package for your needs, or let our experts create a custom solution tailored just for you.</p>
+                </div>
+            </div>
+            
+            <div class="step-card scroll-reveal-step" style="transition-delay: 0.3s;">
+                <div class="step-number-wrapper">
+                    <div class="step-number">2</div>
+                </div>
+                <div class="step-content">
+                    <h3 class="step-title">Secure Payment</h3>
+                    <p class="step-description">Complete the payment process securely. Your subscription activates only when you assign your first task.</p>
+                </div>
+            </div>
+            
+            <div class="step-card scroll-reveal-step" style="transition-delay: 0.5s;">
+                <div class="step-number-wrapper">
+                    <div class="step-number">3</div>
+                </div>
+                <div class="step-content">
+                    <h3 class="step-title">Unlimited Creation</h3>
+                    <p class="step-description">Enjoy unlimited design and development requests with lightning-fast turnaround and unlimited revisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
         
         <section style="background: white;">
             <div class="section-container scroll-reveal" style="max-width: 900px; text-align: center;">
@@ -5829,6 +6062,22 @@ body.loaded .hero-buttons {
                     element.classList.add('revealed');
                 }
             });
+            // How It Works Animation
+const howItWorks = document.querySelector('.how-it-works-container');
+if (howItWorks && !howItWorks.classList.contains('visible')) {
+    const rect = howItWorks.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+        howItWorks.classList.add('visible');
+        
+        // Animate step cards
+        const stepCards = document.querySelectorAll('.scroll-reveal-step');
+        stepCards.forEach(card => {
+            if (!card.classList.contains('revealed')) {
+                card.classList.add('revealed');
+            }
+        });
+    }
+}
         }
 
         // SMOOTH SCROLL FOR ANCHOR LINKS
