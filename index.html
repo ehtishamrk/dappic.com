@@ -4375,41 +4375,41 @@ body.loaded .hero-buttons {
         padding: 10px 12px !important;
     }
 }
-   /* ===== SCROLL-TRIGGERED HOW IT WORKS ===== */
-.scroll-steps-wrapper {
-    max-width: 900px;
+  /* ===== ULTRA SLEEK HOW IT WORKS ===== */
+.elegant-steps-container {
+    max-width: 850px;
     margin: 0 auto;
     position: relative;
-    padding: 4rem 0;
+    padding: 2rem 0;
 }
 
-.vertical-dashed-line {
+.center-line-container {
     position: absolute;
-    left: 90px;
+    left: 70px;
     top: 0;
-    bottom: 0;
-    width: 4px;
-    z-index: 1;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.animated-line {
-    transition: y2 0.1s linear;
+.progress-line {
+    transition: y2 0.05s linear;
 }
 
-.scroll-step-item {
+.elegant-step {
     display: flex;
-    align-items: center;
-    gap: 4rem;
-    margin-bottom: 12rem;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 6rem;
     position: relative;
 }
 
-.scroll-step-item:last-child {
+.elegant-step:last-child {
     margin-bottom: 0;
 }
 
-.step-left {
-    width: 90px;
+.circle-zone {
+    width: 70px;
     display: flex;
     justify-content: center;
     flex-shrink: 0;
@@ -4417,126 +4417,122 @@ body.loaded .hero-buttons {
     z-index: 2;
 }
 
-.step-circle-scroll {
-    width: 90px;
-    height: 90px;
+.elegant-circle {
+    width: 70px;
+    height: 70px;
     background: white;
-    border: 3px solid rgba(0, 147, 186, 0.2);
+    border: 2px solid rgba(0, 147, 186, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.1);
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 16px rgba(0, 147, 186, 0.08);
     position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.step-circle-scroll::before {
+.elegant-circle::before {
     content: '';
     position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: conic-gradient(
-        from 0deg,
-        transparent,
-        rgba(0, 147, 186, 0.4),
-        transparent
-    );
-    opacity: 0;
-    transition: opacity 0.4s;
-}
-
-.step-circle-scroll.active {
+    inset: 0;
     background: linear-gradient(135deg, #0093BA, #233E7E);
-    border-color: transparent;
-    box-shadow: 0 12px 32px rgba(0, 147, 186, 0.3);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.step-circle-scroll.active::before {
+.elegant-circle.active::before {
     opacity: 1;
-    animation: circleRotate 3s linear infinite;
 }
 
-@keyframes circleRotate {
-    to { transform: rotate(360deg); }
+.elegant-circle.active {
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(0, 147, 186, 0.25);
 }
 
-.step-number-hidden {
-    font-size: 1.5rem;
+.circle-number {
+    font-size: 1.25rem;
     font-weight: 400;
     color: var(--accent);
+    position: relative;
+    z-index: 1;
     opacity: 0;
-    transform: scale(0);
+    transform: translateY(20px);
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.step-circle-scroll.active .step-number-hidden {
+.elegant-circle.active .circle-number {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
     color: white;
 }
 
-.step-right {
+.content-zone {
     flex: 1;
     text-align: left;
-    opacity: 0.3;
-    transition: opacity 0.5s ease;
+    padding-top: 0.5rem;
+    opacity: 0.4;
+    transition: opacity 0.4s ease;
 }
 
-.scroll-step-item.active .step-right {
+.elegant-step.content-active .content-zone {
     opacity: 1;
 }
 
-.step-title-scroll {
-    font-size: 2rem;
+.content-zone h3 {
+    font-size: 1.75rem;
     font-weight: 400;
     color: var(--secondary);
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
     transition: color 0.3s ease;
 }
 
-.scroll-step-item.active .step-title-scroll {
+.elegant-step.content-active .content-zone h3 {
     color: var(--primary);
 }
 
-.step-desc-scroll {
-    font-size: 1.125rem;
+.content-zone p {
+    font-size: 1.0625rem;
     font-weight: 300;
     color: var(--accent);
-    line-height: 1.8;
+    line-height: 1.75;
     text-align: justify;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .vertical-dashed-line {
-        left: 40px;
+    .elegant-steps-container {
+        padding-left: 0;
     }
     
-    .step-left {
-        width: 70px;
+    .center-line-container {
+        left: 35px;
     }
     
-    .step-circle-scroll {
-        width: 70px;
-        height: 70px;
+    .circle-zone {
+        width: 60px;
     }
     
-    .step-number-hidden {
-        font-size: 1.25rem;
+    .elegant-circle {
+        width: 60px;
+        height: 60px;
     }
     
-    .scroll-step-item {
+    .circle-number {
+        font-size: 1.125rem;
+    }
+    
+    .elegant-step {
         gap: 2rem;
-        margin-bottom: 10rem;
+        margin-bottom: 5rem;
     }
     
-    .step-title-scroll {
+    .content-zone h3 {
         font-size: 1.5rem;
     }
     
-    .step-desc-scroll {
+    .content-zone p {
         font-size: 1rem;
     }
 }
@@ -4762,68 +4758,64 @@ body.loaded .hero-buttons {
                 </div>
             </div>
         </section>
-        <!-- HOW IT WORKS SECTION -->
-<section style="background: var(--light); padding: 8rem 3rem; overflow: hidden;">
+       <!-- HOW IT WORKS SECTION -->
+<section style="background: var(--light); padding: 6rem 3rem;">
     <div style="max-width: 1400px; margin: 0 auto; text-align: center;">
-        <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; color: var(--primary); text-transform: uppercase;">Simple Process</span>
         </div>
-        <h2 style="font-size: 3rem; font-weight: 200; color: var(--secondary); margin-bottom: 1rem;">How It Works</h2>
-        <p style="font-size: 1.125rem; font-weight: 300; color: var(--accent); margin-bottom: 6rem; max-width: 700px; margin-left: auto; margin-right: auto;">Three effortless steps to transform your digital presence</p>
+        <h2 style="font-size: 3rem; font-weight: 200; color: var(--secondary); margin-bottom: 0.75rem;">How It Works</h2>
+        <p style="font-size: 1.125rem; font-weight: 300; color: var(--accent); margin-bottom: 4rem; max-width: 650px; margin-left: auto; margin-right: auto;">Three effortless steps to transform your digital presence</p>
         
-        <div class="scroll-steps-wrapper">
-            <!-- Vertical Dashed Line -->
-            <div class="vertical-dashed-line">
-                <svg class="line-svg" width="4" height="100%" style="position: absolute; left: 0; top: 0;">
-                    <line x1="2" y1="0" x2="2" y2="100%" stroke="rgba(0, 147, 186, 0.15)" stroke-width="2" stroke-dasharray="6, 6" stroke-linecap="round"/>
-                </svg>
-                <svg class="line-svg-animated" width="4" height="100%" style="position: absolute; left: 0; top: 0;">
-                    <line class="animated-line" x1="2" y1="0" x2="2" y2="0" stroke="url(#progressGradient)" stroke-width="2" stroke-dasharray="6, 6" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
+        <div class="elegant-steps-container">
+            <!-- Vertical Line SVG -->
+            <svg class="center-line-container" width="2" height="100%">
+                <defs>
+                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <line x1="1" y1="0" x2="1" y2="100%" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
+                <line class="progress-line" x1="1" y1="0" x2="1" y2="0" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
+            </svg>
             
             <!-- Step 1 -->
-            <div class="scroll-step-item" data-step="1">
-                <div class="step-left">
-                    <div class="step-circle-scroll">
-                        <span class="step-number-hidden">01</span>
+            <div class="elegant-step" data-index="0">
+                <div class="circle-zone">
+                    <div class="elegant-circle">
+                        <span class="circle-number">01</span>
                     </div>
                 </div>
-                <div class="step-right">
-                    <h3 class="step-title-scroll">Choose Your Package</h3>
-                    <p class="step-desc-scroll">Select the perfect package for your needs, or let our experts create a custom solution tailored just for you.</p>
+                <div class="content-zone">
+                    <h3>Choose Your Package</h3>
+                    <p>Select the perfect package for your needs, or let our experts create a custom solution tailored just for you.</p>
                 </div>
             </div>
             
             <!-- Step 2 -->
-            <div class="scroll-step-item" data-step="2">
-                <div class="step-left">
-                    <div class="step-circle-scroll">
-                        <span class="step-number-hidden">02</span>
+            <div class="elegant-step" data-index="1">
+                <div class="circle-zone">
+                    <div class="elegant-circle">
+                        <span class="circle-number">02</span>
                     </div>
                 </div>
-                <div class="step-right">
-                    <h3 class="step-title-scroll">Secure Payment</h3>
-                    <p class="step-desc-scroll">Complete the payment process securely. Your subscription activates only when you assign your first task.</p>
+                <div class="content-zone">
+                    <h3>Secure Payment</h3>
+                    <p>Complete the payment process securely. Your subscription activates only when you assign your first task.</p>
                 </div>
             </div>
             
             <!-- Step 3 -->
-            <div class="scroll-step-item" data-step="3">
-                <div class="step-left">
-                    <div class="step-circle-scroll">
-                        <span class="step-number-hidden">03</span>
+            <div class="elegant-step" data-index="2">
+                <div class="circle-zone">
+                    <div class="elegant-circle">
+                        <span class="circle-number">03</span>
                     </div>
                 </div>
-                <div class="step-right">
-                    <h3 class="step-title-scroll">Unlimited Creation</h3>
-                    <p class="step-desc-scroll">Enjoy unlimited design and development requests with lightning-fast turnaround and unlimited revisions.</p>
+                <div class="content-zone">
+                    <h3>Unlimited Creation</h3>
+                    <p>Enjoy unlimited design and development requests with lightning-fast turnaround and unlimited revisions.</p>
                 </div>
             </div>
         </div>
@@ -7058,67 +7050,96 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-       // Scroll-triggered Progressive "How It Works"
-function initScrollSteps() {
-    const wrapper = document.querySelector('.scroll-steps-wrapper');
-    const animatedLine = document.querySelector('.animated-line');
-    const steps = document.querySelectorAll('.scroll-step-item');
+       // Ultra-Precise Scroll-Driven "How It Works"
+function initElegantSteps() {
+    const container = document.querySelector('.elegant-steps-container');
+    const progressLine = document.querySelector('.progress-line');
+    const steps = document.querySelectorAll('.elegant-step');
+    const circles = document.querySelectorAll('.elegant-circle');
     
-    if (!wrapper || !animatedLine || !steps.length) return;
+    if (!container || !progressLine || !steps.length) return;
     
-    function updateOnScroll() {
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const wrapperTop = wrapperRect.top;
-        const wrapperHeight = wrapperRect.height;
+    // Get positions of each circle
+    const circlePositions = Array.from(circles).map(circle => {
+        const rect = circle.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        return rect.top - containerRect.top + 35; // Center of circle
+    });
+    
+    function updateProgress() {
+        const containerRect = container.getBoundingClientRect();
+        const containerTop = containerRect.top;
         const windowHeight = window.innerHeight;
         
-        // Calculate how much of the section is visible
-        const scrollProgress = Math.max(0, Math.min(1, 
-            (windowHeight - wrapperTop - 200) / (wrapperHeight - 200)
-        ));
+        // Calculate scroll progress through the container
+        const triggerPoint = windowHeight * 0.5;
+        const scrolled = triggerPoint - containerTop;
         
-        // Update line length based on scroll
-        const maxLineLength = wrapperHeight;
-        const currentLineLength = scrollProgress * maxLineLength;
-        animatedLine.setAttribute('y2', currentLineLength);
+        // Clamp between 0 and total height
+        const lineLength = Math.max(0, Math.min(scrolled, containerRect.height));
         
-        // Activate steps when line reaches them
-        steps.forEach((step, index) => {
-            const stepRect = step.getBoundingClientRect();
-            const stepTop = stepRect.top;
-            const stepCenter = stepTop + (stepRect.height / 2);
+        // Update line
+        progressLine.setAttribute('y2', lineLength);
+        
+        // Activate circles and content based on line position
+        circlePositions.forEach((position, index) => {
+            const circle = circles[index];
+            const step = steps[index];
             
-            // Check if line has reached this step's circle
-            const circle = step.querySelector('.step-circle-scroll');
-            const circleTop = circle.getBoundingClientRect().top + 45; // Center of circle
+            // Calculate how much line has reached this circle
+            const distanceToCircle = lineLength - position;
             
-            if (wrapperTop + currentLineLength >= circleTop - wrapperRect.top) {
-                step.classList.add('active');
+            if (distanceToCircle >= 0) {
+                // Line has reached or passed this circle
                 circle.classList.add('active');
+                step.classList.add('content-active');
+                
+                // Animate number from bottom to center (35px is circle radius)
+                const numberProgress = Math.min(distanceToCircle / 35, 1);
+                const number = circle.querySelector('.circle-number');
+                if (number) {
+                    number.style.opacity = numberProgress;
+                    number.style.transform = `translateY(${20 - (20 * numberProgress)}px)`;
+                }
             } else {
-                step.classList.remove('active');
+                // Line hasn't reached this circle yet
                 circle.classList.remove('active');
+                step.classList.remove('content-active');
+                
+                const number = circle.querySelector('.circle-number');
+                if (number) {
+                    number.style.opacity = 0;
+                    number.style.transform = 'translateY(20px)';
+                }
             }
         });
     }
     
-    window.addEventListener('scroll', updateOnScroll, { passive: true });
-    window.addEventListener('resize', updateOnScroll);
-    updateOnScroll(); // Initial call
+    // Recalculate positions on resize
+    function recalculatePositions() {
+        circlePositions.length = 0;
+        circles.forEach(circle => {
+            const rect = circle.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            circlePositions.push(rect.top - containerRect.top + 35);
+        });
+        updateProgress();
+    }
+    
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', recalculatePositions);
+    
+    // Initial calculation
+    setTimeout(() => {
+        recalculatePositions();
+    }, 100);
 }
 
 // Initialize
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScrollSteps);
+    document.addEventListener('DOMContentLoaded', initElegantSteps);
 } else {
-    initScrollSteps();
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initProgressiveSteps);
-} else {
-    initProgressiveSteps();
+    initElegantSteps();
 }
     </script>
     
