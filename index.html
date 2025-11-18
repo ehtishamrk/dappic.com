@@ -4385,7 +4385,7 @@ body.loaded .hero-buttons {
 
 .center-line-container {
     position: absolute;
-    left: 70px;
+    left: 35px;
     top: 0;
     height: 100%;
     z-index: 0;
@@ -7057,56 +7057,52 @@ function initElegantSteps() {
     const steps = document.querySelectorAll('.elegant-step');
     const circles = document.querySelectorAll('.elegant-circle');
     
-    if (!container || !progressLine || !steps.length) return;
+    if (!container || !progressLine || !steps.length) {
+        console.log('Elements not found');
+        return;
+    }
     
-    // Get positions of each circle
-    const circlePositions = Array.from(circles).map(circle => {
-        const rect = circle.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        return rect.top - containerRect.top + 35; // Center of circle
-    });
+    console.log('Elegant steps initialized');
     
     function updateProgress() {
         const containerRect = container.getBoundingClientRect();
-        const containerTop = containerRect.top;
         const windowHeight = window.innerHeight;
         
-        // Calculate scroll progress through the container
-        const triggerPoint = windowHeight * 0.5;
-        const scrolled = triggerPoint - containerTop;
+        // Start point: when container enters viewport
+        const startPoint = windowHeight - 200;
+        const scrollProgress = startPoint - containerRect.top;
         
-        // Clamp between 0 and total height
-        const lineLength = Math.max(0, Math.min(scrolled, containerRect.height));
+        // Calculate line length (starts from 0, grows as you scroll)
+        const lineLength = Math.max(0, Math.min(scrollProgress, containerRect.height));
         
-        // Update line
-        progressLine.setAttribute('y2', lineLength);
+        // Update the line - THIS IS THE KEY
+        progressLine.setAttribute('y2', lineLength + 'px');
         
-        // Activate circles and content based on line position
-        circlePositions.forEach((position, index) => {
-            const circle = circles[index];
+        // Activate circles based on their position
+        circles.forEach((circle, index) => {
+            const circleRect = circle.getBoundingClientRect();
+            const circleCenter = circleRect.top - containerRect.top + 35; // Center of circle relative to container
+            
             const step = steps[index];
+            const number = circle.querySelector('.circle-number');
             
-            // Calculate how much line has reached this circle
-            const distanceToCircle = lineLength - position;
-            
-            if (distanceToCircle >= 0) {
-                // Line has reached or passed this circle
+            if (lineLength >= circleCenter) {
+                // Line has reached this circle
+                const overflow = lineLength - circleCenter;
+                const progress = Math.min(overflow / 35, 1); // 35px = circle radius
+                
                 circle.classList.add('active');
                 step.classList.add('content-active');
                 
-                // Animate number from bottom to center (35px is circle radius)
-                const numberProgress = Math.min(distanceToCircle / 35, 1);
-                const number = circle.querySelector('.circle-number');
                 if (number) {
-                    number.style.opacity = numberProgress;
-                    number.style.transform = `translateY(${20 - (20 * numberProgress)}px)`;
+                    number.style.opacity = progress;
+                    number.style.transform = `translateY(${20 - (20 * progress)}px)`;
                 }
             } else {
-                // Line hasn't reached this circle yet
+                // Line hasn't reached yet
                 circle.classList.remove('active');
                 step.classList.remove('content-active');
                 
-                const number = circle.querySelector('.circle-number');
                 if (number) {
                     number.style.opacity = 0;
                     number.style.transform = 'translateY(20px)';
@@ -7114,6 +7110,40 @@ function initElegantSteps() {
             }
         });
     }
+    
+    // Listen to scroll with immediate updates
+    let ticking = false;
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateProgress();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    
+    // Initial update
+    updateProgress();
+    
+    // Force update after a short delay (in case of layout shifts)
+    setTimeout(updateProgress, 200);
+}
+
+// Initialize immediately or when ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initElegantSteps);
+} else {
+    initElegantSteps();
+}
+
+// Also try to init on hash change (in case navigating to home page)
+window.addEventListener('hashchange', () => {
+    setTimeout(initElegantSteps, 100);
+});
     
     // Recalculate positions on resize
     function recalculatePositions() {
