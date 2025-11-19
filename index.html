@@ -7066,30 +7066,56 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-     // Minimal working scroll lines
+     // Complete Working Lines + Numbers
 (function() {
     function init() {
         const line1 = document.getElementById('scroll-line-1');
         const line2 = document.getElementById('scroll-line-2');
+        const container = document.querySelector('.elegant-steps-container');
+        const circles = document.querySelectorAll('.elegant-circle');
+        const steps = document.querySelectorAll('.elegant-step');
         
-        if (!line1 || !line2) {
-            console.error('Lines not found!');
+        if (!line1 || !line2 || !container) {
+            console.error('Elements missing!');
             return;
         }
         
-        console.log('Lines found! Starting animation...');
+        console.log('Everything initialized!');
         
         function animate() {
-            const scroll = window.scrollY;
+            const box = container.getBoundingClientRect();
+            const scroll = (window.innerHeight * 0.5) - box.top;
             
-            // Simple test: make lines grow based on raw scroll position
-            const len1 = Math.min(70 + (scroll / 2), 370);
-            const len2 = Math.min(440 + (scroll / 2), 740);
+            // LINES
+            const y1 = Math.max(70, Math.min(scroll, 370));
+            line1.setAttribute('y2', y1);
             
-            line1.setAttribute('y2', len1);
-            line2.setAttribute('y2', len2);
+            const y2 = Math.max(440, Math.min(scroll, 740));
+            line2.setAttribute('y2', y2);
             
-            console.log('Scroll:', scroll, 'Line1:', len1, 'Line2:', len2);
+            // NUMBERS (YOUR WORKING CODE)
+            circles.forEach((circle, i) => {
+                const cBox = circle.getBoundingClientRect();
+                const cPos = cBox.top - box.top + 35;
+                const num = circle.querySelector('.circle-number');
+                
+                if (scroll >= cPos) {
+                    const prog = Math.min((scroll - cPos) / 35, 1);
+                    circle.classList.add('active');
+                    steps[i].classList.add('content-active');
+                    if (num) {
+                        num.style.opacity = prog;
+                        num.style.transform = `translateY(${20 - 20 * prog}px)`;
+                    }
+                } else {
+                    circle.classList.remove('active');
+                    steps[i].classList.remove('content-active');
+                    if (num) {
+                        num.style.opacity = 0;
+                        num.style.transform = 'translateY(20px)';
+                    }
+                }
+            });
         }
         
         window.addEventListener('scroll', animate);
