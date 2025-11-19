@@ -4776,8 +4776,9 @@ body.loaded .hero-buttons {
             <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
         </linearGradient>
     </defs>
-    <line id="scroll-line-1" x1="5" y1="70" x2="5" y2="70" stroke="url(#lineGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
-    <line id="scroll-line-2" x1="5" y1="440" x2="5" y2="440" stroke="url(#lineGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
+    <!-- FULLY VISIBLE LINES - NO ANIMATION YET -->
+    <line id="scroll-line-1" x1="5" y1="70" x2="5" y2="370" stroke="url(#lineGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
+    <line id="scroll-line-2" x1="5" y1="440" x2="5" y2="740" stroke="url(#lineGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
 </svg>
             <!-- Step 1 -->
             <div class="elegant-step" data-index="0">
@@ -7057,68 +7058,42 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-      // Simple Scroll Lines
-function initElegantSteps() {
-    const line1 = document.getElementById('scroll-line-1');
-    const line2 = document.getElementById('scroll-line-2');
-    const container = document.querySelector('.elegant-steps-container');
-    const circles = document.querySelectorAll('.elegant-circle');
-    const steps = document.querySelectorAll('.elegant-step');
-    
-    if (!line1 || !line2 || !container) {
-        console.log('Elements missing!');
-        return;
-    }
-    
-    console.log('Initialized!');
-    
-    function update() {
-        const box = container.getBoundingClientRect();
-        const scroll = (window.innerHeight * 0.5) - box.top;
+     // Minimal working scroll lines
+(function() {
+    function init() {
+        const line1 = document.getElementById('scroll-line-1');
+        const line2 = document.getElementById('scroll-line-2');
         
-        // Line 1: from 70 to 370 (circle 1 bottom to circle 2 top)
-        const y1 = Math.max(70, Math.min(scroll, 370));
-        line1.setAttribute('y2', y1);
+        if (!line1 || !line2) {
+            console.error('Lines not found!');
+            return;
+        }
         
-        // Line 2: from 440 to 740 (circle 2 bottom to circle 3 top)
-        const y2 = Math.max(440, Math.min(scroll, 740));
-        line2.setAttribute('y2', y2);
+        console.log('Lines found! Starting animation...');
         
-        // Numbers (keep working)
-        circles.forEach((circle, i) => {
-            const cBox = circle.getBoundingClientRect();
-            const cPos = cBox.top - box.top + 35;
-            const num = circle.querySelector('.circle-number');
+        function animate() {
+            const scroll = window.scrollY;
             
-            if (scroll >= cPos) {
-                const prog = Math.min((scroll - cPos) / 35, 1);
-                circle.classList.add('active');
-                steps[i].classList.add('content-active');
-                if (num) {
-                    num.style.opacity = prog;
-                    num.style.transform = `translateY(${20 - 20 * prog}px)`;
-                }
-            } else {
-                circle.classList.remove('active');
-                steps[i].classList.remove('content-active');
-                if (num) {
-                    num.style.opacity = 0;
-                    num.style.transform = 'translateY(20px)';
-                }
-            }
-        });
+            // Simple test: make lines grow based on raw scroll position
+            const len1 = Math.min(70 + (scroll / 2), 370);
+            const len2 = Math.min(440 + (scroll / 2), 740);
+            
+            line1.setAttribute('y2', len1);
+            line2.setAttribute('y2', len2);
+            
+            console.log('Scroll:', scroll, 'Line1:', len1, 'Line2:', len2);
+        }
+        
+        window.addEventListener('scroll', animate);
+        animate();
     }
     
-    window.addEventListener('scroll', update);
-    update();
-}
-
-// Initialize
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initElegantSteps);
-} else {
-    initElegantSteps();
-}
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
     </script>
     
 </body>
