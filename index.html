@@ -7060,7 +7060,7 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-      // Dynamic Scroll-Reactive "How It Works"
+      // Simple Working Scroll Line
 function initElegantSteps() {
     const container = document.querySelector('.elegant-steps-container');
     const animLine1 = document.querySelector('.animated-line-1');
@@ -7068,122 +7068,85 @@ function initElegantSteps() {
     const steps = document.querySelectorAll('.elegant-step');
     const circles = document.querySelectorAll('.elegant-circle');
     
-    if (!container || !animLine1 || !animLine2 || !steps.length) return;
-    
-    let circlePositions = [];
-    
-    function calculatePositions() {
-        const containerRect = container.getBoundingClientRect();
-        circlePositions = Array.from(circles).map(circle => {
-            const rect = circle.getBoundingClientRect();
-            return {
-                top: rect.top - containerRect.top,
-                center: rect.top - containerRect.top + 35,
-                bottom: rect.top - containerRect.top + 70
-            };
-        });
+    if (!container || !animLine1 || !animLine2 || !steps.length) {
+        console.log('Missing elements');
+        return;
     }
     
-    function updateProgress() {
-        if (circlePositions.length === 0) calculatePositions();
+    function update() {
+        const rect = container.getBoundingClientRect();
+        const vh = window.innerHeight;
         
-        const containerRect = container.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const triggerPoint = windowHeight * 0.5;
-        const scrolled = triggerPoint - containerRect.top;
+        // How far we've scrolled into the container
+        const progress = Math.max(0, (vh * 0.5) - rect.top);
         
-        // Line segment 1: bottom of circle 1 to top of circle 2
-        if (circlePositions.length >= 2) {
-            const seg1Start = circlePositions[0].bottom;
-            const seg1End = circlePositions[1].top;
-            
-            if (scrolled < seg1Start) {
-                // Not reached yet
-                animLine1.setAttribute('y1', seg1Start);
-                animLine1.setAttribute('y2', seg1Start);
-            } else if (scrolled <= seg1End) {
-                // Growing
-                animLine1.setAttribute('y1', seg1Start);
-                animLine1.setAttribute('y2', scrolled);
-            } else {
-                // Complete
-                animLine1.setAttribute('y1', seg1Start);
-                animLine1.setAttribute('y2', seg1End);
-            }
+        console.log('Progress:', progress); // Debug
+        
+        // Circle 1 bottom at ~70px, Circle 2 top at ~370px
+        const line1Start = 70;
+        const line1End = 370;
+        
+        // Circle 2 bottom at ~440px, Circle 3 top at ~740px  
+        const line2Start = 440;
+        const line2End = 740;
+        
+        // Line 1
+        if (progress >= line1Start && progress <= line1End) {
+            animLine1.setAttribute('y1', line1Start);
+            animLine1.setAttribute('y2', progress);
+        } else if (progress > line1End) {
+            animLine1.setAttribute('y1', line1Start);
+            animLine1.setAttribute('y2', line1End);
+        } else {
+            animLine1.setAttribute('y1', line1Start);
+            animLine1.setAttribute('y2', line1Start);
         }
         
-        // Line segment 2: bottom of circle 2 to top of circle 3
-        if (circlePositions.length >= 3) {
-            const seg2Start = circlePositions[1].bottom;
-            const seg2End = circlePositions[2].top;
-            
-            if (scrolled < seg2Start) {
-                // Not reached yet
-                animLine2.setAttribute('y1', seg2Start);
-                animLine2.setAttribute('y2', seg2Start);
-            } else if (scrolled <= seg2End) {
-                // Growing
-                animLine2.setAttribute('y1', seg2Start);
-                animLine2.setAttribute('y2', scrolled);
-            } else {
-                // Complete
-                animLine2.setAttribute('y1', seg2Start);
-                animLine2.setAttribute('y2', seg2End);
-            }
+        // Line 2
+        if (progress >= line2Start && progress <= line2End) {
+            animLine2.setAttribute('y1', line2Start);
+            animLine2.setAttribute('y2', progress);
+        } else if (progress > line2End) {
+            animLine2.setAttribute('y1', line2Start);
+            animLine2.setAttribute('y2', line2End);
+        } else {
+            animLine2.setAttribute('y1', line2Start);
+            animLine2.setAttribute('y2', line2Start);
         }
         
-        // Activate circles (UNTOUCHED - keep your working number reveal)
-        circles.forEach((circle, index) => {
-            if (!circlePositions[index]) return;
+        // Activate circles (keep your working code)
+        circles.forEach((circle, i) => {
+            const cRect = circle.getBoundingClientRect();
+            const cCenter = cRect.top - rect.top + 35;
             
-            const circleCenter = circlePositions[index].center;
-            const step = steps[index];
-            const number = circle.querySelector('.circle-number');
-            
-            if (scrolled >= circleCenter) {
-                const overflow = scrolled - circleCenter;
-                const progress = Math.min(overflow / 35, 1);
+            if (progress >= cCenter) {
+                const over = progress - cCenter;
+                const p = Math.min(over / 35, 1);
                 
                 circle.classList.add('active');
-                step.classList.add('content-active');
+                steps[i].classList.add('content-active');
                 
-                if (number) {
-                    number.style.opacity = progress;
-                    number.style.transform = `translateY(${20 - (20 * progress)}px)`;
+                const num = circle.querySelector('.circle-number');
+                if (num) {
+                    num.style.opacity = p;
+                    num.style.transform = `translateY(${20 - (20 * p)}px)`;
                 }
             } else {
                 circle.classList.remove('active');
-                step.classList.remove('content-active');
+                steps[i].classList.remove('content-active');
                 
-                if (number) {
-                    number.style.opacity = 0;
-                    number.style.transform = 'translateY(20px)';
+                const num = circle.querySelector('.circle-number');
+                if (num) {
+                    num.style.opacity = 0;
+                    num.style.transform = 'translateY(20px)';
                 }
             }
         });
     }
     
-    let ticking = false;
-    function onScroll() {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                updateProgress();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-        calculatePositions();
-        updateProgress();
-    });
-    
-    setTimeout(() => {
-        calculatePositions();
-        updateProgress();
-    }, 100);
+    window.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    update();
 }
 
 // Initialize
