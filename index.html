@@ -4769,15 +4769,16 @@ body.loaded .hero-buttons {
         
         <div class="elegant-steps-container">
             <!-- Vertical Line SVG -->
-          <svg class="center-line-container" width="4" height="800" style="position: absolute; left: 35px; top: 0; z-index: 10;">
+          <svg class="center-line-container" width="4" height="800" style="position: absolute; left: 35px; top: 0; z-index: 0;">
     <defs>
         <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
         </linearGradient>
     </defs>
-    <!-- TEST LINE - should be visible immediately -->
-    <line x1="2" y1="0" x2="2" y2="800" stroke="#0093BA" stroke-width="3"/>
+    <!-- Two line segments -->
+    <line id="scroll-line-1" x1="2" y1="70" x2="2" y2="70" stroke="url(#lineGrad)" stroke-width="3" stroke-dasharray="6, 6"/>
+    <line id="scroll-line-2" x1="2" y1="440" x2="2" y2="440" stroke="url(#lineGrad)" stroke-width="3" stroke-dasharray="6, 6"/>
 </svg>     
             <!-- Step 1 -->
             <div class="elegant-step" data-index="0">
@@ -7057,82 +7058,50 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-      // Simple Working Scroll Line
+      // Simple Scroll Lines
 function initElegantSteps() {
+    const line1 = document.getElementById('scroll-line-1');
+    const line2 = document.getElementById('scroll-line-2');
     const container = document.querySelector('.elegant-steps-container');
-    const animLine1 = document.querySelector('.animated-line-1');
-    const animLine2 = document.querySelector('.animated-line-2');
-    const steps = document.querySelectorAll('.elegant-step');
     const circles = document.querySelectorAll('.elegant-circle');
+    const steps = document.querySelectorAll('.elegant-step');
     
-    if (!container || !animLine1 || !animLine2 || !steps.length) {
-        console.log('Missing elements');
+    if (!line1 || !line2 || !container) {
+        console.log('Elements missing!');
         return;
     }
     
+    console.log('Initialized!');
+    
     function update() {
-        const rect = container.getBoundingClientRect();
-        const vh = window.innerHeight;
+        const box = container.getBoundingClientRect();
+        const scroll = (window.innerHeight * 0.5) - box.top;
         
-        // How far we've scrolled into the container
-        const progress = Math.max(0, (vh * 0.5) - rect.top);
+        // Line 1: from 70 to 370 (circle 1 bottom to circle 2 top)
+        const y1 = Math.max(70, Math.min(scroll, 370));
+        line1.setAttribute('y2', y1);
         
-        console.log('Progress:', progress); // Debug
+        // Line 2: from 440 to 740 (circle 2 bottom to circle 3 top)
+        const y2 = Math.max(440, Math.min(scroll, 740));
+        line2.setAttribute('y2', y2);
         
-        // Circle 1 bottom at ~70px, Circle 2 top at ~370px
-        const line1Start = 70;
-        const line1End = 370;
-        
-        // Circle 2 bottom at ~440px, Circle 3 top at ~740px  
-        const line2Start = 440;
-        const line2End = 740;
-        
-        // Line 1
-        if (progress >= line1Start && progress <= line1End) {
-            animLine1.setAttribute('y1', line1Start);
-            animLine1.setAttribute('y2', progress);
-        } else if (progress > line1End) {
-            animLine1.setAttribute('y1', line1Start);
-            animLine1.setAttribute('y2', line1End);
-        } else {
-            animLine1.setAttribute('y1', line1Start);
-            animLine1.setAttribute('y2', line1Start);
-        }
-        
-        // Line 2
-        if (progress >= line2Start && progress <= line2End) {
-            animLine2.setAttribute('y1', line2Start);
-            animLine2.setAttribute('y2', progress);
-        } else if (progress > line2End) {
-            animLine2.setAttribute('y1', line2Start);
-            animLine2.setAttribute('y2', line2End);
-        } else {
-            animLine2.setAttribute('y1', line2Start);
-            animLine2.setAttribute('y2', line2Start);
-        }
-        
-        // Activate circles (keep your working code)
+        // Numbers (keep working)
         circles.forEach((circle, i) => {
-            const cRect = circle.getBoundingClientRect();
-            const cCenter = cRect.top - rect.top + 35;
+            const cBox = circle.getBoundingClientRect();
+            const cPos = cBox.top - box.top + 35;
+            const num = circle.querySelector('.circle-number');
             
-            if (progress >= cCenter) {
-                const over = progress - cCenter;
-                const p = Math.min(over / 35, 1);
-                
+            if (scroll >= cPos) {
+                const prog = Math.min((scroll - cPos) / 35, 1);
                 circle.classList.add('active');
                 steps[i].classList.add('content-active');
-                
-                const num = circle.querySelector('.circle-number');
                 if (num) {
-                    num.style.opacity = p;
-                    num.style.transform = `translateY(${20 - (20 * p)}px)`;
+                    num.style.opacity = prog;
+                    num.style.transform = `translateY(${20 - 20 * prog}px)`;
                 }
             } else {
                 circle.classList.remove('active');
                 steps[i].classList.remove('content-active');
-                
-                const num = circle.querySelector('.circle-number');
                 if (num) {
                     num.style.opacity = 0;
                     num.style.transform = 'translateY(20px)';
@@ -7142,7 +7111,6 @@ function initElegantSteps() {
     }
     
     window.addEventListener('scroll', update);
-    window.addEventListener('resize', update);
     update();
 }
 
