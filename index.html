@@ -7068,7 +7068,7 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-     // Complete Working Lines + Numbers
+     // Smart Dynamic Lines + Numbers
 (function() {
     function init() {
         const line1 = document.getElementById('scroll-line-1');
@@ -7077,28 +7077,66 @@ function initMagneticCursor() {
         const circles = document.querySelectorAll('.elegant-circle');
         const steps = document.querySelectorAll('.elegant-step');
         
-        if (!line1 || !line2 || !container) {
+        if (!line1 || !line2 || !container || circles.length < 3) {
             console.error('Elements missing!');
             return;
         }
         
-        console.log('Everything initialized!');
+        let positions = [];
+        
+        // Calculate actual circle positions
+        function calculatePositions() {
+            const containerBox = container.getBoundingClientRect();
+            positions = Array.from(circles).map(circle => {
+                const box = circle.getBoundingClientRect();
+                return {
+                    top: box.top - containerBox.top,
+                    center: box.top - containerBox.top + 35,
+                    bottom: box.top - containerBox.top + 70
+                };
+            });
+            console.log('Circle positions:', positions);
+        }
         
         function animate() {
+            if (positions.length === 0) calculatePositions();
+            
             const box = container.getBoundingClientRect();
             const scroll = (window.innerHeight * 0.5) - box.top;
             
-            // LINES
-            const y1 = Math.max(70, Math.min(scroll, 370));
-            line1.setAttribute('y2', y1);
+            // LINE 1: Circle 1 bottom to Circle 2 top
+            const line1Start = positions[0].bottom;
+            const line1End = positions[1].top;
             
-            const y2 = Math.max(440, Math.min(scroll, 740));
-            line2.setAttribute('y2', y2);
+            if (scroll < line1Start) {
+                line1.setAttribute('y1', line1Start);
+                line1.setAttribute('y2', line1Start);
+            } else if (scroll >= line1Start && scroll <= line1End) {
+                line1.setAttribute('y1', line1Start);
+                line1.setAttribute('y2', scroll);
+            } else {
+                line1.setAttribute('y1', line1Start);
+                line1.setAttribute('y2', line1End);
+            }
             
-            // NUMBERS (YOUR WORKING CODE)
+            // LINE 2: Circle 2 bottom to Circle 3 top
+            const line2Start = positions[1].bottom;
+            const line2End = positions[2].top;
+            
+            if (scroll < line2Start) {
+                line2.setAttribute('y1', line2Start);
+                line2.setAttribute('y2', line2Start);
+            } else if (scroll >= line2Start && scroll <= line2End) {
+                line2.setAttribute('y1', line2Start);
+                line2.setAttribute('y2', scroll);
+            } else {
+                line2.setAttribute('y1', line2Start);
+                line2.setAttribute('y2', line2End);
+            }
+            
+            // NUMBERS
             circles.forEach((circle, i) => {
-                const cBox = circle.getBoundingClientRect();
-                const cPos = cBox.top - box.top + 35;
+                const cPos = positions[i].center;
                 const num = circle.querySelector('.circle-number');
                 
                 if (scroll >= cPos) {
@@ -7121,6 +7159,13 @@ function initMagneticCursor() {
         }
         
         window.addEventListener('scroll', animate);
+        window.addEventListener('resize', () => {
+            positions = [];
+            calculatePositions();
+            animate();
+        });
+        
+        calculatePositions();
         animate();
     }
     
