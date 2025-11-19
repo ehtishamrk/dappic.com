@@ -4644,15 +4644,17 @@ body.loaded .hero-buttons {
        /* ===== ROTATING TEXT ANIMATION ===== */
 .rotating-text-container {
     display: inline-block;
-    font-size: 1em;
+    font-size: 0.55em;
     font-weight: 200;
+    color: var(--secondary);
+    margin-top: 0.5rem;
 }
 
 .rotating-word-wrapper {
     display: inline-block;
     position: relative;
     vertical-align: top;
-    min-width: 420px;
+    min-width: 380px;
     height: 1.2em;
     overflow: hidden;
 }
@@ -4714,20 +4716,22 @@ body.loaded .hero-buttons {
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    .rotating-word-wrapper {
-        min-width: 280px;
-        font-size: 0.9em;
+    .rotating-text-container {
+        font-size: 0.45em;
     }
     
-    .rotating-text-container {
-        font-size: 0.85em;
+    .rotating-word-wrapper {
+        min-width: 240px;
     }
 }
 
 @media (max-width: 480px) {
+    .rotating-text-container {
+        font-size: 0.4em;
+    }
+    
     .rotating-word-wrapper {
-        min-width: 220px;
-        font-size: 0.8em;
+        min-width: 200px;
     }
 }
     </style>
