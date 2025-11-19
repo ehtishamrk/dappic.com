@@ -4769,7 +4769,7 @@ body.loaded .hero-buttons {
         
         <div class="elegant-steps-container">
             <!-- Vertical Line SVG -->
-           <svg class="center-line-container" width="2" height="100%" style="position: absolute; left: 35px; top: 0; z-index: 0; pointer-events: none;">
+          <svg class="center-line-container" width="2" height="100%" style="position: absolute; left: 35px; top: 0; z-index: 0; pointer-events: none;">
     <defs>
         <linearGradient id="animatedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
@@ -4777,13 +4777,9 @@ body.loaded .hero-buttons {
             <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
         </linearGradient>
     </defs>
-    <!-- Background static lines -->
-    <line class="bg-line-1" x1="1" y1="0" x2="1" y2="0" stroke="rgba(0, 147, 186, 0.1)" stroke-width="2" stroke-dasharray="4, 4"/>
-    <line class="bg-line-2" x1="1" y1="0" x2="1" y2="0" stroke="rgba(0, 147, 186, 0.1)" stroke-width="2" stroke-dasharray="4, 4"/>
-    
-    <!-- Animated progress lines -->
-    <line class="animated-line-1" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4" style="transition: y1 0.1s linear, y2 0.1s linear;"/>
-    <line class="animated-line-2" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4" style="transition: y1 0.1s linear, y2 0.1s linear;"/>
+    <!-- ONLY animated lines, NO static background -->
+    <line class="animated-line-1" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <line class="animated-line-2" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
 </svg>
             
             <!-- Step 1 -->
@@ -7067,8 +7063,6 @@ function initMagneticCursor() {
       // Dynamic Scroll-Reactive "How It Works"
 function initElegantSteps() {
     const container = document.querySelector('.elegant-steps-container');
-    const bgLine1 = document.querySelector('.bg-line-1');
-    const bgLine2 = document.querySelector('.bg-line-2');
     const animLine1 = document.querySelector('.animated-line-1');
     const animLine2 = document.querySelector('.animated-line-2');
     const steps = document.querySelectorAll('.elegant-step');
@@ -7088,16 +7082,6 @@ function initElegantSteps() {
                 bottom: rect.top - containerRect.top + 70
             };
         });
-        
-        // Set background line positions (static)
-        if (circlePositions.length >= 2) {
-            bgLine1.setAttribute('y1', circlePositions[0].bottom);
-            bgLine1.setAttribute('y2', circlePositions[1].top);
-        }
-        if (circlePositions.length >= 3) {
-            bgLine2.setAttribute('y1', circlePositions[1].bottom);
-            bgLine2.setAttribute('y2', circlePositions[2].top);
-        }
     }
     
     function updateProgress() {
