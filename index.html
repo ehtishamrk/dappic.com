@@ -4770,15 +4770,20 @@ body.loaded .hero-buttons {
         <div class="elegant-steps-container">
             <!-- Vertical Line SVG -->
             <svg class="center-line-container" width="2" height="100%">
-                <defs>
-                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <line x1="1" y1="0" x2="1" y2="100%" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
-                <line class="progress-line" x1="1" y1="0" x2="1" y2="0" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
-            </svg>
+    <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <!-- Static dashed lines between circles -->
+    <line class="static-segment-1" x1="1" y1="70" x2="1" y2="370" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <line class="static-segment-2" x1="1" y1="440" x2="1" y2="740" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
+    
+    <!-- Animated segments -->
+    <line class="progress-segment-1" x1="1" y1="70" x2="1" y2="70" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <line class="progress-segment-2" x1="1" y1="440" x2="1" y2="440" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
+</svg>
             
             <!-- Step 1 -->
             <div class="elegant-step" data-index="0">
@@ -7058,46 +7063,66 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-       // Ultra-Precise Scroll-Driven "How It Works"
+       // Ultra-Precise Scroll-Driven "How It Works" - Segments Between Circles
 function initElegantSteps() {
     const container = document.querySelector('.elegant-steps-container');
-    const progressLine = document.querySelector('.progress-line');
+    const segment1 = document.querySelector('.progress-segment-1');
+    const segment2 = document.querySelector('.progress-segment-2');
     const steps = document.querySelectorAll('.elegant-step');
     const circles = document.querySelectorAll('.elegant-circle');
     
-    if (!container || !progressLine || !steps.length) {
+    if (!container || !segment1 || !segment2 || !steps.length) {
         console.log('Elements not found');
         return;
     }
     
-    console.log('Elegant steps initialized');
+    // Segment 1: bottom of circle 1 (y=70) to top of circle 2 (y=370)
+    // Segment 2: bottom of circle 2 (y=440) to top of circle 3 (y=740)
     
     function updateProgress() {
         const containerRect = container.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
-        // Start point: when container enters viewport
+        // Calculate scroll progress
         const startPoint = windowHeight - 200;
         const scrollProgress = startPoint - containerRect.top;
-        
-        // Calculate line length (starts from 0, grows as you scroll)
         const lineLength = Math.max(0, Math.min(scrollProgress, containerRect.height));
         
-        // Update the line - THIS IS THE KEY
-        progressLine.setAttribute('y2', lineLength + 'px');
+        // Segment 1: Grows from 70 to 370 (300px length)
+        if (lineLength <= 70) {
+            // Haven't reached circle 1 bottom yet
+            segment1.setAttribute('y2', 70);
+        } else if (lineLength <= 370) {
+            // Growing through segment 1
+            segment1.setAttribute('y2', lineLength);
+        } else {
+            // Segment 1 complete
+            segment1.setAttribute('y2', 370);
+        }
         
-        // Activate circles based on their position
+        // Segment 2: Grows from 440 to 740 (300px length)
+        if (lineLength <= 440) {
+            // Haven't reached circle 2 bottom yet
+            segment2.setAttribute('y2', 440);
+        } else if (lineLength <= 740) {
+            // Growing through segment 2
+            segment2.setAttribute('y2', lineLength);
+        } else {
+            // Segment 2 complete
+            segment2.setAttribute('y2', 740);
+        }
+        
+        // Activate circles when line reaches them (keep existing logic - DON'T TOUCH)
         circles.forEach((circle, index) => {
             const circleRect = circle.getBoundingClientRect();
-            const circleCenter = circleRect.top - containerRect.top + 35; // Center of circle relative to container
+            const circleCenter = circleRect.top - containerRect.top + 35;
             
             const step = steps[index];
             const number = circle.querySelector('.circle-number');
             
             if (lineLength >= circleCenter) {
-                // Line has reached this circle
                 const overflow = lineLength - circleCenter;
-                const progress = Math.min(overflow / 35, 1); // 35px = circle radius
+                const progress = Math.min(overflow / 35, 1);
                 
                 circle.classList.add('active');
                 step.classList.add('content-active');
@@ -7107,7 +7132,6 @@ function initElegantSteps() {
                     number.style.transform = `translateY(${20 - (20 * progress)}px)`;
                 }
             } else {
-                // Line hasn't reached yet
                 circle.classList.remove('active');
                 step.classList.remove('content-active');
                 
@@ -7119,7 +7143,7 @@ function initElegantSteps() {
         });
     }
     
-    // Listen to scroll with immediate updates
+    // Smooth scroll updates
     let ticking = false;
     function onScroll() {
         if (!ticking) {
@@ -7134,24 +7158,9 @@ function initElegantSteps() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateProgress);
     
-    // Initial update
     updateProgress();
-    
-    // Force update after a short delay (in case of layout shifts)
     setTimeout(updateProgress, 200);
 }
-
-// Initialize immediately or when ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initElegantSteps);
-} else {
-    initElegantSteps();
-}
-
-// Also try to init on hash change (in case navigating to home page)
-window.addEventListener('hashchange', () => {
-    setTimeout(initElegantSteps, 100);
-});
 
 // Initialize
 if (document.readyState === 'loading') {
