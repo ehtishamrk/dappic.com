@@ -4641,6 +4641,95 @@ body.loaded .hero-buttons {
         height: 600px;
     }
 }  
+       /* ===== ROTATING TEXT ANIMATION ===== */
+.rotating-text-container {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 200;
+}
+
+.rotating-word-wrapper {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    min-width: 420px;
+    height: 1.2em;
+    overflow: hidden;
+}
+
+.rotating-word {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+    white-space: nowrap;
+    animation: swapWord 9s infinite;
+}
+
+.rotating-word:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.rotating-word:nth-child(2) {
+    animation-delay: 3s;
+}
+
+.rotating-word:nth-child(3) {
+    animation-delay: 6s;
+}
+
+@keyframes swapWord {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+        clip-path: inset(0 0 0 100%);
+    }
+    5% {
+        opacity: 1;
+        transform: translateX(0);
+        clip-path: inset(0 0 0 0);
+    }
+    28% {
+        opacity: 1;
+        transform: translateX(0);
+        clip-path: inset(0 0 0 0);
+    }
+    33% {
+        opacity: 0;
+        transform: translateX(-100%);
+        clip-path: inset(0 100% 0 0);
+    }
+    33.33%, 100% {
+        opacity: 0;
+        transform: translateX(100%);
+        clip-path: inset(0 0 0 100%);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .rotating-word-wrapper {
+        min-width: 280px;
+        font-size: 0.9em;
+    }
+    
+    .rotating-text-container {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .rotating-word-wrapper {
+        min-width: 220px;
+        font-size: 0.8em;
+    }
+}
     </style>
 </head>
 <body>
@@ -4733,9 +4822,17 @@ body.loaded .hero-buttons {
             <div class="hero-content">
                 <div class="hero-label">360° Digital Excellence</div>
                 <h1 class="hero-title">
-                    <span class="word">Transform</span><br>
-                    <span class="word"><span class="gradient">Digital Presence</span></span>
-                </h1>
+    <span class="word">Transform</span><br>
+    <span class="word"><span class="gradient">Digital Presence</span></span><br>
+    <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: block; margin-top: 0.5rem;">With</span>
+    <span class="rotating-text-container">
+        Best <span class="rotating-word-wrapper">
+            <span class="rotating-word active">Designing</span>
+            <span class="rotating-word">Development</span>
+            <span class="rotating-word">Marketing</span>
+        </span> Company
+    </span>
+</h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                 <div class="hero-buttons">
                     <a href="#" class="btn-primary" onclick="navigateTo('work')">View Our Work</a>
