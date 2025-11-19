@@ -4769,20 +4769,21 @@ body.loaded .hero-buttons {
         
         <div class="elegant-steps-container">
             <!-- Vertical Line SVG -->
-            <svg class="center-line-container" width="2" height="100%">
+           <svg class="center-line-container" width="2" height="100%" style="position: absolute; left: 35px; top: 0; z-index: 0; pointer-events: none;">
     <defs>
-        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="animatedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#1AA4C1;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
         </linearGradient>
     </defs>
-    <!-- Static dashed lines between circles -->
-    <line class="static-segment-1" x1="1" y1="70" x2="1" y2="370" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
-    <line class="static-segment-2" x1="1" y1="440" x2="1" y2="740" stroke="rgba(0, 147, 186, 0.12)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <!-- Background static lines -->
+    <line class="bg-line-1" x1="1" y1="0" x2="1" y2="0" stroke="rgba(0, 147, 186, 0.1)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <line class="bg-line-2" x1="1" y1="0" x2="1" y2="0" stroke="rgba(0, 147, 186, 0.1)" stroke-width="2" stroke-dasharray="4, 4"/>
     
-    <!-- Animated segments -->
-    <line class="progress-segment-1" x1="1" y1="70" x2="1" y2="70" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
-    <line class="progress-segment-2" x1="1" y1="440" x2="1" y2="440" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4, 4"/>
+    <!-- Animated progress lines -->
+    <line class="animated-line-1" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4" style="transition: y1 0.1s linear, y2 0.1s linear;"/>
+    <line class="animated-line-2" x1="1" y1="0" x2="1" y2="0" stroke="url(#animatedGrad)" stroke-width="2" stroke-dasharray="4, 4" style="transition: y1 0.1s linear, y2 0.1s linear;"/>
 </svg>
             
             <!-- Step 1 -->
@@ -7063,65 +7064,100 @@ function initMagneticCursor() {
         }, 250);
     });
 })();
-       // Ultra-Precise Scroll-Driven "How It Works" - Segments Between Circles
+      // Dynamic Scroll-Reactive "How It Works"
 function initElegantSteps() {
     const container = document.querySelector('.elegant-steps-container');
-    const segment1 = document.querySelector('.progress-segment-1');
-    const segment2 = document.querySelector('.progress-segment-2');
+    const bgLine1 = document.querySelector('.bg-line-1');
+    const bgLine2 = document.querySelector('.bg-line-2');
+    const animLine1 = document.querySelector('.animated-line-1');
+    const animLine2 = document.querySelector('.animated-line-2');
     const steps = document.querySelectorAll('.elegant-step');
     const circles = document.querySelectorAll('.elegant-circle');
     
-    if (!container || !segment1 || !segment2 || !steps.length) {
-        console.log('Elements not found');
-        return;
+    if (!container || !animLine1 || !animLine2 || !steps.length) return;
+    
+    let circlePositions = [];
+    
+    function calculatePositions() {
+        const containerRect = container.getBoundingClientRect();
+        circlePositions = Array.from(circles).map(circle => {
+            const rect = circle.getBoundingClientRect();
+            return {
+                top: rect.top - containerRect.top,
+                center: rect.top - containerRect.top + 35,
+                bottom: rect.top - containerRect.top + 70
+            };
+        });
+        
+        // Set background line positions (static)
+        if (circlePositions.length >= 2) {
+            bgLine1.setAttribute('y1', circlePositions[0].bottom);
+            bgLine1.setAttribute('y2', circlePositions[1].top);
+        }
+        if (circlePositions.length >= 3) {
+            bgLine2.setAttribute('y1', circlePositions[1].bottom);
+            bgLine2.setAttribute('y2', circlePositions[2].top);
+        }
     }
     
-    // Segment 1: bottom of circle 1 (y=70) to top of circle 2 (y=370)
-    // Segment 2: bottom of circle 2 (y=440) to top of circle 3 (y=740)
-    
     function updateProgress() {
+        if (circlePositions.length === 0) calculatePositions();
+        
         const containerRect = container.getBoundingClientRect();
         const windowHeight = window.innerHeight;
+        const triggerPoint = windowHeight * 0.5;
+        const scrolled = triggerPoint - containerRect.top;
         
-        // Calculate scroll progress
-        const startPoint = windowHeight - 200;
-        const scrollProgress = startPoint - containerRect.top;
-        const lineLength = Math.max(0, Math.min(scrollProgress, containerRect.height));
-        
-        // Segment 1: Grows from 70 to 370 (300px length)
-        if (lineLength <= 70) {
-            // Haven't reached circle 1 bottom yet
-            segment1.setAttribute('y2', 70);
-        } else if (lineLength <= 370) {
-            // Growing through segment 1
-            segment1.setAttribute('y2', lineLength);
-        } else {
-            // Segment 1 complete
-            segment1.setAttribute('y2', 370);
-        }
-        
-        // Segment 2: Grows from 440 to 740 (300px length)
-        if (lineLength <= 440) {
-            // Haven't reached circle 2 bottom yet
-            segment2.setAttribute('y2', 440);
-        } else if (lineLength <= 740) {
-            // Growing through segment 2
-            segment2.setAttribute('y2', lineLength);
-        } else {
-            // Segment 2 complete
-            segment2.setAttribute('y2', 740);
-        }
-        
-        // Activate circles when line reaches them (keep existing logic - DON'T TOUCH)
-        circles.forEach((circle, index) => {
-            const circleRect = circle.getBoundingClientRect();
-            const circleCenter = circleRect.top - containerRect.top + 35;
+        // Line segment 1: bottom of circle 1 to top of circle 2
+        if (circlePositions.length >= 2) {
+            const seg1Start = circlePositions[0].bottom;
+            const seg1End = circlePositions[1].top;
             
+            if (scrolled < seg1Start) {
+                // Not reached yet
+                animLine1.setAttribute('y1', seg1Start);
+                animLine1.setAttribute('y2', seg1Start);
+            } else if (scrolled <= seg1End) {
+                // Growing
+                animLine1.setAttribute('y1', seg1Start);
+                animLine1.setAttribute('y2', scrolled);
+            } else {
+                // Complete
+                animLine1.setAttribute('y1', seg1Start);
+                animLine1.setAttribute('y2', seg1End);
+            }
+        }
+        
+        // Line segment 2: bottom of circle 2 to top of circle 3
+        if (circlePositions.length >= 3) {
+            const seg2Start = circlePositions[1].bottom;
+            const seg2End = circlePositions[2].top;
+            
+            if (scrolled < seg2Start) {
+                // Not reached yet
+                animLine2.setAttribute('y1', seg2Start);
+                animLine2.setAttribute('y2', seg2Start);
+            } else if (scrolled <= seg2End) {
+                // Growing
+                animLine2.setAttribute('y1', seg2Start);
+                animLine2.setAttribute('y2', scrolled);
+            } else {
+                // Complete
+                animLine2.setAttribute('y1', seg2Start);
+                animLine2.setAttribute('y2', seg2End);
+            }
+        }
+        
+        // Activate circles (UNTOUCHED - keep your working number reveal)
+        circles.forEach((circle, index) => {
+            if (!circlePositions[index]) return;
+            
+            const circleCenter = circlePositions[index].center;
             const step = steps[index];
             const number = circle.querySelector('.circle-number');
             
-            if (lineLength >= circleCenter) {
-                const overflow = lineLength - circleCenter;
+            if (scrolled >= circleCenter) {
+                const overflow = scrolled - circleCenter;
                 const progress = Math.min(overflow / 35, 1);
                 
                 circle.classList.add('active');
@@ -7143,7 +7179,6 @@ function initElegantSteps() {
         });
     }
     
-    // Smooth scroll updates
     let ticking = false;
     function onScroll() {
         if (!ticking) {
@@ -7156,10 +7191,15 @@ function initElegantSteps() {
     }
     
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateProgress);
+    window.addEventListener('resize', () => {
+        calculatePositions();
+        updateProgress();
+    });
     
-    updateProgress();
-    setTimeout(updateProgress, 200);
+    setTimeout(() => {
+        calculatePositions();
+        updateProgress();
+    }, 100);
 }
 
 // Initialize
