@@ -7152,25 +7152,6 @@ if (document.readyState === 'loading') {
 window.addEventListener('hashchange', () => {
     setTimeout(initElegantSteps, 100);
 });
-    
-    // Recalculate positions on resize
-    function recalculatePositions() {
-        circlePositions.length = 0;
-        circles.forEach(circle => {
-            const rect = circle.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            circlePositions.push(rect.top - containerRect.top + 35);
-        });
-        updateProgress();
-    }
-    
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', recalculatePositions);
-    
-    // Initial calculation
-    setTimeout(() => {
-        recalculatePositions();
-    }, 100);
 
 // Initialize
 if (document.readyState === 'loading') {
