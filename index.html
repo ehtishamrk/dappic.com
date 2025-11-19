@@ -4536,39 +4536,109 @@ body.loaded .hero-buttons {
         font-size: 1rem;
     }
 }
-      /* ===== 3D ROTATING LOGO BACKGROUND ===== */
-.rotating-logo-bg {
+   /* ===== SPECTACULAR 3D HOLOGRAPHIC LOGO ===== */
+.logo-3d-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    perspective: 1000px;
+    width: 1000px;
+    height: 1000px;
+    perspective: 2000px;
     pointer-events: none;
     z-index: 1;
 }
 
-.logo-3d {
+.logo-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    will-change: transform;
 }
 
-.logo-outline-3d {
+.logo-hologram {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: continuousRotate 20s linear infinite;
+}
+
+@keyframes continuousRotate {
+    0% { transform: rotateY(0deg) rotateX(5deg); }
+    100% { transform: rotateY(360deg) rotateX(5deg); }
+}
+
+/* Shadow layer - Deepest */
+.shadow-layer {
     fill: none;
-    stroke: rgba(0, 147, 186, 0.08);
+    stroke: rgba(0, 147, 186, 0.15);
+    stroke-width: 4;
+    filter: blur(8px);
+}
+
+/* Glow layer - Middle */
+.glow-layer {
+    fill: none;
+    stroke: rgba(0, 147, 186, 0.4);
     stroke-width: 3;
-    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 20px rgba(0, 147, 186, 0.6)) 
+            drop-shadow(0 0 40px rgba(35, 62, 126, 0.4));
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Main layer - Front */
+.main-layer {
+    fill: none;
+    stroke: url(#hologramGradient);
+    stroke-width: 2;
+    stroke-dasharray: 3000;
+    stroke-dashoffset: 3000;
+    animation: drawStroke 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes drawStroke {
+    0% { stroke-dashoffset: 3000; }
+    50% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -3000; }
+}
+
+/* Particles */
+.particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(0, 147, 186, 1), transparent);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { transform: translateY(-100px) translateX(50px); opacity: 0.4; }
+    90% { opacity: 0.8; }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .rotating-logo-bg {
-        width: 400px;
-        height: 400px;
+    .logo-3d-container {
+        width: 600px;
+        height: 600px;
     }
 }  
     </style>
@@ -4577,6 +4647,16 @@ body.loaded .hero-buttons {
   <!-- SIMPLE OUTLINE LOADER -->
 <div class="page-loader" id="pageLoader">
     <svg class="loader-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 4500" width="200" height="200">
+        <defs>
+    <linearGradient id="hologramGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1">
+            <animate attributeName="stop-color" values="#0093BA; #233E7E; #0093BA" dur="4s" repeatCount="indefinite"/>
+        </stop>
+        <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1">
+            <animate attributeName="stop-color" values="#233E7E; #0093BA; #233E7E" dur="4s" repeatCount="indefinite"/>
+        </stop>
+    </linearGradient>
+</defs>
         <path class="logo-outline" d="M 2896.5,1141.5 C 2989.54,1138.67 3080.54,1150.84 3169.5,1178C 3273.13,1208.99 3369.47,1254.66 3458.5,1315C 3634.4,1439.14 3742.57,1607.64 3783,1820.5C 3804.45,1947.98 3803.45,2075.31 3780,2202.5C 3746.92,2374.78 3684.59,2535.44 3593,2684.5C 3517.11,2808.11 3423.94,2917.61 3313.5,3013C 3222.06,3090.59 3119.72,3150.59 3006.5,3193C 2920.7,3224.93 2832.04,3241.76 2740.5,3243.5C 2646.23,3243.93 2557.56,3222.1 2474.5,3178C 2399.95,3137.12 2342.45,3079.28 2302,3004.5C 2264.82,2932.76 2256.16,2857.76 2276,2779.5C 2292.96,2725.73 2322.79,2680.56 2365.5,2644C 2411.52,2606.82 2463.19,2579.82 2520.5,2563C 2591.72,2542.68 2664.39,2532.35 2738.5,2532C 2760.79,2531.92 2778.95,2523.42 2793,2506.5C 2803.67,2486.94 2802.67,2467.94 2790,2449.5C 2697.5,2327.11 2577.33,2287.95 2429.5,2332C 2382.24,2347.2 2336.9,2366.87 2293.5,2391C 2239.34,2421.85 2187.34,2455.85 2137.5,2493C 2078.39,2537.77 2020.72,2584.44 1964.5,2633C 1922.17,2670.67 1879.83,2708.33 1837.5,2746C 1753.47,2823.7 1669.13,2901.04 1584.5,2978C 1515.84,3039.47 1445.5,3098.81 1373.5,3156C 1314.17,3202.31 1251.84,3244.31 1186.5,3282C 1136.32,3310.59 1083.32,3332.26 1027.5,3347C 973.794,3360.86 920.128,3360.86 866.5,3347C 820.584,3333.03 780.751,3309.2 747,3275.5C 720.723,3244.04 705.723,3207.71 702,3166.5C 698.121,3118.92 701.788,3071.92 713,3025.5C 729.314,2958.55 751.981,2893.89 781,2831.5C 824.808,2738.85 874.474,2649.85 930,2564.5C 1030.62,2412.5 1141.96,2268.5 1264,2132.5C 1438.36,1937.77 1628.52,1761.27 1834.5,1603C 1952.88,1512.69 2077.21,1431.02 2207.5,1358C 2319.35,1295.74 2436.02,1244.41 2557.5,1204C 2667.8,1167.64 2780.8,1146.81 2896.5,1141.5 Z M 2857.5,1634.5 C 2898.94,1632.09 2937.94,1640.59 2974.5,1660C 3020.16,1688.11 3046.66,1728.94 3054,1782.5C 3059.02,1831.69 3051.69,1879.02 3032,1924.5C 3005.47,1985.37 2967.64,2038.2 2918.5,2083C 2864.92,2132.14 2802.92,2166.8 2732.5,2187C 2692.24,2197.86 2651.57,2199.86 2610.5,2193C 2533.86,2176.36 2488.36,2129.53 2474,2052.5C 2468.65,2008.65 2473.65,1965.98 2489,1924.5C 2517.4,1850.53 2561.9,1788.03 2622.5,1737C 2675.07,1692.04 2735.07,1660.71 2802.5,1643C 2820.79,1638.89 2839.12,1636.06 2857.5,1634.5 Z"/>
     </svg>
 </div>
@@ -4858,18 +4938,39 @@ body.loaded .hero-buttons {
         </div>
     </div>
 </section>
-        <section style="background: white; position: relative; overflow: hidden; padding: 8rem 3rem;">
-    <!-- 3D ROTATING LOGO BACKGROUND -->
-    <div class="rotating-logo-bg" id="rotatingLogo">
-        <svg class="logo-3d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 4500">
-            <path class="logo-outline-3d" d="M 2896.5,1141.5 C 2989.54,1138.67 3080.54,1150.84 3169.5,1178C 3273.13,1208.99 3369.47,1254.66 3458.5,1315C 3634.4,1439.14 3742.57,1607.64 3783,1820.5C 3804.45,1947.98 3803.45,2075.31 3780,2202.5C 3746.92,2374.78 3684.59,2535.44 3593,2684.5C 3517.11,2808.11 3423.94,2917.61 3313.5,3013C 3222.06,3090.59 3119.72,3150.59 3006.5,3193C 2920.7,3224.93 2832.04,3241.76 2740.5,3243.5C 2646.23,3243.93 2557.56,3222.1 2474.5,3178C 2399.95,3137.12 2342.45,3079.28 2302,3004.5C 2264.82,2932.76 2256.16,2857.76 2276,2779.5C 2292.96,2725.73 2322.79,2680.56 2365.5,2644C 2411.52,2606.82 2463.19,2579.82 2520.5,2563C 2591.72,2542.68 2664.39,2532.35 2738.5,2532C 2760.79,2531.92 2778.95,2523.42 2793,2506.5C 2803.67,2486.94 2802.67,2467.94 2790,2449.5C 2697.5,2327.11 2577.33,2287.95 2429.5,2332C 2382.24,2347.2 2336.9,2366.87 2293.5,2391C 2239.34,2421.85 2187.34,2455.85 2137.5,2493C 2078.39,2537.77 2020.72,2584.44 1964.5,2633C 1922.17,2670.67 1879.83,2708.33 1837.5,2746C 1753.47,2823.7 1669.13,2901.04 1584.5,2978C 1515.84,3039.47 1445.5,3098.81 1373.5,3156C 1314.17,3202.31 1251.84,3244.31 1186.5,3282C 1136.32,3310.59 1083.32,3332.26 1027.5,3347C 973.794,3360.86 920.128,3360.86 866.5,3347C 820.584,3333.03 780.751,3309.2 747,3275.5C 720.723,3244.04 705.723,3207.71 702,3166.5C 698.121,3118.92 701.788,3071.92 713,3025.5C 729.314,2958.55 751.981,2893.89 781,2831.5C 824.808,2738.85 874.474,2649.85 930,2564.5C 1030.62,2412.5 1141.96,2268.5 1264,2132.5C 1438.36,1937.77 1628.52,1761.27 1834.5,1603C 1952.88,1512.69 2077.21,1431.02 2207.5,1358C 2319.35,1295.74 2436.02,1244.41 2557.5,1204C 2667.8,1167.64 2780.8,1146.81 2896.5,1141.5 Z M 2857.5,1634.5 C 2898.94,1632.09 2937.94,1640.59 2974.5,1660C 3020.16,1688.11 3046.66,1728.94 3054,1782.5C 3059.02,1831.69 3051.69,1879.02 3032,1924.5C 3005.47,1985.37 2967.64,2038.2 2918.5,2083C 2864.92,2132.14 2802.92,2166.8 2732.5,2187C 2692.24,2197.86 2651.57,2199.86 2610.5,2193C 2533.86,2176.36 2488.36,2129.53 2474,2052.5C 2468.65,2008.65 2473.65,1965.98 2489,1924.5C 2517.4,1850.53 2561.9,1788.03 2622.5,1737C 2675.07,1692.04 2735.07,1660.71 2802.5,1643C 2820.79,1638.89 2839.12,1636.06 2857.5,1634.5 Z"/>
-        </svg>
+        <!-- Ready to elevate your brand? section -->
+        <section style="background: linear-gradient(135deg, #0a0f1f 0%, #132348 100%); position: relative; overflow: hidden; padding: 8rem 3rem; min-height: 600px;">
+    <!-- 3D HOLOGRAPHIC LOGO SYSTEM -->
+    <div class="logo-3d-container" id="logo3DContainer">
+        <!-- Layer 1 - Deepest (Shadow) -->
+        <div class="logo-layer" data-depth="3">
+            <svg class="logo-hologram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 4500">
+                <path class="logo-path shadow-layer" d="M 2896.5,1141.5 C 2989.54,1138.67 3080.54,1150.84 3169.5,1178C 3273.13,1208.99 3369.47,1254.66 3458.5,1315C 3634.4,1439.14 3742.57,1607.64 3783,1820.5C 3804.45,1947.98 3803.45,2075.31 3780,2202.5C 3746.92,2374.78 3684.59,2535.44 3593,2684.5C 3517.11,2808.11 3423.94,2917.61 3313.5,3013C 3222.06,3090.59 3119.72,3150.59 3006.5,3193C 2920.7,3224.93 2832.04,3241.76 2740.5,3243.5C 2646.23,3243.93 2557.56,3222.1 2474.5,3178C 2399.95,3137.12 2342.45,3079.28 2302,3004.5C 2264.82,2932.76 2256.16,2857.76 2276,2779.5C 2292.96,2725.73 2322.79,2680.56 2365.5,2644C 2411.52,2606.82 2463.19,2579.82 2520.5,2563C 2591.72,2542.68 2664.39,2532.35 2738.5,2532C 2760.79,2531.92 2778.95,2523.42 2793,2506.5C 2803.67,2486.94 2802.67,2467.94 2790,2449.5C 2697.5,2327.11 2577.33,2287.95 2429.5,2332C 2382.24,2347.2 2336.9,2366.87 2293.5,2391C 2239.34,2421.85 2187.34,2455.85 2137.5,2493C 2078.39,2537.77 2020.72,2584.44 1964.5,2633C 1922.17,2670.67 1879.83,2708.33 1837.5,2746C 1753.47,2823.7 1669.13,2901.04 1584.5,2978C 1515.84,3039.47 1445.5,3098.81 1373.5,3156C 1314.17,3202.31 1251.84,3244.31 1186.5,3282C 1136.32,3310.59 1083.32,3332.26 1027.5,3347C 973.794,3360.86 920.128,3360.86 866.5,3347C 820.584,3333.03 780.751,3309.2 747,3275.5C 720.723,3244.04 705.723,3207.71 702,3166.5C 698.121,3118.92 701.788,3071.92 713,3025.5C 729.314,2958.55 751.981,2893.89 781,2831.5C 824.808,2738.85 874.474,2649.85 930,2564.5C 1030.62,2412.5 1141.96,2268.5 1264,2132.5C 1438.36,1937.77 1628.52,1761.27 1834.5,1603C 1952.88,1512.69 2077.21,1431.02 2207.5,1358C 2319.35,1295.74 2436.02,1244.41 2557.5,1204C 2667.8,1167.64 2780.8,1146.81 2896.5,1141.5 Z M 2857.5,1634.5 C 2898.94,1632.09 2937.94,1640.59 2974.5,1660C 3020.16,1688.11 3046.66,1728.94 3054,1782.5C 3059.02,1831.69 3051.69,1879.02 3032,1924.5C 3005.47,1985.37 2967.64,2038.2 2918.5,2083C 2864.92,2132.14 2802.92,2166.8 2732.5,2187C 2692.24,2197.86 2651.57,2199.86 2610.5,2193C 2533.86,2176.36 2488.36,2129.53 2474,2052.5C 2468.65,2008.65 2473.65,1965.98 2489,1924.5C 2517.4,1850.53 2561.9,1788.03 2622.5,1737C 2675.07,1692.04 2735.07,1660.71 2802.5,1643C 2820.79,1638.89 2839.12,1636.06 2857.5,1634.5 Z"/>
+            </svg>
+        </div>
+        
+        <!-- Layer 2 - Mid (Glow) -->
+        <div class="logo-layer" data-depth="2">
+            <svg class="logo-hologram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 4500">
+                <path class="logo-path glow-layer" d="M 2896.5,1141.5 C 2989.54,1138.67 3080.54,1150.84 3169.5,1178C 3273.13,1208.99 3369.47,1254.66 3458.5,1315C 3634.4,1439.14 3742.57,1607.64 3783,1820.5C 3804.45,1947.98 3803.45,2075.31 3780,2202.5C 3746.92,2374.78 3684.59,2535.44 3593,2684.5C 3517.11,2808.11 3423.94,2917.61 3313.5,3013C 3222.06,3090.59 3119.72,3150.59 3006.5,3193C 2920.7,3224.93 2832.04,3241.76 2740.5,3243.5C 2646.23,3243.93 2557.56,3222.1 2474.5,3178C 2399.95,3137.12 2342.45,3079.28 2302,3004.5C 2264.82,2932.76 2256.16,2857.76 2276,2779.5C 2292.96,2725.73 2322.79,2680.56 2365.5,2644C 2411.52,2606.82 2463.19,2579.82 2520.5,2563C 2591.72,2542.68 2664.39,2532.35 2738.5,2532C 2760.79,2531.92 2778.95,2523.42 2793,2506.5C 2803.67,2486.94 2802.67,2467.94 2790,2449.5C 2697.5,2327.11 2577.33,2287.95 2429.5,2332C 2382.24,2347.2 2336.9,2366.87 2293.5,2391C 2239.34,2421.85 2187.34,2455.85 2137.5,2493C 2078.39,2537.77 2020.72,2584.44 1964.5,2633C 1922.17,2670.67 1879.83,2708.33 1837.5,2746C 1753.47,2823.7 1669.13,2901.04 1584.5,2978C 1515.84,3039.47 1445.5,3098.81 1373.5,3156C 1314.17,3202.31 1251.84,3244.31 1186.5,3282C 1136.32,3310.59 1083.32,3332.26 1027.5,3347C 973.794,3360.86 920.128,3360.86 866.5,3347C 820.584,3333.03 780.751,3309.2 747,3275.5C 720.723,3244.04 705.723,3207.71 702,3166.5C 698.121,3118.92 701.788,3071.92 713,3025.5C 729.314,2958.55 751.981,2893.89 781,2831.5C 824.808,2738.85 874.474,2649.85 930,2564.5C 1030.62,2412.5 1141.96,2268.5 1264,2132.5C 1438.36,1937.77 1628.52,1761.27 1834.5,1603C 1952.88,1512.69 2077.21,1431.02 2207.5,1358C 2319.35,1295.74 2436.02,1244.41 2557.5,1204C 2667.8,1167.64 2780.8,1146.81 2896.5,1141.5 Z M 2857.5,1634.5 C 2898.94,1632.09 2937.94,1640.59 2974.5,1660C 3020.16,1688.11 3046.66,1728.94 3054,1782.5C 3059.02,1831.69 3051.69,1879.02 3032,1924.5C 3005.47,1985.37 2967.64,2038.2 2918.5,2083C 2864.92,2132.14 2802.92,2166.8 2732.5,2187C 2692.24,2197.86 2651.57,2199.86 2610.5,2193C 2533.86,2176.36 2488.36,2129.53 2474,2052.5C 2468.65,2008.65 2473.65,1965.98 2489,1924.5C 2517.4,1850.53 2561.9,1788.03 2622.5,1737C 2675.07,1692.04 2735.07,1660.71 2802.5,1643C 2820.79,1638.89 2839.12,1636.06 2857.5,1634.5 Z"/>
+            </svg>
+        </div>
+        
+        <!-- Layer 3 - Front (Main) -->
+        <div class="logo-layer" data-depth="1">
+            <svg class="logo-hologram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 4500">
+                <path class="logo-path main-layer" d="M 2896.5,1141.5 C 2989.54,1138.67 3080.54,1150.84 3169.5,1178C 3273.13,1208.99 3369.47,1254.66 3458.5,1315C 3634.4,1439.14 3742.57,1607.64 3783,1820.5C 3804.45,1947.98 3803.45,2075.31 3780,2202.5C 3746.92,2374.78 3684.59,2535.44 3593,2684.5C 3517.11,2808.11 3423.94,2917.61 3313.5,3013C 3222.06,3090.59 3119.72,3150.59 3006.5,3193C 2920.7,3224.93 2832.04,3241.76 2740.5,3243.5C 2646.23,3243.93 2557.56,3222.1 2474.5,3178C 2399.95,3137.12 2342.45,3079.28 2302,3004.5C 2264.82,2932.76 2256.16,2857.76 2276,2779.5C 2292.96,2725.73 2322.79,2680.56 2365.5,2644C 2411.52,2606.82 2463.19,2579.82 2520.5,2563C 2591.72,2542.68 2664.39,2532.35 2738.5,2532C 2760.79,2531.92 2778.95,2523.42 2793,2506.5C 2803.67,2486.94 2802.67,2467.94 2790,2449.5C 2697.5,2327.11 2577.33,2287.95 2429.5,2332C 2382.24,2347.2 2336.9,2366.87 2293.5,2391C 2239.34,2421.85 2187.34,2455.85 2137.5,2493C 2078.39,2537.77 2020.72,2584.44 1964.5,2633C 1922.17,2670.67 1879.83,2708.33 1837.5,2746C 1753.47,2823.7 1669.13,2901.04 1584.5,2978C 1515.84,3039.47 1445.5,3098.81 1373.5,3156C 1314.17,3202.31 1251.84,3244.31 1186.5,3282C 1136.32,3310.59 1083.32,3332.26 1027.5,3347C 973.794,3360.86 920.128,3360.86 866.5,3347C 820.584,3333.03 780.751,3309.2 747,3275.5C 720.723,3244.04 705.723,3207.71 702,3166.5C 698.121,3118.92 701.788,3071.92 713,3025.5C 729.314,2958.55 751.981,2893.89 781,2831.5C 824.808,2738.85 874.474,2649.85 930,2564.5C 1030.62,2412.5 1141.96,2268.5 1264,2132.5C 1438.36,1937.77 1628.52,1761.27 1834.5,1603C 1952.88,1512.69 2077.21,1431.02 2207.5,1358C 2319.35,1295.74 2436.02,1244.41 2557.5,1204C 2667.8,1167.64 2780.8,1146.81 2896.5,1141.5 Z M 2857.5,1634.5 C 2898.94,1632.09 2937.94,1640.59 2974.5,1660C 3020.16,1688.11 3046.66,1728.94 3054,1782.5C 3059.02,1831.69 3051.69,1879.02 3032,1924.5C 3005.47,1985.37 2967.64,2038.2 2918.5,2083C 2864.92,2132.14 2802.92,2166.8 2732.5,2187C 2692.24,2197.86 2651.57,2199.86 2610.5,2193C 2533.86,2176.36 2488.36,2129.53 2474,2052.5C 2468.65,2008.65 2473.65,1965.98 2489,1924.5C 2517.4,1850.53 2561.9,1788.03 2622.5,1737C 2675.07,1692.04 2735.07,1660.71 2802.5,1643C 2820.79,1638.89 2839.12,1636.06 2857.5,1634.5 Z"/>
+            </svg>
+        </div>
+        
+        <!-- Floating particles -->
+        <div class="particles-container"></div>
     </div>
     
     <!-- CONTENT -->
-    <div class="section-container scroll-reveal" style="max-width: 900px; text-align: center; position: relative; z-index: 2;">
-        <h2 class="section-title" style="margin-bottom: 1.5rem;">Ready to elevate your brand?</h2>
-        <p class="section-desc" style="margin-bottom: 3rem;">Let's discuss how we can transform your digital presence</p>
+    <div class="section-container scroll-reveal" style="max-width: 900px; text-align: center; position: relative; z-index: 10;">
+        <h2 class="section-title" style="margin-bottom: 1.5rem; color: white;">Ready to elevate your brand?</h2>
+        <p class="section-desc" style="margin-bottom: 3rem; color: rgba(255,255,255,0.8);">Let's discuss how we can transform your digital presence</p>
         <button class="btn-primary" onclick="navigateTo('contact')">Start a Conversation</button>
     </div>
 </section>
@@ -7210,18 +7311,35 @@ function initMagneticCursor() {
         init();
     }
 })();
-// 3D Mouse-Tracking Logo
+// SPECTACULAR 3D HOLOGRAPHIC LOGO
 (function() {
-    function init3DLogo() {
-        const logo = document.getElementById('rotatingLogo');
-        const logoSVG = document.querySelector('.logo-3d');
+    function initSpectacularLogo() {
+        const container = document.getElementById('logo3DContainer');
+        const layers = document.querySelectorAll('.logo-layer');
+        const particlesContainer = document.querySelector('.particles-container');
         
-        if (!logo || !logoSVG) return;
+        if (!container || !layers.length) return;
         
-        const section = logo.closest('section');
+        let baseRotationY = 0;
+        let baseRotationX = 5;
+        let targetRotationY = 0;
+        let targetRotationX = 5;
+        
+        // Create floating particles
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 8}s`;
+            particle.style.animationDuration = `${6 + Math.random() * 4}s`;
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Mouse interaction
+        const section = container.closest('section');
         let isInView = false;
         
-        // Check if section is in viewport
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 isInView = entry.isIntersecting;
@@ -7230,7 +7348,6 @@ function initMagneticCursor() {
         
         observer.observe(section);
         
-        // Mouse tracking
         document.addEventListener('mousemove', (e) => {
             if (!isInView) return;
             
@@ -7238,26 +7355,52 @@ function initMagneticCursor() {
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            // Calculate rotation based on mouse position
             const mouseX = e.clientX;
             const mouseY = e.clientY;
             
-            const rotateX = ((mouseY - centerY) / rect.height) * 30; // -30 to +30 degrees
-            const rotateY = ((mouseX - centerX) / rect.width) * -30; // -30 to +30 degrees
-            
-            logoSVG.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            // Calculate target rotation (amplifies the auto-rotation)
+            targetRotationX = 5 + ((mouseY - centerY) / rect.height) * 40;
+            targetRotationY = ((mouseX - centerX) / rect.width) * 60;
         });
+        
+        // Smooth animation loop
+        function animate() {
+            baseRotationX += (targetRotationX - baseRotationX) * 0.05;
+            baseRotationY += (targetRotationY - baseRotationY) * 0.05;
+            
+            layers.forEach((layer, index) => {
+                const depth = parseFloat(layer.dataset.depth);
+                const svg = layer.querySelector('.logo-hologram');
+                
+                // Each layer has different depth
+                const layerRotationY = baseRotationY * (1 + depth * 0.1);
+                const layerRotationX = baseRotationX * (1 + depth * 0.05);
+                const translateZ = depth * 30;
+                
+                svg.style.animation = 'none';
+                svg.style.transform = `
+                    rotateY(${layerRotationY}deg) 
+                    rotateX(${layerRotationX}deg) 
+                    translateZ(${translateZ}px)
+                `;
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
         
         // Reset on mouse leave
         section.addEventListener('mouseleave', () => {
-            logoSVG.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            targetRotationY = 0;
+            targetRotationX = 5;
         });
     }
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init3DLogo);
+        document.addEventListener('DOMContentLoaded', initSpectacularLogo);
     } else {
-        init3DLogo();
+        initSpectacularLogo();
     }
 })();
         
