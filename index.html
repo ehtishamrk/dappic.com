@@ -4777,18 +4777,16 @@ body.loaded .hero-buttons {
         </linearGradient>
     </defs>
     <!-- FULLY VISIBLE LINES - NO ANIMATION YET -->
-    <svg class="center-line-container" width="10" height="800" style="position: absolute; left: 30px; top: 0; z-index: 1;">
+    <svg class="center-line-container" width="10" height="800" style="position: absolute; left: 30px; top: 0; z-index: 1; pointer-events: none;">
     <defs>
-        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="brandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:#0093BA;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#233E7E;stop-opacity:1" />
         </linearGradient>
     </defs>
-    <!-- THICK visible lines with gradient -->
-    <svg class="center-line-container" width="10" height="800" style="position: absolute; left: 30px; top: 0; z-index: 999; pointer-events: none;">
-    <!-- Solid brand color with dashes -->
-    <line id="scroll-line-1" x1="5" y1="70" x2="5" y2="70" stroke="#0093BA" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
-    <line id="scroll-line-2" x1="5" y1="440" x2="5" y2="440" stroke="#0093BA" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
+    <!-- Dashed lines with brand gradient -->
+    <line id="scroll-line-1" x1="5" y1="0" x2="5" y2="0" stroke="url(#brandGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
+    <line id="scroll-line-2" x1="5" y1="0" x2="5" y2="0" stroke="url(#brandGrad)" stroke-width="4" stroke-dasharray="6, 6" stroke-linecap="round"/>
 </svg>
             <!-- Step 1 -->
             <div class="elegant-step" data-index="0">
