@@ -4718,7 +4718,7 @@ body.loaded .hero-buttons {
     background-clip: text;
     transform: translateX(350px);
 }
-        /* ===== CLIP ANIMATION (Exact from Unisoft) ===== */
+      /* ===== TYPEWRITER CLIP ANIMATION (From Unisoft) ===== */
 .jkit-animated-text {
     display: inline-block;
     font-size: 0.55em;
@@ -4727,14 +4727,13 @@ body.loaded .hero-buttons {
 }
 
 .animated-text {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     margin: 0;
     white-space: nowrap;
 }
 
 .normal-text {
-    display: inline-block;
-    color: var(--secondary);
     background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -4743,66 +4742,71 @@ body.loaded .hero-buttons {
 }
 
 .dynamic-wrapper {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     vertical-align: top;
     overflow: hidden;
+    padding-right: 5px;
+}
+
+.dynamic-wrapper::after {
+    content: '|';
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #0093BA;
+    font-weight: 300;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .dynamic-text {
-    display: inline-block;
     position: absolute;
     left: 0;
     top: 0;
+    visibility: hidden;
     background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 400;
     white-space: nowrap;
-    opacity: 0;
-    transform: translateY(100%);
 }
 
 .dynamic-text.is-visible {
     position: relative;
-    opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
 }
 
-/* Clip Animation States */
-.jkit-animated-text[data-rotate="clip"] .dynamic-text {
-    opacity: 0;
+/* Clip-in animation */
+.jkit-animated-text[data-rotate="clip"] .dynamic-text.clip-in {
+    animation: clipIn 0.6s forwards;
 }
 
-.jkit-animated-text[data-rotate="clip"] .dynamic-text.is-visible {
-    opacity: 1;
-    animation: clip-in 0.6s ease-in both;
+/* Clip-out animation */
+.jkit-animated-text[data-rotate="clip"] .dynamic-text.clip-out {
+    animation: clipOut 0.6s forwards;
 }
 
-.jkit-animated-text[data-rotate="clip"] .dynamic-text.is-hidden {
-    animation: clip-out 0.6s ease-in both;
-}
-
-@keyframes clip-in {
+@keyframes clipIn {
     0% {
-        opacity: 0;
-        transform: translateY(-50%);
+        clip-path: inset(0 100% 0 0);
     }
     100% {
-        opacity: 1;
-        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
     }
 }
 
-@keyframes clip-out {
+@keyframes clipOut {
     0% {
-        opacity: 1;
-        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
     }
     100% {
-        opacity: 0;
-        transform: translateY(50%);
+        clip-path: inset(0 0 0 100%);
     }
 }
 
@@ -4913,7 +4917,7 @@ body.loaded .hero-buttons {
     <span class="word">Transform</span><br>
     <span class="word"><span class="gradient">Digital Presence</span></span><br>
     <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: block; margin-top: 0.5rem;">With</span>
-    <div class="jkit-animated-text" data-delay="2000">
+    <div class="jkit-animated-text" data-style="rotating" data-rotate="clip">
         <p class="animated-text">
             <span class="normal-text">Best </span>
             <span class="dynamic-wrapper">
@@ -7592,36 +7596,40 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
-        // Clip Animation (Exact from Unisoft)
+       // Typewriter Clip Animation (From Unisoft)
 (function() {
     function initClipAnimation() {
-        const container = document.querySelector('.jkit-animated-text');
+        const container = document.querySelector('.jkit-animated-text[data-rotate="clip"]');
         if (!container) return;
         
         const words = container.querySelectorAll('.dynamic-text');
-        const delay = parseInt(container.getAttribute('data-delay')) || 2000;
-        
         let currentIndex = 0;
         
-        function animateWord() {
+        function typeWriter() {
             const current = words[currentIndex];
             const nextIndex = (currentIndex + 1) % words.length;
             const next = words[nextIndex];
             
-            // Hide current word
-            current.classList.add('is-hidden');
+            // Clip out current word
+            current.classList.add('clip-out');
             current.classList.remove('is-visible');
             
-            // Show next word after animation completes
             setTimeout(() => {
-                current.classList.remove('is-hidden');
-                next.classList.add('is-visible');
+                current.classList.remove('clip-out');
+                
+                // Clip in next word
+                next.classList.add('is-visible', 'clip-in');
+                
+                setTimeout(() => {
+                    next.classList.remove('clip-in');
+                }, 600);
+                
                 currentIndex = nextIndex;
             }, 600);
         }
         
-        // Start animation
-        setInterval(animateWord, delay);
+        // Start animation every 2 seconds
+        setInterval(typeWriter, 2000);
     }
     
     if (document.readyState === 'loading') {
