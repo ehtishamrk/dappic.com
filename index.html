@@ -4641,97 +4641,231 @@ body.loaded .hero-buttons {
         height: 600px;
     }
 }  
-       /* ===== ROTATING TEXT ANIMATION ===== */
-.rotating-text-container {
+      /* ===== PREMIUM WORD SWAPPING WITH EATING ANIMATION ===== */
+.premium-rotating-container {
     display: inline-block;
     font-size: 0.55em;
     font-weight: 200;
     color: var(--secondary);
     margin-top: 0.5rem;
+    position: relative;
+    white-space: nowrap;
 }
 
-.rotating-word-wrapper {
+.fixed-word {
+    display: inline-block;
+    margin-right: 0.3em;
+    position: relative;
+    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.word-swapper {
     display: inline-block;
     position: relative;
-    vertical-align: top;
-    min-width: 380px;
+    width: 320px;
     height: 1.2em;
+    vertical-align: top;
     overflow: hidden;
 }
 
-.rotating-word {
+.swapping-word {
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
-    transform: translateX(100%);
     background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 400;
     white-space: nowrap;
-    animation: swapWord 9s infinite;
+    transform: translateX(0);
 }
 
-.rotating-word:nth-child(1) {
-    animation-delay: 0s;
+.swapping-word.active {
+    opacity: 1;
+    animation: wordFadeOut 4s ease-in-out;
 }
 
-.rotating-word:nth-child(2) {
-    animation-delay: 3s;
+.swapping-word.entering {
+    animation: wordFadeIn 4s ease-in-out;
 }
 
-.rotating-word:nth-child(3) {
-    animation-delay: 6s;
+@keyframes wordFadeOut {
+    0%, 60% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
 }
 
-@keyframes swapWord {
+@keyframes wordFadeIn {
     0% {
         opacity: 0;
-        transform: translateX(100%);
-        clip-path: inset(0 0 0 100%);
+        transform: translateX(50px);
     }
-    5% {
+    40%, 100% {
         opacity: 1;
         transform: translateX(0);
-        clip-path: inset(0 0 0 0);
     }
-    28% {
-        opacity: 1;
-        transform: translateX(0);
-        clip-path: inset(0 0 0 0);
+}
+
+/* Company - The Eater */
+.company-eater {
+    display: inline-block;
+    margin-left: 0.3em;
+    position: relative;
+    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+    animation: eatAndReveal 4s ease-in-out infinite;
+    transform-origin: left center;
+}
+
+@keyframes eatAndReveal {
+    0%, 15% {
+        transform: translateX(0) scaleX(1);
     }
-    33% {
+    25% {
+        transform: translateX(-340px) scaleX(1.1);
+    }
+    35% {
+        transform: translateX(-340px) scaleX(0.95);
+    }
+    50%, 65% {
+        transform: translateX(0) scaleX(1);
+    }
+    100% {
+        transform: translateX(0) scaleX(1);
+    }
+}
+
+/* Premium Shimmer Effect */
+.fixed-word::before,
+.company-eater::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+.company-eater::before {
+    animation-delay: 0.5s;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 200%;
+    }
+}
+
+/* Glowing Effect on Word Change */
+.word-swapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 147, 186, 0.4), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 70% {
+        width: 0;
+        height: 0;
         opacity: 0;
-        transform: translateX(-100%);
-        clip-path: inset(0 100% 0 0);
     }
-    33.33%, 100% {
+    75% {
+        width: 400px;
+        height: 400px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 500px;
+        height: 500px;
         opacity: 0;
-        transform: translateX(100%);
-        clip-path: inset(0 0 0 100%);
     }
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    .rotating-text-container {
+    .premium-rotating-container {
         font-size: 0.45em;
     }
     
-    .rotating-word-wrapper {
-        min-width: 240px;
+    .word-swapper {
+        width: 220px;
+    }
+    
+    @keyframes eatAndReveal {
+        0%, 15% {
+            transform: translateX(0) scaleX(1);
+        }
+        25% {
+            transform: translateX(-240px) scaleX(1.1);
+        }
+        35% {
+            transform: translateX(-240px) scaleX(0.95);
+        }
+        50%, 65% {
+            transform: translateX(0) scaleX(1);
+        }
+        100% {
+            transform: translateX(0) scaleX(1);
+        }
     }
 }
 
 @media (max-width: 480px) {
-    .rotating-text-container {
+    .premium-rotating-container {
         font-size: 0.4em;
     }
     
-    .rotating-word-wrapper {
-        min-width: 200px;
+    .word-swapper {
+        width: 180px;
+    }
+    
+    @keyframes eatAndReveal {
+        0%, 15% {
+            transform: translateX(0) scaleX(1);
+        }
+        25% {
+            transform: translateX(-200px) scaleX(1.1);
+        }
+        35% {
+            transform: translateX(-200px) scaleX(0.95);
+        }
+        50%, 65% {
+            transform: translateX(0) scaleX(1);
+        }
+        100% {
+            transform: translateX(0) scaleX(1);
+        }
     }
 }
     </style>
@@ -4825,16 +4959,18 @@ body.loaded .hero-buttons {
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-label">360° Digital Excellence</div>
-                <h1 class="hero-title">
+               <h1 class="hero-title">
     <span class="word">Transform</span><br>
     <span class="word"><span class="gradient">Digital Presence</span></span><br>
     <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: block; margin-top: 0.5rem;">With</span>
-    <span class="rotating-text-container">
-        Best <span class="rotating-word-wrapper">
-            <span class="rotating-word active">Designing</span>
-            <span class="rotating-word">Development</span>
-            <span class="rotating-word">Marketing</span>
-        </span> Company
+    <span class="premium-rotating-container">
+        <span class="fixed-word">Best</span>
+        <span class="word-swapper">
+            <span class="swapping-word active" data-word="Designing">Designing</span>
+            <span class="swapping-word" data-word="Development">Development</span>
+            <span class="swapping-word" data-word="Marketing">Marketing</span>
+        </span>
+        <span class="company-eater">Company</span>
     </span>
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
@@ -7504,7 +7640,43 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
+       // Premium Word Swapping Animation
+(function() {
+    function initWordSwapper() {
+        const words = document.querySelectorAll('.swapping-word');
+        if (!words.length) return;
         
+        let currentIndex = 0;
+        
+        function swapWord() {
+            // Remove active from current
+            words[currentIndex].classList.remove('active');
+            words[currentIndex].classList.remove('entering');
+            
+            // Move to next word
+            currentIndex = (currentIndex + 1) % words.length;
+            
+            // Add entering then active
+            words[currentIndex].classList.add('entering');
+            setTimeout(() => {
+                words[currentIndex].classList.add('active');
+                words[currentIndex].classList.remove('entering');
+            }, 50);
+        }
+        
+        // Initial state
+        words[0].classList.add('active');
+        
+        // Swap every 4 seconds
+        setInterval(swapWord, 4000);
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWordSwapper);
+    } else {
+        initWordSwapper();
+    }
+})(); 
     </script>
     
 </body>
