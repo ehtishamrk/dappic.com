@@ -4718,88 +4718,104 @@ body.loaded .hero-buttons {
     background-clip: text;
     transform: translateX(350px);
 }
+        /* ===== CLIP ANIMATION (Exact from Unisoft) ===== */
+.jkit-animated-text {
+    display: inline-block;
+    font-size: 0.55em;
+    font-weight: 200;
+    margin-top: 0.5rem;
+}
 
-/* Eating and Revealing Animation - Company moves */
-@keyframes eatAndReveal {
+.animated-text {
+    display: inline-block;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.normal-text {
+    display: inline-block;
+    color: var(--secondary);
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+}
+
+.dynamic-wrapper {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.dynamic-text {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.dynamic-text.is-visible {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Clip Animation States */
+.jkit-animated-text[data-rotate="clip"] .dynamic-text {
+    opacity: 0;
+}
+
+.jkit-animated-text[data-rotate="clip"] .dynamic-text.is-visible {
+    opacity: 1;
+    animation: clip-in 0.6s ease-in both;
+}
+
+.jkit-animated-text[data-rotate="clip"] .dynamic-text.is-hidden {
+    animation: clip-out 0.6s ease-in both;
+}
+
+@keyframes clip-in {
     0% {
-        transform: translateX(350px);
-    }
-    25% {
-        transform: translateX(0px);
-    }
-    50% {
-        transform: translateX(0px);
-    }
-    75% {
-        transform: translateX(350px);
+        opacity: 0;
+        transform: translateY(-50%);
     }
     100% {
-        transform: translateX(350px);
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes clip-out {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(50%);
     }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .text-swap-container {
+    .jkit-animated-text {
         font-size: 0.45em;
-    }
-    
-    .swap-zone {
-        width: 280px;
-    }
-    
-    .cover-word {
-        transform: translateX(240px);
-    }
-    
-    @keyframes eatAndReveal {
-        0% {
-            transform: translateX(240px);
-        }
-        25% {
-            transform: translateX(0px);
-        }
-        50% {
-            transform: translateX(0px);
-        }
-        75% {
-            transform: translateX(240px);
-        }
-        100% {
-            transform: translateX(240px);
-        }
     }
 }
 
 @media (max-width: 480px) {
-    .text-swap-container {
+    .jkit-animated-text {
         font-size: 0.38em;
-    }
-    
-    .swap-zone {
-        width: 220px;
-    }
-    
-    .cover-word {
-        transform: translateX(190px);
-    }
-    
-    @keyframes eatAndReveal {
-        0% {
-            transform: translateX(190px);
-        }
-        25% {
-            transform: translateX(0px);
-        }
-        50% {
-            transform: translateX(0px);
-        }
-        75% {
-            transform: translateX(190px);
-        }
-        100% {
-            transform: translateX(190px);
-        }
     }
 }
     </style>
@@ -4893,17 +4909,21 @@ body.loaded .hero-buttons {
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-label">360° Digital Excellence</div>
-               <h1 class="hero-title">
+              <h1 class="hero-title">
     <span class="word">Transform</span><br>
     <span class="word"><span class="gradient">Digital Presence</span></span><br>
     <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: block; margin-top: 0.5rem;">With</span>
-    <span class="text-swap-container">
-        <span class="static-text">Best</span>
-        <span class="swap-zone">
-            <span class="changing-word" id="changingWord">Designing</span>
-            <span class="cover-word" id="coverWord">Company</span>
-        </span>
-    </span>
+    <div class="jkit-animated-text" data-delay="2000">
+        <p class="animated-text">
+            <span class="normal-text">Best </span>
+            <span class="dynamic-wrapper">
+                <span class="dynamic-text is-visible">Designing</span>
+                <span class="dynamic-text">Development</span>
+                <span class="dynamic-text">Marketing</span>
+            </span>
+            <span class="normal-text"> Company</span>
+        </p>
+    </div>
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                 <div class="hero-buttons">
@@ -7572,44 +7592,42 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
-       // Clean Eating & Revealing Animation
+        // Clip Animation (Exact from Unisoft)
 (function() {
-    function initEatingAnimation() {
-        const changingWord = document.getElementById('changingWord');
-        const coverWord = document.getElementById('coverWord');
+    function initClipAnimation() {
+        const container = document.querySelector('.jkit-animated-text');
+        if (!container) return;
         
-        if (!changingWord || !coverWord) return;
+        const words = container.querySelectorAll('.dynamic-text');
+        const delay = parseInt(container.getAttribute('data-delay')) || 2000;
         
-        const words = ['Designing', 'Development', 'Marketing'];
         let currentIndex = 0;
         
-        function cycle() {
-            // Start eating animation
-            coverWord.style.animation = 'eatAndReveal 3s ease-in-out';
+        function animateWord() {
+            const current = words[currentIndex];
+            const nextIndex = (currentIndex + 1) % words.length;
+            const next = words[nextIndex];
             
-            // Change word at halfway point (when covered)
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % words.length;
-                changingWord.textContent = words[currentIndex];
-            }, 1500);
+            // Hide current word
+            current.classList.add('is-hidden');
+            current.classList.remove('is-visible');
             
-            // Reset animation
+            // Show next word after animation completes
             setTimeout(() => {
-                coverWord.style.animation = 'none';
-                void coverWord.offsetWidth; // Force reflow
-                coverWord.style.animation = '';
-            }, 3000);
+                current.classList.remove('is-hidden');
+                next.classList.add('is-visible');
+                currentIndex = nextIndex;
+            }, 600);
         }
         
-        // Start cycling
-        setInterval(cycle, 3000);
-        cycle();
+        // Start animation
+        setInterval(animateWord, delay);
     }
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initEatingAnimation);
+        document.addEventListener('DOMContentLoaded', initClipAnimation);
     } else {
-        initEatingAnimation();
+        initClipAnimation();
     }
 })();
     </script>
