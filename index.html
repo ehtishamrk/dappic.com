@@ -4723,7 +4723,8 @@ body.loaded .hero-buttons {
     display: inline-block;
     font-size: 0.55em;
     font-weight: 200;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;  /* REDUCED from 0.5rem */
+    line-height: 1.2;     /* ADDED for tighter spacing */
 }
 
 .animated-text {
@@ -4747,6 +4748,7 @@ body.loaded .hero-buttons {
     vertical-align: top;
     overflow: hidden;
     white-space: nowrap;
+    will-change: width;  /* ADDED for smoother animation */
 }
 
 .dynamic-text {
@@ -4774,12 +4776,14 @@ body.loaded .hero-buttons {
 @media (max-width: 768px) {
     .jkit-animated-text {
         font-size: 0.45em;
+        margin-top: 0.2rem;  /* REDUCED for mobile too */
     }
 }
 
 @media (max-width: 480px) {
     .jkit-animated-text {
         font-size: 0.38em;
+        margin-top: 0.15rem;  /* REDUCED for mobile too */
     }
 }
     </style>
@@ -7556,7 +7560,7 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
-      // EXACT Unisoft Clip Animation
+      // SMOOTH Unisoft Clip Animation (No Jitter)
 (function() {
     function initClipAnimation() {
         const wrapper = document.querySelector('.jkit-animated-text[data-rotate="clip"]');
@@ -7569,58 +7573,42 @@ function initMagneticCursor() {
         
         let currentIndex = 0;
         
+        // Enable smooth CSS transitions
+        dynamicWrapper.style.transition = 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        
         function getNextIndex(index) {
             return (index + 1) % words.length;
         }
         
         function showText(currentWord, nextWord) {
             const delay = parseInt(wrapper.getAttribute('data-delay')) || 2000;
-            const clipDuration = parseInt(wrapper.getAttribute('data-clip-duration')) || 1200;
             
             // Set initial width to current word
             dynamicWrapper.style.width = (currentWord.offsetWidth + 10) + 'px';
             
-            // Animate width to 0 (eating current word)
-            animateWidth(dynamicWrapper, currentWord.offsetWidth + 10, 0, clipDuration / 2, function() {
-                // Switch words
-                currentWord.classList.remove('show-text');
-                nextWord.classList.add('show-text');
+            // Wait a frame to ensure width is set
+            requestAnimationFrame(() => {
+                // Shrink to 0 (eating)
+                dynamicWrapper.style.width = '0px';
                 
-                // Animate width to new word width (revealing new word)
-                animateWidth(dynamicWrapper, 0, nextWord.offsetWidth + 10, clipDuration / 2, function() {
-                    // Wait delay, then start next cycle
-                    setTimeout(function() {
-                        currentIndex = getNextIndex(currentIndex);
-                        const nextNextWord = words[getNextIndex(currentIndex)];
-                        showText(nextWord, nextNextWord);
-                    }, delay);
-                });
+                setTimeout(() => {
+                    // Switch words
+                    currentWord.classList.remove('show-text');
+                    nextWord.classList.add('show-text');
+                    
+                    // Expand to new word (revealing)
+                    requestAnimationFrame(() => {
+                        dynamicWrapper.style.width = (nextWord.offsetWidth + 10) + 'px';
+                        
+                        // Wait delay, then start next cycle
+                        setTimeout(() => {
+                            currentIndex = getNextIndex(currentIndex);
+                            const nextNextWord = words[getNextIndex(currentIndex)];
+                            showText(nextWord, nextNextWord);
+                        }, delay);
+                    });
+                }, 600); // Half duration for shrinking
             });
-        }
-        
-        function animateWidth(element, startWidth, endWidth, duration, callback) {
-            const startTime = performance.now();
-            
-            function animate(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Ease in-out
-                const easeProgress = progress < 0.5 
-                    ? 2 * progress * progress 
-                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                
-                const currentWidth = startWidth + (endWidth - startWidth) * easeProgress;
-                element.style.width = currentWidth + 'px';
-                
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    if (callback) callback();
-                }
-            }
-            
-            requestAnimationFrame(animate);
         }
         
         // Initialize
@@ -7630,7 +7618,7 @@ function initMagneticCursor() {
         dynamicWrapper.style.width = (firstWord.offsetWidth + 10) + 'px';
         
         // Start animation
-        setTimeout(function() {
+        setTimeout(() => {
             showText(firstWord, secondWord);
         }, parseInt(wrapper.getAttribute('data-delay')) || 2000);
     }
