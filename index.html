@@ -4718,25 +4718,21 @@ body.loaded .hero-buttons {
     background-clip: text;
     transform: translateX(350px);
 }
-    /* ===== EXACT UNISOFT CLIP ANIMATION ===== */
+   /* ===== EXACT UNISOFT CLIP ANIMATION ===== */
 .jkit-animated-text {
     display: inline-block;
     font-size: 0.55em;
     font-weight: 200;
+    margin: 0;
+    padding: 0;
 }
 
 .animated-text {
     display: inline-flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
     white-space: nowrap;
-}
-
-/* KILL ALL GAPS */
-.hero-title .jkit-animated-text,
-.hero-title .animated-text {
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.2 !important;
 }
 
 .normal-text {
@@ -4753,7 +4749,7 @@ body.loaded .hero-buttons {
     vertical-align: top;
     overflow: hidden;
     white-space: nowrap;
-    will-change: width;  /* ADDED for smoother animation */
+    will-change: width;
 }
 
 .dynamic-text {
@@ -4781,14 +4777,12 @@ body.loaded .hero-buttons {
 @media (max-width: 768px) {
     .jkit-animated-text {
         font-size: 0.45em;
-        margin-top: 0.2rem;  /* REDUCED for mobile too */
     }
 }
 
 @media (max-width: 480px) {
     .jkit-animated-text {
         font-size: 0.38em;
-        margin-top: 0.15rem;  /* REDUCED for mobile too */
     }
 }
     </style>
@@ -4882,12 +4876,12 @@ body.loaded .hero-buttons {
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-label">360° Digital Excellence</div>
-              <h1 class="hero-title" style="line-height: 1.4;">
+              <h1 class="hero-title">
     <span class="word">Transform</span><br>
     <span class="word"><span class="gradient">Digital Presence</span></span><br>
-    <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: inline-block; margin: 0.3rem 0 0 0;">With</span>
-    <span class="jkit-animated-text" data-rotate="clip" data-delay="2000" data-clip-duration="1200" style="display: block; margin: 0; padding: 0;">
-        <span class="animated-text" style="display: inline-flex; margin: 0; padding: 0;">
+    <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8;">With</span><br>
+    <span class="jkit-animated-text" data-rotate="clip" data-delay="2000" data-clip-duration="1200">
+        <span class="animated-text">
             <span class="normal-text">Best </span>
             <span class="dynamic-wrapper">
                 <span class="dynamic-text show-text">Designing</span>
