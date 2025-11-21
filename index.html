@@ -4641,230 +4641,164 @@ body.loaded .hero-buttons {
         height: 600px;
     }
 }  
-      /* ===== PREMIUM WORD SWAPPING WITH EATING ANIMATION ===== */
-.premium-rotating-container {
+      /* ===== EATING & REVEALING ANIMATION ===== */
+.text-swap-container {
     display: inline-block;
     font-size: 0.55em;
     font-weight: 200;
     color: var(--secondary);
     margin-top: 0.5rem;
-    position: relative;
     white-space: nowrap;
 }
 
-.fixed-word {
+.static-text {
     display: inline-block;
-    margin-right: 0.3em;
-    position: relative;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+    margin-right: 0.4em;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 400;
+    position: relative;
 }
 
-.word-swapper {
+/* Subtle shimmer only on Best */
+.static-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: subtleShimmer 4s ease-in-out infinite;
+}
+
+@keyframes subtleShimmer {
+    0%, 100% { left: -150%; opacity: 0; }
+    50% { left: 150%; opacity: 1; }
+}
+
+.swap-zone {
     display: inline-block;
     position: relative;
-    width: 320px;
-    height: 1.2em;
+    width: 420px;
+    height: 1.3em;
     vertical-align: top;
-    overflow: hidden;
+    overflow: visible;
 }
 
-.swapping-word {
+.changing-word {
     position: absolute;
     left: 0;
     top: 0;
-    opacity: 0;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 400;
     white-space: nowrap;
-    transform: translateX(0);
+    z-index: 1;
 }
 
-.swapping-word.active {
-    opacity: 1;
-    animation: wordFadeOut 4s ease-in-out;
-}
-
-.swapping-word.entering {
-    animation: wordFadeIn 4s ease-in-out;
-}
-
-@keyframes wordFadeOut {
-    0%, 60% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-}
-
-@keyframes wordFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    40%, 100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Company - The Eater */
-.company-eater {
-    display: inline-block;
-    margin-left: 0.3em;
-    position: relative;
-    background: linear-gradient(90deg, #0093BA 0%, #233E7E 100%);
+.cover-word {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--light);
+    color: transparent;
+    -webkit-text-stroke: 2px transparent;
+    background-clip: padding-box;
+    font-weight: 400;
+    white-space: nowrap;
+    z-index: 2;
+    background: linear-gradient(135deg, #0093BA 0%, #233E7E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 400;
-    animation: eatAndReveal 4s ease-in-out infinite;
-    transform-origin: left center;
+    transform: translateX(350px);
 }
 
+/* Eating and Revealing Animation - Company moves */
 @keyframes eatAndReveal {
-    0%, 15% {
-        transform: translateX(0) scaleX(1);
+    0% {
+        transform: translateX(350px);
     }
     25% {
-        transform: translateX(-340px) scaleX(1.1);
+        transform: translateX(0px);
     }
-    35% {
-        transform: translateX(-340px) scaleX(0.95);
-    }
-    50%, 65% {
-        transform: translateX(0) scaleX(1);
-    }
-    100% {
-        transform: translateX(0) scaleX(1);
-    }
-}
-
-/* Premium Shimmer Effect */
-.fixed-word::before,
-.company-eater::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.8) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 3s ease-in-out infinite;
-}
-
-.company-eater::before {
-    animation-delay: 0.5s;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    50%, 100% {
-        left: 200%;
-    }
-}
-
-/* Glowing Effect on Word Change */
-.word-swapper::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(0, 147, 186, 0.4), transparent);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: glowPulse 4s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-    0%, 70% {
-        width: 0;
-        height: 0;
-        opacity: 0;
+    50% {
+        transform: translateX(0px);
     }
     75% {
-        width: 400px;
-        height: 400px;
-        opacity: 0.6;
+        transform: translateX(350px);
     }
     100% {
-        width: 500px;
-        height: 500px;
-        opacity: 0;
+        transform: translateX(350px);
     }
 }
 
-/* Mobile adjustments */
+/* Mobile */
 @media (max-width: 768px) {
-    .premium-rotating-container {
+    .text-swap-container {
         font-size: 0.45em;
     }
     
-    .word-swapper {
-        width: 220px;
+    .swap-zone {
+        width: 280px;
+    }
+    
+    .cover-word {
+        transform: translateX(240px);
     }
     
     @keyframes eatAndReveal {
-        0%, 15% {
-            transform: translateX(0) scaleX(1);
+        0% {
+            transform: translateX(240px);
         }
         25% {
-            transform: translateX(-240px) scaleX(1.1);
+            transform: translateX(0px);
         }
-        35% {
-            transform: translateX(-240px) scaleX(0.95);
+        50% {
+            transform: translateX(0px);
         }
-        50%, 65% {
-            transform: translateX(0) scaleX(1);
+        75% {
+            transform: translateX(240px);
         }
         100% {
-            transform: translateX(0) scaleX(1);
+            transform: translateX(240px);
         }
     }
 }
 
 @media (max-width: 480px) {
-    .premium-rotating-container {
-        font-size: 0.4em;
+    .text-swap-container {
+        font-size: 0.38em;
     }
     
-    .word-swapper {
-        width: 180px;
+    .swap-zone {
+        width: 220px;
+    }
+    
+    .cover-word {
+        transform: translateX(190px);
     }
     
     @keyframes eatAndReveal {
-        0%, 15% {
-            transform: translateX(0) scaleX(1);
+        0% {
+            transform: translateX(190px);
         }
         25% {
-            transform: translateX(-200px) scaleX(1.1);
+            transform: translateX(0px);
         }
-        35% {
-            transform: translateX(-200px) scaleX(0.95);
+        50% {
+            transform: translateX(0px);
         }
-        50%, 65% {
-            transform: translateX(0) scaleX(1);
+        75% {
+            transform: translateX(190px);
         }
         100% {
-            transform: translateX(0) scaleX(1);
+            transform: translateX(190px);
         }
     }
 }
@@ -4963,14 +4897,12 @@ body.loaded .hero-buttons {
     <span class="word">Transform</span><br>
     <span class="word"><span class="gradient">Digital Presence</span></span><br>
     <span style="font-size: 0.5em; font-weight: 300; opacity: 0.8; display: block; margin-top: 0.5rem;">With</span>
-    <span class="premium-rotating-container">
-        <span class="fixed-word">Best</span>
-        <span class="word-swapper">
-            <span class="swapping-word active" data-word="Designing">Designing</span>
-            <span class="swapping-word" data-word="Development">Development</span>
-            <span class="swapping-word" data-word="Marketing">Marketing</span>
+    <span class="text-swap-container">
+        <span class="static-text">Best</span>
+        <span class="swap-zone">
+            <span class="changing-word" id="changingWord">Designing</span>
+            <span class="cover-word" id="coverWord">Company</span>
         </span>
-        <span class="company-eater">Company</span>
     </span>
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
@@ -7640,43 +7572,46 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
-       // Premium Word Swapping Animation
+       // Clean Eating & Revealing Animation
 (function() {
-    function initWordSwapper() {
-        const words = document.querySelectorAll('.swapping-word');
-        if (!words.length) return;
+    function initEatingAnimation() {
+        const changingWord = document.getElementById('changingWord');
+        const coverWord = document.getElementById('coverWord');
         
+        if (!changingWord || !coverWord) return;
+        
+        const words = ['Designing', 'Development', 'Marketing'];
         let currentIndex = 0;
         
-        function swapWord() {
-            // Remove active from current
-            words[currentIndex].classList.remove('active');
-            words[currentIndex].classList.remove('entering');
+        function cycle() {
+            // Start eating animation
+            coverWord.style.animation = 'eatAndReveal 3s ease-in-out';
             
-            // Move to next word
-            currentIndex = (currentIndex + 1) % words.length;
-            
-            // Add entering then active
-            words[currentIndex].classList.add('entering');
+            // Change word at halfway point (when covered)
             setTimeout(() => {
-                words[currentIndex].classList.add('active');
-                words[currentIndex].classList.remove('entering');
-            }, 50);
+                currentIndex = (currentIndex + 1) % words.length;
+                changingWord.textContent = words[currentIndex];
+            }, 1500);
+            
+            // Reset animation
+            setTimeout(() => {
+                coverWord.style.animation = 'none';
+                void coverWord.offsetWidth; // Force reflow
+                coverWord.style.animation = '';
+            }, 3000);
         }
         
-        // Initial state
-        words[0].classList.add('active');
-        
-        // Swap every 4 seconds
-        setInterval(swapWord, 4000);
+        // Start cycling
+        setInterval(cycle, 3000);
+        cycle();
     }
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initWordSwapper);
+        document.addEventListener('DOMContentLoaded', initEatingAnimation);
     } else {
-        initWordSwapper();
+        initEatingAnimation();
     }
-})(); 
+})();
     </script>
     
 </body>
