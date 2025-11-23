@@ -359,67 +359,133 @@
 }
         
         /* HERO SECTION WITH ADVANCED ANIMATIONS */
-       .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 2rem;
-            color: var(--text-main);
-        }
-
-        /* The Fix for "With" Spacing */
-        .hero-title .small-text {
-            font-size: 0.4em;
-            font-weight: 300;
-            opacity: 0.7;
-            display: block;
-            line-height: 1;
-            margin-bottom: 0; 
-            padding-bottom: 0.2em;
-        }
-
-        .hero-title .dynamic-container {
-            margin-top: -0.1em; /* Tighten gap */
-        }
-        
-        /* Dynamic Text Logic Styles */
-        .jkit-animated-text { display: inline-block; }
-        .dynamic-wrapper {
-            display: inline-block;
+        .hero { 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            padding: 8rem 3rem 4rem;
             overflow: hidden;
-            vertical-align: bottom;
-            height: 1.1em;
-            transition: width 0.6s var(--ease-out);
         }
-        .dynamic-text {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 147, 186, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+        .hero-content { 
+            max-width: 1200px; 
+            text-align: center; 
+            position: relative; 
+            z-index: 1;
+        }
+        .hero-label { 
+            font-size: 0.75rem; 
+            font-weight: 400; 
+            letter-spacing: 0.4em; 
+            text-transform: uppercase; 
+            color: var(--accent); 
+            margin-bottom: 2.5rem; 
+            opacity: 0; 
+            animation: fadeInUp 1s var(--transition-smooth) 0.2s forwards;
+            position: relative;
             display: inline-block;
-            white-space: nowrap;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        .dynamic-text.hidden { display: none; }
-        
-        .hero-desc {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            font-weight: 300;
+        .hero-label::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-1);
+            animation: expandWidth 1s var(--transition-smooth) 0.8s forwards;
         }
-
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        .hero-title { 
+            font-size: clamp(2.75rem, 8vw, 6.5rem); 
+            font-weight: 200; 
+            line-height: 1.05; 
+            letter-spacing: -0.03em; 
+            color: var(--secondary); 
+            margin-bottom: 2rem; 
+            opacity: 0; 
+            animation: fadeInUp 1s var(--transition-smooth) 0.4s forwards;
+        }
+        .hero-title .word {
+            display: inline-block;
+            opacity: 0;
+            animation: wordReveal 0.8s var(--transition-bounce) forwards;
+        }
+        .hero-title .word:nth-child(1) { animation-delay: 0.6s; }
+        .hero-title .word:nth-child(2) { animation-delay: 0.8s; }
+        @keyframes wordReveal {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) rotateX(-90deg);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0);
+            }
+        }
+        .hero-title .gradient { 
+            background: var(--gradient-1);
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            font-weight: 300; 
+            display: inline-block;
+            position: relative;
+            animation: gradientShift 5s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(20deg); }
+        }
+        .hero-desc { 
+            font-size: 1.25rem; 
+            font-weight: 300; 
+            color: var(--accent); 
+            max-width: 700px; 
+            margin: 0 auto 3rem; 
+            line-height: 1.8; 
+            opacity: 0; 
+            animation: fadeInUp 1s var(--transition-smooth) 0.8s forwards;
+        }
+        .hero-buttons { 
+            display: flex; 
+            gap: 1.25rem; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            opacity: 0; 
+            animation: fadeInUp 1s var(--transition-smooth) 1s forwards;
+        }
+        @keyframes fadeInUp { 
+            from { 
+                opacity: 0; 
+                transform: translateY(60px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
         
         /* PREMIUM BUTTONS */
         .btn-primary, .btn-secondary { 
@@ -4810,26 +4876,40 @@ body.loaded .hero-buttons {
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-label">360° Digital Excellence</div>
-             <h1 class="hero-title">
-                    <div>Transform</div>
-                    <div><span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital Presence</span></div>
-                    
-                    <!-- THE FIXED SPACING -->
-                    <div class="small-text">With</div>
-                    
-                    <!-- Dynamic Text -->
-                    <div class="dynamic-container">
-                        <div class="jkit-animated-text">
-                            <span style="font-weight: 300;">Best </span>
-                            <div class="dynamic-wrapper">
-                                <span class="dynamic-text">Designing</span>
-                                <span class="dynamic-text">Development</span>
-                                <span class="dynamic-text">Marketing</span>
-                            </div>
-                            <span style="font-weight: 300;"> Company</span>
-                        </div>
-                    </div>
-                </h1>
+             <h1 class="hero-title" style="margin: 0; padding: 0; line-height: 1.1;">
+    <div style="line-height: 1.1;">Transform</div>
+
+    <div style="line-height: 1.1;"><span class="gradient">Digital Presence</span></div>
+
+    <div style="
+        font-size: 0.5em; 
+        font-weight: 300; 
+        opacity: 0.8; 
+        line-height: 0.5; /* Tight line height for the small text */
+        margin: 0; /* Remove default margin */
+        padding-bottom: 0.25em; /* Add a little space below 'With' */
+    ">
+        With
+    </div>
+
+    <div style="
+        line-height: 1.1; /* Consistent line height for the main text */
+        margin-top: -0.5em; /* This pulls the large text line up to the 'With' line */
+        margin-bottom: 0;
+    ">
+        <span class="jkit-animated-text" data-rotate="clip" data-delay="2000" data-clip-duration="1200">
+            <span class="animated-text">
+                <span class="normal-text">Best </span>
+                <span class="dynamic-wrapper">
+                    <span class="dynamic-text show-text">Designing</span>
+                    <span class="dynamic-text">Development</span>
+                    <span class="dynamic-text">Marketing</span>
+                </span>
+                <span class="normal-text"> Company</span>
+            </span>
+        </span>
+    </div>
+</h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                 <div class="hero-buttons">
                     <a href="#" class="btn-primary" onclick="navigateTo('work')">View Our Work</a>
@@ -7497,48 +7577,75 @@ function initMagneticCursor() {
         initSpectacularLogo();
     }
 })();
-      // 3. DYNAMIC TEXT ANIMATION
-        function initClipAnimation() {
-            const textElement = document.querySelector('.jkit-animated-text');
-            if(!textElement) return;
-            
-            const wrapper = textElement.querySelector('.dynamic-wrapper');
-            const words = wrapper.querySelectorAll('.dynamic-text');
-            const displayTime = 2000;
-            let currentIndex = 0;
-
-            function animate() {
-                const currentWord = words[currentIndex];
-                const nextIndex = (currentIndex + 1) % words.length;
-                const nextWord = words[nextIndex];
-
-                // Set initial width
-                wrapper.style.width = currentWord.offsetWidth + 'px';
-
-                setTimeout(() => {
-                    // Shrink
-                    wrapper.style.width = '0px';
-                    
-                    setTimeout(() => {
-                        // Swap
-                        currentWord.classList.add('hidden');
-                        nextWord.classList.remove('hidden');
-                        
-                        // Expand
-                        wrapper.style.width = nextWord.offsetWidth + 'px';
-                        currentIndex = nextIndex;
-                        
-                        animate();
-                    }, 600);
-                }, displayTime);
-            }
-            
-            // Start
-            words.forEach((w, i) => {
-                if(i !== 0) w.classList.add('hidden');
-            });
-            animate();
+      // SMOOTH Unisoft Clip Animation (No Jitter)
+(function() {
+    function initClipAnimation() {
+        const wrapper = document.querySelector('.jkit-animated-text[data-rotate="clip"]');
+        if (!wrapper) return;
+        
+        const dynamicWrapper = wrapper.querySelector('.dynamic-wrapper');
+        const words = dynamicWrapper.querySelectorAll('.dynamic-text');
+        
+        if (words.length === 0) return;
+        
+        let currentIndex = 0;
+        
+        // Enable smooth CSS transitions
+        dynamicWrapper.style.transition = 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        function getNextIndex(index) {
+            return (index + 1) % words.length;
         }
+        
+        function showText(currentWord, nextWord) {
+            const delay = parseInt(wrapper.getAttribute('data-delay')) || 2000;
+            
+            // Set initial width to current word
+            dynamicWrapper.style.width = (currentWord.offsetWidth + 10) + 'px';
+            
+            // Wait a frame to ensure width is set
+            requestAnimationFrame(() => {
+                // Shrink to 0 (eating)
+                dynamicWrapper.style.width = '0px';
+                
+                setTimeout(() => {
+                    // Switch words
+                    currentWord.classList.remove('show-text');
+                    nextWord.classList.add('show-text');
+                    
+                    // Expand to new word (revealing)
+                    requestAnimationFrame(() => {
+                        dynamicWrapper.style.width = (nextWord.offsetWidth + 10) + 'px';
+                        
+                        // Wait delay, then start next cycle
+                        setTimeout(() => {
+                            currentIndex = getNextIndex(currentIndex);
+                            const nextNextWord = words[getNextIndex(currentIndex)];
+                            showText(nextWord, nextNextWord);
+                        }, delay);
+                    });
+                }, 600); // Half duration for shrinking
+            });
+        }
+        
+        // Initialize
+        const firstWord = words[0];
+        const secondWord = words[1];
+        firstWord.classList.add('show-text');
+        dynamicWrapper.style.width = (firstWord.offsetWidth + 10) + 'px';
+        
+        // Start animation
+        setTimeout(() => {
+            showText(firstWord, secondWord);
+        }, parseInt(wrapper.getAttribute('data-delay')) || 2000);
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initClipAnimation);
+    } else {
+        initClipAnimation();
+    }
+})();
     </script>
     
 </body>
