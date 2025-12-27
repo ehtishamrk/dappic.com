@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <script>
     const lenis = new Lenis({
         duration: 1.2,
@@ -16,7 +16,8 @@
         requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-</script>    <meta name="google-site-verification" content="LLrbWVVbwKYJ0b1WIiGxdX0qSV_hE4lsURDXkLexOeA" />
+</script> 
+    <meta name="google-site-verification" content="LLrbWVVbwKYJ0b1WIiGxdX0qSV_hE4lsURDXkLexOeA" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Dappic - Premium 360° digital solutions for ambitious brands worldwide">
     <meta name="robots" content="index, follow">
@@ -52,8 +53,7 @@
             --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
             --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        html { 
-            scroll-behavior: smooth; 
+        html {  
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale;
         }
@@ -6346,31 +6346,34 @@ body.loaded .hero-buttons {
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         }
 
-        function handleParallax() {
-            if (ticking) return;
-            
-            window.requestAnimationFrame(() => {
-                const scrolled = window.pageYOffset;
-                
-                // Parallax orbs
-                document.querySelectorAll('.orb').forEach((orb, index) => {
-                    const speed = 0.2 + (index * 0.1);
-                    const yPos = -(scrolled * speed);
-                    orb.style.transform = `translate3d(0, ${yPos}px, 0)`;
-                });
-                
-                // Parallax particles
-                document.querySelectorAll('.particle').forEach((particle, index) => {
-                    const speed = 0.1 + (index * 0.02);
-                    const yPos = -(scrolled * speed);
-                    particle.style.transform = `translate3d(0, ${yPos}px, 0)`;
-                });
-                
-                ticking = false;
-            });
-            
-            ticking = true;
-        }
+        // CACHE ELEMENTS OUTSIDE THE SCROLL LOOP
+const parallaxOrbs = document.querySelectorAll('.orb');
+const parallaxParticles = document.querySelectorAll('.particle');
+
+function handleParallax() {
+    if (ticking) return;
+    
+    window.requestAnimationFrame(() => {
+        const scrolled = window.pageYOffset;
+        
+        // Use cached elements
+        parallaxOrbs.forEach((orb, index) => {
+            const speed = 0.2 + (index * 0.1);
+            const yPos = -(scrolled * speed);
+            orb.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+        
+        parallaxParticles.forEach((particle, index) => {
+            const speed = 0.1 + (index * 0.02);
+            const yPos = -(scrolled * speed);
+            particle.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+        
+        ticking = false;
+    });
+    
+    ticking = true;
+}
 
         // SCROLL REVEAL
         function revealOnScroll() {
