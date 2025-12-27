@@ -2,7 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="LLrbWVVbwKYJ0b1WIiGxdX0qSV_hE4lsURDXkLexOeA" />
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<script>
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for "luxury" feel
+        smooth: true,
+        direction: 'vertical',
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+</script>    <meta name="google-site-verification" content="LLrbWVVbwKYJ0b1WIiGxdX0qSV_hE4lsURDXkLexOeA" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Dappic - Premium 360° digital solutions for ambitious brands worldwide">
     <meta name="robots" content="index, follow">
@@ -15,6 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         @font-face {
             font-family: 'MADE Okine Sans';
@@ -6635,214 +6650,7 @@ if (howItWorks && !howItWorks.classList.contains('visible')) {
                 revealOnScroll();
             }, 250);
         }, { passive: true });
-// ===== SLEEK PREMIUM TOGGLE =====
-const pricingToggle = {
-    monthlyPrices: {
-        'Essential': 450,
-        'Professional': 900,
-        'Business': 1200,
-        'Enterprise': 1500
-    },
-    
-    discounts: {
-        'monthly': 0,
-        'quarterly': 0.10,
-        'yearly': 0.20
-    },
-    
-    currentBilling: 'monthly',
-    initialized: false,
-    
-    init: function() {
-        const options = document.querySelectorAll('.pricing-toggle-option');
-        const bg = document.getElementById('toggleBg');
-        
-        if (!bg || !options.length) return;
-        
-        // Set initial position immediately
-        const activeOption = document.querySelector('.pricing-toggle-option.active');
-        if (activeOption && !this.initialized) {
-            const width = activeOption.offsetWidth;
-            const left = activeOption.offsetLeft - 4.8;
-            bg.style.width = `${width}px`;
-            bg.style.transform = `translateX(${left}px)`;
-            bg.style.opacity = '1';
-            this.initialized = true;
-        }
-        
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                const billing = option.dataset.billing;
-                const index = parseInt(option.dataset.index);
-                
-                if (this.currentBilling === billing) return;
-                
-                this.currentBilling = billing;
-                
-                // Update active state
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                
-                // Move background
-                const width = option.offsetWidth;
-                const left = option.offsetLeft - 4.8;
-                bg.style.width = `${width}px`;
-                bg.style.transform = `translateX(${left}px)`;
-                
-                // Update prices
-                this.updatePricing();
-                
-                if (typeof gtag === 'function') {
-                    gtag('event', 'pricing_toggle', { 'billing_type': billing });
-                }
-            });
-        });
-    },
-    
-    calculatePrice: function(monthlyPrice) {
-        const discount = this.discounts[this.currentBilling];
-        return Math.round(monthlyPrice * (1 - discount));
-    },
-    
-    formatPrice: function(price) {
-        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    
-    updatePricing: function() {
-        const cards = document.querySelectorAll('.pricing-card');
-        cards.forEach((card, i) => {
-            setTimeout(() => this.updateCard(card), i * 60);
-        });
-    },
-    
-    updateCard: function(card) {
-        const nameElement = card.querySelector('.pricing-name');
-        if (!nameElement) return;
-        
-        const tierName = nameElement.textContent.trim();
-        const monthlyPrice = this.monthlyPrices[tierName];
-        if (!monthlyPrice) return;
-        
-        const priceElement = card.querySelector('.pricing-price');
-        const periodElement = card.querySelector('.pricing-period');
-        if (!priceElement || !periodElement) return;
-        
-        priceElement.classList.add('animating');
-        
-        setTimeout(() => {
-            let priceWrapper = card.querySelector('.pricing-price-wrapper');
-            if (!priceWrapper) {
-                priceWrapper = document.createElement('div');
-                priceWrapper.className = 'pricing-price-wrapper';
-                priceElement.parentNode.insertBefore(priceWrapper, priceElement);
-                priceWrapper.appendChild(priceElement);
-                priceWrapper.appendChild(periodElement);
-            }
-            
-            card.classList.remove('pricing-quarterly-highlight', 'pricing-yearly-highlight');
-            
-            let savingsBadge = card.querySelector('.pricing-savings-badge');
-            
-            if (this.currentBilling !== 'monthly') {
-                const discount = this.discounts[this.currentBilling];
-                const savings = Math.round(monthlyPrice * discount);
-                const multiplier = this.currentBilling === 'quarterly' ? 3 : 12;
-                const totalSavings = savings * multiplier;
-                const period = this.currentBilling === 'quarterly' ? 'quarter' : 'year';
-                
-                if (!savingsBadge) {
-                    savingsBadge = document.createElement('div');
-                    savingsBadge.className = 'pricing-savings-badge';
-                    priceWrapper.insertBefore(savingsBadge, priceWrapper.firstChild);
-                }
-                
-                savingsBadge.textContent = `Save $${this.formatPrice(totalSavings)}/${period}`;
-                setTimeout(() => savingsBadge.classList.add('show'), 60);
-                
-                card.classList.add(this.currentBilling === 'quarterly' ? 'pricing-quarterly-highlight' : 'pricing-yearly-highlight');
-            } else if (savingsBadge) {
-                savingsBadge.classList.remove('show');
-                setTimeout(() => savingsBadge.remove(), 350);
-            }
-            
-            let originalPrice = card.querySelector('.pricing-price-original');
-            
-            if (this.currentBilling !== 'monthly') {
-                if (!originalPrice) {
-                    originalPrice = document.createElement('div');
-                    originalPrice.className = 'pricing-price-original';
-                    priceWrapper.insertBefore(originalPrice, priceElement);
-                }
-                originalPrice.textContent = `$${this.formatPrice(monthlyPrice)}`;
-                originalPrice.style.display = 'block';
-                
-                const newPrice = this.calculatePrice(monthlyPrice);
-                priceElement.textContent = `$${this.formatPrice(newPrice)}`;
-                
-                let discountNote = card.querySelector('.pricing-discount-note');
-                if (!discountNote) {
-                    discountNote = document.createElement('div');
-                    discountNote.className = 'pricing-discount-note';
-                    priceWrapper.appendChild(discountNote);
-                }
-                
-                if (this.currentBilling === 'quarterly') {
-                    periodElement.textContent = 'per month';
-                    discountNote.textContent = `$${this.formatPrice(newPrice * 3)} billed quarterly`;
-                } else {
-                    periodElement.textContent = 'per month';
-                    discountNote.textContent = `$${this.formatPrice(newPrice * 12)} billed annually`;
-                }
-                
-                setTimeout(() => discountNote.classList.add('show'), 100);
-                
-            } else {
-                if (originalPrice) originalPrice.style.display = 'none';
-                
-                priceElement.textContent = `$${this.formatPrice(monthlyPrice)}`;
-                periodElement.textContent = 'per month';
-                
-                const discountNote = card.querySelector('.pricing-discount-note');
-                if (discountNote) {
-                    discountNote.classList.remove('show');
-                    setTimeout(() => discountNote.remove(), 350);
-                }
-            }
-            
-            setTimeout(() => priceElement.classList.remove('animating'), 60);
-        }, 175);
-    }
-};
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Small delay to ensure layout is ready
-    setTimeout(() => {
-        pricingToggle.init();
-        pricingToggle.updatePricing();
-    }, 50);
-});
-
-window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#pricing') {
-        setTimeout(() => {
-            pricingToggle.initialized = false;
-            pricingToggle.init();
-            pricingToggle.updatePricing();
-        }, 100);
-    }
-});
-
-// Re-initialize on window resize to fix positioning
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        if (window.location.hash === '#pricing' || document.getElementById('pricing').classList.contains('active')) {
-            pricingToggle.initialized = false;
-            pricingToggle.init();
-        }
-    }, 250);
-});
      // ===== WORD ROTATOR THAT ACTUALLY WORKS =====
 const wordRotator = {
     words: ['start', 'grow', 'scale', 'dominate', 'lead'],
