@@ -4800,165 +4800,87 @@ body.loaded .hero-buttons {
         font-size: 0.38em;
     }
 }
-    /* --- DAPPIC HERO BUTTONS --- */
+    /* --- FIXED GOOEY BUTTONS (NO WHITE SQUARES) --- */
 @font-face {
   font-family: "Avant";
   src: url("https://assets.codepen.io/383755/avant-garde.woff2") format("woff2");
 }
 
-.dappic-btn-container {
+.dappic-btn {
   position: relative;
-  width: auto;
-  overflow: hidden;
-  padding: 0.5rem;
-  display: flex;
+  /* Adjust these to change button size */
+  min-width: 260px;
+  height: 75px;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  mix-blend-mode: darken; /* Makes white parts transparent */
+  cursor: pointer;
+  margin: 10px;
   z-index: 1;
-  margin: 0;
+  background: transparent; /* Ensures no white box appears */
   
-  /* Primary Colors */
+  /* Primary Gradient Colors */
+  --btn-grad: radial-gradient(circle at center, #f897d5, #f567c2 10%, #755ad0 40%, #1a2a6c 100%);
   --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --x: 0px;
-  --y: 0px;
-  --t: rgba(255, 255, 255, 0.001);
-  --lightest: #f897d5;
-  --light: #f567c2;
-  --dark: #755ad0;
-  --darkest: #1a2a6c;
 }
 
-.dappic-btn-container.secondary {
-  /* Secondary Colors */
-  --lightest: #ffd986;
-  --light: #fdbb2d;
-  --dark: #b21f1f;
-  --darkest: #1a2a6c;
+/* Secondary Button Colors */
+.dappic-btn.secondary {
+  --btn-grad: radial-gradient(circle at center, #ffd986, #fdbb2d 10%, #b21f1f 40%, #1a2a6c 100%);
 }
 
-.dappic-btn-container:hover {
-  z-index: 2;
-}
-
-.dappic-btn-inner {
-  display: inline-block;
-  position: relative;
-  pointer-events: all;
-  z-index: 2;
-  cursor: pointer;
-  /* IMPORTANT: This shadow matches your site bg #F9FAF9 to create the mask */
-  box-shadow: 0 0 0 500vmin #F9FAF9; 
-}
-
-/* The Gradient Layer */
-.dappic-btn-inner:before {
-  content: "";
+/* The Gooey Layer (Blur + Contrast = Goo) */
+.dappic-btn-gooey {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: 0;
-  left: 0;
-  filter: blur(2px) brightness(0);
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, var(--t) 20%),
-              radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%),
-              var(--darkest);
-  background-size: 0px 0px, 0px 0px, 100%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  opacity: 1;
-  mix-blend-mode: lighten; /* Only shows color over black blobs */
-  z-index: 2;
-  transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
-  pointer-events: none;
-}
-
-.dappic-btn-inner:hover:before {
-  filter: blur(2px) brightness(1);
-  background-size: 0px 0px, 100% 100%, 100%;
-}
-
-/* The Button Text */
-.dappic-btn-inner button {
-  padding: 1.5rem 3rem;
-  border: none;
-  font-size: 1.2rem;
-  position: relative;
+  inset: -20px; /* Allow blobs to move outside slightly */
+  filter: blur(10px) contrast(25);
   background: transparent;
-  color: #fff;
-  z-index: 2;
-  cursor: pointer;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-family: "Avant", "Futura", sans-serif;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  transition: text-shadow 500ms var(--elastic);
   pointer-events: none;
-}
-
-/* Gooey Blob Container */
-.dappic-btn-blob {
-  position: absolute;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #fff;
-  filter: blur(12px) contrast(25); /* The Gooey Effect */
   z-index: 1;
 }
 
-.dappic-btn-blob:before,
-.dappic-btn-blob:after {
-  content: "";
+/* The Main Button Capsule */
+.dappic-btn-bg {
   position: absolute;
-  background: #000; /* Black shapes become colored by the gradient */
+  top: 20px; left: 20px; right: 20px; bottom: 20px; /* Inset to match container size */
+  background: var(--btn-grad);
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 /* The Moving Blob */
-.dappic-btn-blob:before {
-  width: 20%;
-  height: auto;
-  aspect-ratio: 1/1;
-  z-index: 2;
-  transition: transform 750ms var(--elastic), box-shadow 500ms var(--elastic);
-  box-shadow: 0 0 0 0.75rem #fff;
-  left: 0;
-  top: 0;
-  border-radius: 100%;
-  transform: translate(clamp(10%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(0);
+.dappic-btn-blob {
+  position: absolute;
+  width: 60px; 
+  height: 60px;
+  background: var(--btn-grad);
+  border-radius: 50%;
+  top: 50%; 
+  left: 50%;
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(0);
+  transition: transform 0.4s var(--elastic);
+  /* Fix alignment */
+  margin-top: 0px; 
+  margin-left: 0px;
 }
 
-/* The Static Button Shape */
-.dappic-btn-blob:after {
-  width: calc(100% - 2rem);
-  height: calc(100% - 2rem);
-  top: 1rem;
-  left: 1rem;
-  border-radius: 5rem;
-  box-shadow: 0 0 0 6rem #fff;
+/* Hover Effect */
+.dappic-btn:hover .dappic-btn-blob {
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(1.4);
 }
 
-/* Hover Interactions */
-.dappic-btn-inner:hover ~ .dappic-btn-blob:before {
-    /* This rule won't fire because blob is inside inner, need to target directly */
-}
-/* Corrected Hover Logic */
-.dappic-btn-inner:hover .dappic-btn-blob:before {
-  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(1.25);
-  box-shadow: 0 0 0 0.05rem #fff, 0 -6rem 0 1.25rem #fff, 0 6rem 0 1.25rem #fff;
-}
-
-.dappic-btn-inner:active {
-  cursor: grab;
-}
-
-.dappic-btn-inner:active:hover .dappic-btn-blob:before {
-  box-shadow: 0 0 0 0rem #fff, 0 -5rem 0 1.75rem #fff, 0 5rem 0 1.75rem #fff;
-  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(calc(50% + 1rem), calc(var(--y) - 50%), calc(50% + 1.5rem))) scale(1);
+/* Text Layer */
+.dappic-btn-text {
+  position: relative;
+  z-index: 5;
+  color: #ffffff;
+  font-family: "Avant", "Futura", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  pointer-events: none;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
     </style>
 </head>
@@ -5087,18 +5009,20 @@ body.loaded .hero-buttons {
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                <div class="hero-buttons">
-    <div class="dappic-btn-container" onclick="navigateTo('work')">
-        <div class="dappic-btn-inner">
-            <button type="button">View Our Work</button>
+    <div class="dappic-btn" onclick="navigateTo('work')">
+        <div class="dappic-btn-gooey">
+            <div class="dappic-btn-bg"></div>
             <div class="dappic-btn-blob"></div>
         </div>
+        <span class="dappic-btn-text">View Our Work</span>
     </div>
 
-    <div class="dappic-btn-container secondary" onclick="navigateTo('services')">
-        <div class="dappic-btn-inner">
-            <button type="button">Explore Services</button>
+    <div class="dappic-btn" class="dappic-btn secondary" onclick="navigateTo('services')">
+        <div class="dappic-btn-gooey">
+            <div class="dappic-btn-bg"></div>
             <div class="dappic-btn-blob"></div>
         </div>
+        <span class="dappic-btn-text">Explore Services</span>
     </div>
 </div>
             </div>
@@ -7628,17 +7552,15 @@ function initMagneticCursor() {
         initClipAnimation();
     }
 })();
-       document.querySelectorAll(".dappic-btn-inner").forEach((button) => {
-  button.onmousemove = (e) => {
-    const target = e.currentTarget;
-    const rect = target.getBoundingClientRect();
+      document.querySelectorAll(".dappic-btn").forEach((btn) => {
+  btn.onmousemove = (e) => {
+    const rect = btn.getBoundingClientRect();
+    // Calculate relative to the center of the button for better tracking
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    button.style.setProperty("--x", `${x}px`);
-    button.style.setProperty("--y", `${y}px`);
-    button.style.setProperty("--height", `${rect.height}px`);
-    button.style.setProperty("--width", `${rect.width}px`);
+    btn.style.setProperty("--x", `${x}px`);
+    btn.style.setProperty("--y", `${y}px`);
   };
 });
     </script>
