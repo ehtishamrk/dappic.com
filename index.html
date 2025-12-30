@@ -4800,87 +4800,78 @@ body.loaded .hero-buttons {
         font-size: 0.38em;
     }
 }
-    /* --- FIXED GOOEY BUTTONS (NO WHITE SQUARES) --- */
-@font-face {
-  font-family: "Avant";
-  src: url("https://assets.codepen.io/383755/avant-garde.woff2") format("woff2");
+    /* --- DAPPIC GOOEY BUTTONS FIX --- */
+.dappic-gooey-btn {
+    position: relative;
+    /* Fixed larger size */
+    width: 240px; 
+    height: 70px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px;
+    background: transparent; /* Ensures no white box */
+    /* Define colors locally to avoid conflicts */
+    --btn-color: #0093BA; 
+    --btn-gradient: var(--gradient-1);
 }
 
-.dappic-btn {
-  position: relative;
-  /* Adjust these to change button size */
-  min-width: 260px;
-  height: 75px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin: 10px;
-  z-index: 1;
-  background: transparent; /* Ensures no white box appears */
-  
-  /* Primary Gradient Colors */
-  --btn-grad: radial-gradient(circle at center, #f897d5, #f567c2 10%, #755ad0 40%, #1a2a6c 100%);
-  --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.dappic-gooey-btn.secondary {
+    --btn-color: #233E7E;
+    --btn-gradient: linear-gradient(135deg, #233E7E 0%, #0093BA 100%);
 }
 
-/* Secondary Button Colors */
-.dappic-btn.secondary {
-  --btn-grad: radial-gradient(circle at center, #ffd986, #fdbb2d 10%, #b21f1f 40%, #1a2a6c 100%);
+/* This layer handles the "Gooey" physics */
+.gooey-filter {
+    position: absolute;
+    inset: -20px; /* Make it larger than the button to catch the goo */
+    background: transparent;
+    /* The magic combination: blur + high contrast = liquid edges */
+    filter: blur(10px) contrast(25);
+    pointer-events: none;
+    z-index: 1;
 }
 
-/* The Gooey Layer (Blur + Contrast = Goo) */
-.dappic-btn-gooey {
-  position: absolute;
-  inset: -20px; /* Allow blobs to move outside slightly */
-  filter: blur(10px) contrast(25);
-  background: transparent;
-  pointer-events: none;
-  z-index: 1;
+/* The main button pill shape */
+.gooey-bg {
+    position: absolute;
+    top: 20px; left: 20px; right: 20px; bottom: 20px;
+    background: var(--btn-gradient);
+    border-radius: 40px; /* Perfectly round pill */
+    box-shadow: 0 10px 20px rgba(0, 147, 186, 0.2);
 }
 
-/* The Main Button Capsule */
-.dappic-btn-bg {
-  position: absolute;
-  top: 20px; left: 20px; right: 20px; bottom: 20px; /* Inset to match container size */
-  background: var(--btn-grad);
-  border-radius: 50px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+/* The moving cursor blob */
+.gooey-blob {
+    position: absolute;
+    width: 80px; 
+    height: 80px;
+    background: var(--btn-gradient);
+    border-radius: 50%;
+    top: 0; left: 0;
+    /* This centers the blob on the mouse coordinates */
+    transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(0);
+    transition: transform 0.2s ease-out;
+    opacity: 1;
 }
 
-/* The Moving Blob */
-.dappic-btn-blob {
-  position: absolute;
-  width: 60px; 
-  height: 60px;
-  background: var(--btn-grad);
-  border-radius: 50%;
-  top: 50%; 
-  left: 50%;
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(0);
-  transition: transform 0.4s var(--elastic);
-  /* Fix alignment */
-  margin-top: 0px; 
-  margin-left: 0px;
+/* Hover State: Scale up the blob */
+.dappic-gooey-btn:hover .gooey-blob {
+    transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(1.4);
 }
 
-/* Hover Effect */
-.dappic-btn:hover .dappic-btn-blob {
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(1.4);
-}
-
-/* Text Layer */
-.dappic-btn-text {
-  position: relative;
-  z-index: 5;
-  color: #ffffff;
-  font-family: "Avant", "Futura", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  pointer-events: none;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+/* Text Styling - Sits on top of the goo */
+.gooey-text {
+    position: relative;
+    z-index: 5;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    pointer-events: none;
 }
     </style>
 </head>
@@ -5009,21 +5000,21 @@ body.loaded .hero-buttons {
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                <div class="hero-buttons">
-    <div class="dappic-btn" onclick="navigateTo('work')">
-        <div class="dappic-btn-gooey">
-            <div class="dappic-btn-bg"></div>
-            <div class="dappic-btn-blob"></div>
+    <a href="#" class="dappic-gooey-btn" onclick="navigateTo('work')">
+        <div class="gooey-filter">
+            <div class="gooey-bg"></div>
+            <div class="gooey-blob"></div>
         </div>
-        <span class="dappic-btn-text">View Our Work</span>
-    </div>
+        <span class="gooey-text">View Our Work</span>
+    </a>
 
-    <div class="dappic-btn" class="dappic-btn secondary" onclick="navigateTo('services')">
-        <div class="dappic-btn-gooey">
-            <div class="dappic-btn-bg"></div>
-            <div class="dappic-btn-blob"></div>
+    <a href="#" class="dappic-gooey-btn secondary" onclick="navigateTo('services')">
+        <div class="gooey-filter">
+            <div class="gooey-bg"></div>
+            <div class="gooey-blob"></div>
         </div>
-        <span class="dappic-btn-text">Explore Services</span>
-    </div>
+        <span class="gooey-text">Explore Services</span>
+    </a>
 </div>
             </div>
         </section>
@@ -7552,16 +7543,17 @@ function initMagneticCursor() {
         initClipAnimation();
     }
 })();
-      document.querySelectorAll(".dappic-btn").forEach((btn) => {
-  btn.onmousemove = (e) => {
-    const rect = btn.getBoundingClientRect();
-    // Calculate relative to the center of the button for better tracking
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+      // Dappic Gooey Button Mouse Tracking
+document.querySelectorAll(".dappic-gooey-btn").forEach((btn) => {
+    btn.onmousemove = (e) => {
+        const rect = btn.getBoundingClientRect();
+        // Calculate x and y relative to the wrapper, including the padding offset
+        const x = e.clientX - rect.left + 20; 
+        const y = e.clientY - rect.top + 20;
 
-    btn.style.setProperty("--x", `${x}px`);
-    btn.style.setProperty("--y", `${y}px`);
-  };
+        btn.style.setProperty("--x", `${x}px`);
+        btn.style.setProperty("--y", `${y}px`);
+    };
 });
     </script>
     
