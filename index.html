@@ -4871,6 +4871,216 @@ body.loaded .hero-buttons {
     pointer-events: none;
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
+        /* --- CRAFT SERVICES ACCORDION STYLES --- */
+.craft-section {
+    padding: 6rem 2rem;
+    background: var(--light);
+    display: flex;
+    justify-content: center;
+}
+
+.craft-ui-container {
+    --gap: 8px;
+    --base: clamp(2rem, 8cqi, 80px);
+    --speed: 0.6s;
+    --easing: linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%);
+    --article-width: 300; /* fallback */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.craft-ui-container h1.fluid {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 200;
+    margin: 0;
+    color: var(--secondary);
+    text-align: center;
+    line-height: 1.1;
+}
+
+.craft-ui-container .craft-desc {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    font-family: inherit;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    color: var(--accent);
+    font-weight: 300;
+}
+
+.craft-list {
+    display: grid;
+    /* Initial state: first item expanded */
+    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+    gap: var(--gap);
+    list-style-type: none;
+    padding: 0;
+    height: clamp(300px, 50vh, 500px);
+    margin: 0;
+    width: 100%;
+    transition: grid-template-columns var(--speed) var(--easing);
+}
+
+.craft-list li {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    min-width: var(--base);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 147, 186, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.craft-list li:hover {
+    border-color: var(--primary);
+}
+
+/* Internal Elements Transition */
+.craft-list li article {
+    width: calc(var(--article-width) * 1px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+/* Images */
+.craft-list li img {
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: grayscale(1) brightness(0.7);
+    transform: scale(1.1);
+    transition: filter var(--speed) var(--easing), transform var(--speed) var(--easing);
+}
+
+/* Text Content */
+.craft-list li h3 {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform-origin: 0 50%;
+    transform: rotate(90deg) translateY(-50%);
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    white-space: nowrap;
+    z-index: 2;
+    margin: 0;
+    opacity: 0.7;
+    transition: opacity var(--speed) var(--easing);
+}
+
+.craft-list li p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--speed) var(--easing);
+    max-width: 90%;
+}
+
+.craft-list li a {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: all var(--speed) var(--easing);
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.craft-list li .craft-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: #fff;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity var(--speed) var(--easing);
+}
+
+/* Active State Styles */
+.craft-list li[data-active="true"] img {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1);
+}
+
+.craft-list li[data-active="true"] h3 {
+    opacity: 1;
+    /* Reset rotation for active state title if desired, or keep as side label */
+    transform: rotate(0deg) translateY(0);
+    left: 1.5rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.craft-list li[data-active="true"] p,
+.craft-list li[data-active="true"] a,
+.craft-list li[data-active="true"] .craft-icon {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.craft-list li[data-active="true"]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .craft-list {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7, 60px);
+        height: 600px;
+        transition: grid-template-rows var(--speed) var(--easing);
+    }
+    
+    .craft-list li article {
+        width: 100%;
+    }
+    
+    .craft-list li h3 {
+        transform: rotate(0);
+        left: 1rem;
+        top: 1.2rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -5049,44 +5259,96 @@ body.loaded .hero-buttons {
             </div>
         </section>
         
-        <section>
-            <div class="section-container">
-                <div class="services-layout">
-                    <div class="services-intro scroll-reveal-left">
-                        <div class="section-label">Capabilities</div>
-                        <h2>Complete Digital Solutions</h2>
-                        <p>From brand strategy to technical execution, we deliver end-to-end digital experiences that drive measurable results for your business.</p>
-                        <a href="#" onclick="navigateTo('services')">Explore All Services</a>
-                    </div>
-                    <div class="services-list">
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.1s;">
-                            <div class="service-name">Brand Strategy</div>
-                            <div class="service-desc">Comprehensive brand development and positioning</div>
-                        </div>
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.2s;">
-                            <div class="service-name">Motion Design</div>
-                            <div class="service-desc">Cinematic animations and visual storytelling</div>
-                        </div>
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.3s;">
-                            <div class="service-name">Web Engineering</div>
-                            <div class="service-desc">Enterprise-grade web applications</div>
-                        </div>
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.4s;">
-                            <div class="service-name">Digital Marketing</div>
-                            <div class="service-desc">Data-driven growth campaigns</div>
-                        </div>
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.5s;">
-                            <div class="service-name">SEO Mastery</div>
-                            <div class="service-desc">Dominate search rankings organically</div>
-                        </div>
-                        <div class="service-item scroll-reveal-right" onclick="navigateTo('services')" style="transition-delay: 0.6s;">
-                            <div class="service-name">Content Creation</div>
-                            <div class="service-desc">Premium visual and written content</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="craft-section">
+    <div class="craft-ui-container">
+        <h1 class="fluid">The Craft of UI</h1>
+        <p class="craft-desc">
+            Unlock the art and science of interface development. This isn’t just about
+            pushing pixels or following documentation — it’s about mastering the
+            tools, understanding the nuances, and shaping experiences with intention.
+        </p>
+        
+        <ul class="craft-list">
+            <li data-active="true">
+                <article>
+                    <h3>Brand Strategy</h3>
+                    <p>
+                        Comprehensive brand development, positioning, visual identity systems, and guidelines that resonate with your audience.
+                    </p>
+                    <div class="craft-icon">✦</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop" alt="Brand Strategy" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>Motion Design</h3>
+                    <p>
+                        Cinematic motion design, 2D/3D animations, explainer videos, and visual storytelling that brings your brand to life.
+                    </p>
+                    <div class="craft-icon">►</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop" alt="Motion Design" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>Web Engineering</h3>
+                    <p>
+                        Enterprise-grade web applications, responsive websites, and e-commerce platforms built for performance and scale.
+                    </p>
+                    <div class="craft-icon">⚡</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2670&auto=format&fit=crop" alt="Web Engineering" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>Digital Marketing</h3>
+                    <p>
+                        Data-driven campaigns, paid advertising, and growth strategies that drive measurable ROI for your business.
+                    </p>
+                    <div class="craft-icon">📈</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" alt="Digital Marketing" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>SEO Mastery</h3>
+                    <p>
+                        Technical SEO optimization and content strategy to dominate search rankings and drive organic traffic.
+                    </p>
+                    <div class="craft-icon">🔍</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=2670&auto=format&fit=crop" alt="SEO" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>Content Creation</h3>
+                    <p>
+                        Premium photography, videography, copywriting, and graphic design to tell your unique story.
+                    </p>
+                    <div class="craft-icon">✎</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2574&auto=format&fit=crop" alt="Content Creation" />
+                </article>
+            </li>
+            <li>
+                <article>
+                    <h3>Workflow Auto</h3>
+                    <p>
+                        Custom automation solutions that streamline business processes and save valuable time.
+                    </p>
+                    <div class="craft-icon">⚙</div>
+                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop" alt="Automation" />
+                </article>
+            </li>
+        </ul>
+    </div>
+</section>
         
         <section class="dark-section">
             <div class="section-container">
@@ -7551,6 +7813,65 @@ function initMagneticCursor() {
         btn.style.setProperty("--x", `${x}px`);
         btn.style.setProperty("--y", `${y}px`);
     };
+});
+        // CRAFT UI ACCORDION LOGIC
+document.addEventListener('DOMContentLoaded', () => {
+    const list = document.querySelector('.craft-list');
+    
+    if (list) {
+        const items = list.querySelectorAll('li');
+        
+        // Function to update layout
+        const setIndex = (event) => {
+            const closest = event.target.closest('li');
+            if (closest) {
+                const index = [...items].indexOf(closest);
+                const isMobile = window.innerWidth <= 768;
+                
+                // Update active attributes
+                items.forEach((item, i) => {
+                    item.dataset.active = (index === i).toString();
+                });
+                
+                // Update grid layout based on screen size
+                if (isMobile) {
+                    // Vertical accordion for mobile
+                    const rows = new Array(items.length)
+                        .fill()
+                        .map((_, i) => (index === i ? '5fr' : '1fr'))
+                        .join(' ');
+                    list.style.gridTemplateColumns = '1fr';
+                    list.style.gridTemplateRows = rows;
+                } else {
+                    // Horizontal accordion for desktop
+                    const cols = new Array(items.length)
+                        .fill()
+                        .map((_, i) => (index === i ? '10fr' : '1fr'))
+                        .join(' ');
+                    list.style.gridTemplateRows = '100%';
+                    list.style.gridTemplateColumns = cols;
+                }
+            }
+        };
+
+        // Event Listeners
+        list.addEventListener('click', setIndex);
+        list.addEventListener('pointermove', setIndex); // Expand on hover
+        
+        // Maintain correct article width for animations
+        const resync = () => {
+            const w = list.offsetWidth; 
+            // We set a CSS variable for the active article width approx
+            // Desktop: roughly (Width - (gaps * 6) - (collapsed_width * 6))
+            const gap = 8;
+            const collapsedBase = 80;
+            const activeWidth = w - (items.length - 1) * (gap + collapsedBase);
+            list.style.setProperty('--article-width', activeWidth > 300 ? activeWidth : 400);
+        };
+        
+        window.addEventListener('resize', resync);
+        resync();
+    }
 });
     </script>
   <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
