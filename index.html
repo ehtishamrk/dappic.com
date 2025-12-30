@@ -4800,7 +4800,7 @@ body.loaded .hero-buttons {
         font-size: 0.38em;
     }
 }
-        /* --- NEW HERO BUTTONS STYLES --- */
+       /* --- CORRECTED HERO BUTTONS --- */
 @font-face {
   font-family: "Avant";
   src: url("https://assets.codepen.io/383755/avant-garde.woff2") format("woff2");
@@ -4809,13 +4809,14 @@ body.loaded .hero-buttons {
 .blob-btn-container {
   position: relative;
   width: auto;
-  /* padding: 0.5rem; Removed padding to align better with existing layout */
   display: flex;
   justify-content: center;
-  z-index: 1;
   margin: 0;
+  /* CRITICAL: This blends the white background of the button with your page, making it transparent */
+  mix-blend-mode: darken; 
+  z-index: 10;
   
-  /* Default Colors (Button 1) */
+  /* Variables */
   --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --x: 0px;
   --y: 0px;
@@ -4826,16 +4827,11 @@ body.loaded .hero-buttons {
   --darkest: #1a2a6c;
 }
 
-/* Secondary Colors (Button 2) */
 .blob-btn-container.secondary {
   --lightest: #ffd986;
   --light: #fdbb2d;
   --dark: #b21f1f;
   --darkest: #1a2a6c;
-}
-
-.blob-btn-container:hover {
-  z-index: 2;
 }
 
 .blob-btn-inner {
@@ -4844,27 +4840,21 @@ body.loaded .hero-buttons {
   pointer-events: all;
   z-index: 2;
   cursor: pointer;
-  border-radius: 50px; /* Rounded to match your site theme */
-  box-shadow: 0 0 0 0.5rem transparent; /* Adjusted shadow */
+  /* CRITICAL: Must be white for the blend mode trick to work */
+  background: #fff; 
+  border-radius: 50px;
+  /* This mimics the mask from your original code but scoped to the button area */
+  box-shadow: 0 0 0 20px #fff; 
 }
 
-.blob-btn-inner:hover:active:before {
-  background-size: 35% 60%, 100% 100%, 100%;
-}
-
-.blob-btn-inner:hover:before {
-  filter: blur(2px) brightness(1);
-  background-size: 0px 0px, 100% 100%, 100%;
-  transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out;
-}
-
+/* Gradient Layer (The colorful part) */
 .blob-btn-inner:before {
   content: "";
   position: absolute;
   width: 200%;
   height: 200%;
-  top: 0rem;
-  left: 0rem;
+  top: 0;
+  left: 0;
   filter: blur(2px) brightness(0);
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, var(--t) 20%),
               radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%),
@@ -4873,15 +4863,21 @@ body.loaded .hero-buttons {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   opacity: 1;
-  mix-blend-mode: lighten;
+  /* CRITICAL: This masks the gradient to the black blob shapes below */
+  mix-blend-mode: lighten; 
   z-index: 2;
   transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
   transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
   pointer-events: none;
 }
 
+.blob-btn-inner:hover:before {
+  filter: blur(2px) brightness(1);
+  background-size: 0px 0px, 100% 100%, 100%;
+}
+
 .blob-btn-inner button {
-  padding: 1.5rem 3.5rem; /* Adjusted sizing for hero */
+  padding: 1.5rem 3.5rem;
   border: none;
   font-size: 1rem;
   position: relative;
@@ -4893,32 +4889,11 @@ body.loaded .hero-buttons {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: "Avant", "Futura", sans-serif;
-  text-shadow: clamp(-8px, calc((var(--width) / 2 - var(--x)) / 8), 8px) clamp(-8px, calc((var(--height) / 2 - var(--y)) / 8), 8px) 12px rgba(0, 0, 0, 0);
-  transition: text-shadow 500ms var(--elastic);
-  pointer-events: none; /* Passes click to container */
+  text-shadow: 0 0 10px rgba(0,0,0,0.2);
+  pointer-events: none;
 }
 
-.blob-btn-inner:hover button {
-  --shadow: max(calc((var(--width) / 2 - var(--x)) / 8 + ((var(--height) / 2 - var(--y)) / 3)), calc((((var(--width) / 2 - var(--x)) / 8) + ((var(--height) / 2 - var(--y)) / 3)) * -1), 5px);
-  text-shadow: clamp(-6px, calc((var(--width) / 2 - var(--x)) / 12), 6px) clamp(-4px, calc((var(--height) / 2 - var(--y)) / 16), 4px) var(--shadow) #000;
-}
-
-.blob-btn-inner:hover ~ .blob-btn-blob:before {
-  transition: transform 500ms var(--elastic), box-shadow 1000ms var(--elastic);
-  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(1.25);
-  box-shadow: 0 0 0 0.05rem #fff, 0 -6rem 0 1.25rem #fff, 0 6rem 0 1.25rem #fff;
-}
-
-.blob-btn-inner:active {
-  cursor: grab;
-}
-
-.blob-btn-inner:active:hover ~ .blob-btn-blob:before {
-  box-shadow: 0 0 0 0rem #fff, 0 -5rem 0 1.75rem #fff, 0 5rem 0 1.75rem #fff;
-  transition: transform 500ms var(--elastic), box-shadow 500ms var(--elastic);
-  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(calc(50% + 1rem), calc(var(--y) - 50%), calc(50% + 1.5rem))) scale(1);
-}
-
+/* The Gooey Blob Logic */
 .blob-btn-blob {
   position: absolute;
   pointer-events: none;
@@ -4926,8 +4901,8 @@ body.loaded .hero-buttons {
   height: 100%;
   top: 0;
   left: 0;
-  background: #fff; /* White background like original buttons */
-  filter: blur(12px) contrast(25);
+  background: #fff; /* Matches container background */
+  filter: blur(12px) contrast(25); /* Creates the liquid effect */
   z-index: 1;
   border-radius: 50px;
 }
@@ -4936,29 +4911,35 @@ body.loaded .hero-buttons {
 .blob-btn-blob:after {
   content: "";
   position: absolute;
-  background: #000;
+  background: #000; /* Black shapes become the visible mask */
 }
 
+/* The moving circle */
 .blob-btn-blob:before {
-  width: 15%;
+  width: 20%;
   height: auto;
-  z-index: 2;
-  transition: transform 750ms var(--elastic), box-shadow 500ms var(--elastic);
   aspect-ratio: 1/1;
-  box-shadow: 0 0 0 0.75rem #fff, 0 -8rem 0 -2rem #fff, 0 8rem 0 -2rem #fff;
+  z-index: 2;
+  transition: transform 750ms var(--elastic);
+  box-shadow: 0 0 0 0.75rem #fff; /* White spacing around blob */
   left: 0;
   top: 0;
   border-radius: 100%;
   transform: translate(clamp(10%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(0);
 }
 
+.blob-btn-inner:hover ~ .blob-btn-blob:before {
+  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(1.25);
+}
+
+/* The static button shape */
 .blob-btn-blob:after {
   width: calc(100% - 2rem);
   height: calc(100% - 2rem);
   top: 1rem;
   left: 1rem;
-  border-radius: 5rem;
-  box-shadow: 0 0 0 4rem #fff;
+  border-radius: 50px;
+  box-shadow: 0 0 0 4rem #fff; /* Defines the boundary */
 }
     </style>
 </head>
@@ -7628,9 +7609,10 @@ function initMagneticCursor() {
         initClipAnimation();
     }
 })();
-        document.querySelectorAll(".blob-btn-inner").forEach((button) => {
+       document.querySelectorAll(".blob-btn-inner").forEach((button) => {
   button.onmousemove = (e) => {
-    const target = e.currentTarget; // Changed to currentTarget to ensure we get the inner div
+    // Use currentTarget to get the container, not the text inside
+    const target = e.currentTarget; 
     const rect = target.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
