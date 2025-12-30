@@ -4800,127 +4800,165 @@ body.loaded .hero-buttons {
         font-size: 0.38em;
     }
 }
-    /* --- FIXED HERO BUTTONS --- */
+    /* --- DAPPIC HERO BUTTONS --- */
 @font-face {
   font-family: "Avant";
   src: url("https://assets.codepen.io/383755/avant-garde.woff2") format("woff2");
 }
 
-.blob-btn-container {
+.dappic-btn-container {
   position: relative;
-  width: 260px; /* Fixed width for stability */
-  height: 80px;
+  width: auto;
+  overflow: hidden;
+  padding: 0.5rem;
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  margin: 10px;
-  z-index: 10;
+  align-items: center;
+  mix-blend-mode: darken; /* Makes white parts transparent */
+  z-index: 1;
+  margin: 0;
   
-  /* Default Colors */
+  /* Primary Colors */
   --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --x: 0px;
   --y: 0px;
+  --t: rgba(255, 255, 255, 0.001);
   --lightest: #f897d5;
   --light: #f567c2;
   --dark: #755ad0;
   --darkest: #1a2a6c;
 }
 
-.blob-btn-container.secondary {
+.dappic-btn-container.secondary {
+  /* Secondary Colors */
   --lightest: #ffd986;
   --light: #fdbb2d;
   --dark: #b21f1f;
   --darkest: #1a2a6c;
 }
 
-/* 1. TEXT LAYER - Sits on top of everything */
-.blob-btn-text {
+.dappic-btn-container:hover {
+  z-index: 2;
+}
+
+.dappic-btn-inner {
+  display: inline-block;
   position: relative;
-  z-index: 20;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  pointer-events: none;
-  font-family: "Avant", "Futura", sans-serif;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  pointer-events: all;
+  z-index: 2;
+  cursor: pointer;
+  /* IMPORTANT: This shadow matches your site bg #F9FAF9 to create the mask */
+  box-shadow: 0 0 0 500vmin #F9FAF9; 
 }
 
-/* 2. CANVAS LAYER - The "Cutout" Mask */
-.blob-btn-canvas {
-  position: absolute;
-  inset: 0;
-  background: #ffffff; /* Must be white for darken mode to work */
-  mix-blend-mode: darken; /* Makes white transparent */
-  border-radius: 50px;
-  overflow: hidden;
-  z-index: 1;
-  /* Simulates the rounded button shape */
-  box-shadow: 0 0 0 0 transparent; 
-}
-
-/* 3. GRADIENT LAYER - The Color */
-.blob-btn-inner {
-  position: absolute;
-  inset: -50%; /* Make it larger to cover movement */
-  width: 200%;
-  height: 200%;
-  background: transparent;
-  mix-blend-mode: lighten; /* Only shows where blob is black */
-  pointer-events: none;
-}
-
-/* The actual colorful gradient */
-.blob-btn-inner:before {
+/* The Gradient Layer */
+.dappic-btn-inner:before {
   content: "";
   position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 0;
+  filter: blur(2px) brightness(0);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, var(--t) 20%),
+              radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%),
+              var(--darkest);
+  background-size: 0px 0px, 0px 0px, 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 1;
+  mix-blend-mode: lighten; /* Only shows color over black blobs */
+  z-index: 2;
+  transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
+  pointer-events: none;
+}
+
+.dappic-btn-inner:hover:before {
+  filter: blur(2px) brightness(1);
+  background-size: 0px 0px, 100% 100%, 100%;
+}
+
+/* The Button Text */
+.dappic-btn-inner button {
+  padding: 1.5rem 3rem;
+  border: none;
+  font-size: 1.2rem;
+  position: relative;
+  background: transparent;
+  color: #fff;
+  z-index: 2;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: "Avant", "Futura", sans-serif;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: text-shadow 500ms var(--elastic);
+  pointer-events: none;
+}
+
+/* Gooey Blob Container */
+.dappic-btn-blob {
+  position: absolute;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%);
-  opacity: 1;
-  /* Follows mouse */
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
-  transition: transform 0.1s linear; /* Smooth mouse tracking */
-}
-
-/* 4. BLOB LAYER - Black Shapes on White */
-.blob-btn-blob {
-  position: absolute;
-  inset: 0;
   background: #fff;
   filter: blur(12px) contrast(25); /* The Gooey Effect */
-  z-index: -1;
+  z-index: 1;
 }
 
-/* Static Pill Shape */
-.blob-btn-blob:after {
+.dappic-btn-blob:before,
+.dappic-btn-blob:after {
   content: "";
   position: absolute;
-  top: 15px; left: 15px; right: 15px; bottom: 15px;
-  background: #000;
-  border-radius: 50px;
-  box-shadow: 0 0 0 20px #fff; /* Separation from edge */
+  background: #000; /* Black shapes become colored by the gradient */
 }
 
-/* Moving Circle */
-.blob-btn-blob:before {
-  content: "";
-  position: absolute;
-  width: 60px; height: 60px;
-  background: #000;
-  border-radius: 50%;
-  top: 0; left: 0;
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(0);
-  transition: transform 0.5s var(--elastic);
+/* The Moving Blob */
+.dappic-btn-blob:before {
+  width: 20%;
+  height: auto;
+  aspect-ratio: 1/1;
+  z-index: 2;
+  transition: transform 750ms var(--elastic), box-shadow 500ms var(--elastic);
+  box-shadow: 0 0 0 0.75rem #fff;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+  transform: translate(clamp(10%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(0);
 }
 
-/* Hover Animation */
-.blob-btn-container:hover .blob-btn-blob:before {
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(1.5);
+/* The Static Button Shape */
+.dappic-btn-blob:after {
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  top: 1rem;
+  left: 1rem;
+  border-radius: 5rem;
+  box-shadow: 0 0 0 6rem #fff;
+}
+
+/* Hover Interactions */
+.dappic-btn-inner:hover ~ .dappic-btn-blob:before {
+    /* This rule won't fire because blob is inside inner, need to target directly */
+}
+/* Corrected Hover Logic */
+.dappic-btn-inner:hover .dappic-btn-blob:before {
+  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(1.25);
+  box-shadow: 0 0 0 0.05rem #fff, 0 -6rem 0 1.25rem #fff, 0 6rem 0 1.25rem #fff;
+}
+
+.dappic-btn-inner:active {
+  cursor: grab;
+}
+
+.dappic-btn-inner:active:hover .dappic-btn-blob:before {
+  box-shadow: 0 0 0 0rem #fff, 0 -5rem 0 1.75rem #fff, 0 5rem 0 1.75rem #fff;
+  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(calc(50% + 1rem), calc(var(--y) - 50%), calc(50% + 1.5rem))) scale(1);
 }
     </style>
 </head>
@@ -5049,22 +5087,18 @@ body.loaded .hero-buttons {
 </h1>
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                <div class="hero-buttons">
-    <div class="blob-btn-container" onclick="navigateTo('work')">
-        <div class="blob-btn-canvas">
-            <div class="blob-btn-inner">
-                <div class="blob-btn-blob"></div>
-            </div>
+    <div class="dappic-btn-container" onclick="navigateTo('work')">
+        <div class="dappic-btn-inner">
+            <button type="button">View Our Work</button>
+            <div class="dappic-btn-blob"></div>
         </div>
-        <span class="blob-btn-text">View Our Work</span>
     </div>
 
-    <div class="blob-btn-container secondary" onclick="navigateTo('services')">
-        <div class="blob-btn-canvas">
-            <div class="blob-btn-inner">
-                <div class="blob-btn-blob"></div>
-            </div>
+    <div class="dappic-btn-container secondary" onclick="navigateTo('services')">
+        <div class="dappic-btn-inner">
+            <button type="button">Explore Services</button>
+            <div class="dappic-btn-blob"></div>
         </div>
-        <span class="blob-btn-text">Explore Services</span>
     </div>
 </div>
             </div>
@@ -7594,14 +7628,17 @@ function initMagneticCursor() {
         initClipAnimation();
     }
 })();
-       document.querySelectorAll(".blob-btn-container").forEach((container) => {
-  container.onmousemove = (e) => {
-    const rect = container.getBoundingClientRect();
+       document.querySelectorAll(".dappic-btn-inner").forEach((button) => {
+  button.onmousemove = (e) => {
+    const target = e.currentTarget;
+    const rect = target.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    container.style.setProperty("--x", `${x}px`);
-    container.style.setProperty("--y", `${y}px`);
+    button.style.setProperty("--x", `${x}px`);
+    button.style.setProperty("--y", `${y}px`);
+    button.style.setProperty("--height", `${rect.height}px`);
+    button.style.setProperty("--width", `${rect.width}px`);
   };
 });
     </script>
