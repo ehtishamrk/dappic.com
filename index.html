@@ -4800,7 +4800,7 @@ body.loaded .hero-buttons {
         font-size: 0.38em;
     }
 }
-       /* --- CORRECTED HERO BUTTONS --- */
+    /* --- FIXED HERO BUTTONS --- */
 @font-face {
   font-family: "Avant";
   src: url("https://assets.codepen.io/383755/avant-garde.woff2") format("woff2");
@@ -4808,19 +4808,19 @@ body.loaded .hero-buttons {
 
 .blob-btn-container {
   position: relative;
-  width: auto;
+  width: 260px; /* Fixed width for stability */
+  height: 80px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin: 0;
-  /* CRITICAL: This blends the white background of the button with your page, making it transparent */
-  mix-blend-mode: darken; 
+  cursor: pointer;
+  margin: 10px;
   z-index: 10;
   
-  /* Variables */
+  /* Default Colors */
   --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --x: 0px;
   --y: 0px;
-  --t: rgba(255, 255, 255, 0.001);
   --lightest: #f897d5;
   --light: #f567c2;
   --dark: #755ad0;
@@ -4834,112 +4834,93 @@ body.loaded .hero-buttons {
   --darkest: #1a2a6c;
 }
 
-.blob-btn-inner {
-  display: inline-block;
+/* 1. TEXT LAYER - Sits on top of everything */
+.blob-btn-text {
   position: relative;
-  pointer-events: all;
-  z-index: 2;
-  cursor: pointer;
-  /* CRITICAL: Must be white for the blend mode trick to work */
-  background: #fff; 
-  border-radius: 50px;
-  /* This mimics the mask from your original code but scoped to the button area */
-  box-shadow: 0 0 0 20px #fff; 
+  z-index: 20;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  pointer-events: none;
+  font-family: "Avant", "Futura", sans-serif;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-/* Gradient Layer (The colorful part) */
+/* 2. CANVAS LAYER - The "Cutout" Mask */
+.blob-btn-canvas {
+  position: absolute;
+  inset: 0;
+  background: #ffffff; /* Must be white for darken mode to work */
+  mix-blend-mode: darken; /* Makes white transparent */
+  border-radius: 50px;
+  overflow: hidden;
+  z-index: 1;
+  /* Simulates the rounded button shape */
+  box-shadow: 0 0 0 0 transparent; 
+}
+
+/* 3. GRADIENT LAYER - The Color */
+.blob-btn-inner {
+  position: absolute;
+  inset: -50%; /* Make it larger to cover movement */
+  width: 200%;
+  height: 200%;
+  background: transparent;
+  mix-blend-mode: lighten; /* Only shows where blob is black */
+  pointer-events: none;
+}
+
+/* The actual colorful gradient */
 .blob-btn-inner:before {
   content: "";
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: 0;
-  left: 0;
-  filter: blur(2px) brightness(0);
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, var(--t) 20%),
-              radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%),
-              var(--darkest);
-  background-size: 0px 0px, 0px 0px, 100%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  opacity: 1;
-  /* CRITICAL: This masks the gradient to the black blob shapes below */
-  mix-blend-mode: lighten; 
-  z-index: 2;
-  transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
-  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
-  pointer-events: none;
-}
-
-.blob-btn-inner:hover:before {
-  filter: blur(2px) brightness(1);
-  background-size: 0px 0px, 100% 100%, 100%;
-}
-
-.blob-btn-inner button {
-  padding: 1.5rem 3.5rem;
-  border: none;
-  font-size: 1rem;
-  position: relative;
-  background: transparent;
-  color: #fff;
-  z-index: 2;
-  cursor: pointer;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-family: "Avant", "Futura", sans-serif;
-  text-shadow: 0 0 10px rgba(0,0,0,0.2);
-  pointer-events: none;
-}
-
-/* The Gooey Blob Logic */
-.blob-btn-blob {
-  position: absolute;
-  pointer-events: none;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: #fff; /* Matches container background */
-  filter: blur(12px) contrast(25); /* Creates the liquid effect */
-  z-index: 1;
-  border-radius: 50px;
+  background: radial-gradient(circle at center, var(--lightest), var(--light) 5%, var(--dark) 30%, var(--darkest) 50%);
+  opacity: 1;
+  /* Follows mouse */
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
+  transition: transform 0.1s linear; /* Smooth mouse tracking */
 }
 
-.blob-btn-blob:before,
+/* 4. BLOB LAYER - Black Shapes on White */
+.blob-btn-blob {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  filter: blur(12px) contrast(25); /* The Gooey Effect */
+  z-index: -1;
+}
+
+/* Static Pill Shape */
 .blob-btn-blob:after {
   content: "";
   position: absolute;
-  background: #000; /* Black shapes become the visible mask */
-}
-
-/* The moving circle */
-.blob-btn-blob:before {
-  width: 20%;
-  height: auto;
-  aspect-ratio: 1/1;
-  z-index: 2;
-  transition: transform 750ms var(--elastic);
-  box-shadow: 0 0 0 0.75rem #fff; /* White spacing around blob */
-  left: 0;
-  top: 0;
-  border-radius: 100%;
-  transform: translate(clamp(10%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(0);
-}
-
-.blob-btn-inner:hover ~ .blob-btn-blob:before {
-  transform: translate(clamp(5%, calc(var(--x) - 50%), 550%), clamp(1rem, calc(var(--y) - 50%), 5rem)) scale(1.25);
-}
-
-/* The static button shape */
-.blob-btn-blob:after {
-  width: calc(100% - 2rem);
-  height: calc(100% - 2rem);
-  top: 1rem;
-  left: 1rem;
+  top: 15px; left: 15px; right: 15px; bottom: 15px;
+  background: #000;
   border-radius: 50px;
-  box-shadow: 0 0 0 4rem #fff; /* Defines the boundary */
+  box-shadow: 0 0 0 20px #fff; /* Separation from edge */
+}
+
+/* Moving Circle */
+.blob-btn-blob:before {
+  content: "";
+  position: absolute;
+  width: 60px; height: 60px;
+  background: #000;
+  border-radius: 50%;
+  top: 0; left: 0;
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(0);
+  transition: transform 0.5s var(--elastic);
+}
+
+/* Hover Animation */
+.blob-btn-container:hover .blob-btn-blob:before {
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) scale(1.5);
 }
     </style>
 </head>
@@ -5069,17 +5050,21 @@ body.loaded .hero-buttons {
                 <p class="hero-desc">Premium digital solutions crafted for ambitious brands across four continents</p>
                <div class="hero-buttons">
     <div class="blob-btn-container" onclick="navigateTo('work')">
-      <div class="blob-btn-inner">
-        <button type="button">View Our Work</button>
-        <div class="blob-btn-blob"></div>
-      </div>
+        <div class="blob-btn-canvas">
+            <div class="blob-btn-inner">
+                <div class="blob-btn-blob"></div>
+            </div>
+        </div>
+        <span class="blob-btn-text">View Our Work</span>
     </div>
 
     <div class="blob-btn-container secondary" onclick="navigateTo('services')">
-      <div class="blob-btn-inner">
-        <button type="button">Explore Services</button>
-        <div class="blob-btn-blob"></div>
-      </div>
+        <div class="blob-btn-canvas">
+            <div class="blob-btn-inner">
+                <div class="blob-btn-blob"></div>
+            </div>
+        </div>
+        <span class="blob-btn-text">Explore Services</span>
     </div>
 </div>
             </div>
@@ -7609,18 +7594,14 @@ function initMagneticCursor() {
         initClipAnimation();
     }
 })();
-       document.querySelectorAll(".blob-btn-inner").forEach((button) => {
-  button.onmousemove = (e) => {
-    // Use currentTarget to get the container, not the text inside
-    const target = e.currentTarget; 
-    const rect = target.getBoundingClientRect();
+       document.querySelectorAll(".blob-btn-container").forEach((container) => {
+  container.onmousemove = (e) => {
+    const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    button.style.setProperty("--x", `${x}px`);
-    button.style.setProperty("--y", `${y}px`);
-    button.style.setProperty("--height", `${rect.height}px`);
-    button.style.setProperty("--width", `${rect.width}px`);
+    container.style.setProperty("--x", `${x}px`);
+    container.style.setProperty("--y", `${y}px`);
   };
 });
     </script>
