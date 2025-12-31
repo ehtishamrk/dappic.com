@@ -5271,7 +5271,7 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
-    /* --- LIQUID CAPSULE BUTTON --- */
+    /* --- LIQUID CAPSULE BUTTON (FINAL) --- */
 .liquid-btn {
     position: relative;
     z-index: 1;
@@ -5285,7 +5285,7 @@ body.loaded .hero-buttons {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 1rem 2.5rem;
+    padding: 1rem 3rem; /* Wider padding */
     border-radius: 50px;
     margin-bottom: 3rem;
     
@@ -5295,8 +5295,8 @@ body.loaded .hero-buttons {
     box-shadow: inset 0 0 0 2px var(--primary);
     
     overflow: hidden;
-    /* Speed up text color change to match the fill */
-    transition: all 0.6s cubic-bezier(0.2, 0, 0.1, 1);
+    /* Slower text transition to match the liquid fill speed */
+    transition: color 1.5s cubic-bezier(0.2, 0, 0.1, 1), box-shadow 0.5s ease;
     cursor: pointer;
 }
 
@@ -5307,49 +5307,57 @@ body.loaded .hero-buttons {
     position: absolute;
     z-index: -1;
     pointer-events: none;
-    top: 0;
-    left: -50%;
-    width: 200%;
-    height: 100%; /* Height relative to button */
-    padding-bottom: 200%; /* Makes it a large circle */
+    
+    /* MASSIVE SIZE to ensure it covers all corners */
+    width: 300%;
+    padding-bottom: 300%; /* Makes it a huge circle */
+    
+    /* Center horizontally relative to button */
+    left: -100%; 
+    
+    /* Start Position: Hiding just below the button */
+    top: 100%; 
+    
     border-radius: 40%;
-    opacity: 0.8; /* Keep visible but hidden by position */
-    
-    /* Initial Position: Just below the button (80px) */
-    transform: translate3d(0, 80px, 0) rotate(0deg);
-    
-    /* Smooth transition for the rise */
-    transition: transform 0.8s cubic-bezier(0.2, 0, 0.1, 1);
+    opacity: 0; /* Hidden initially */
+    transform: translate3d(0, 0, 0) rotate(0deg);
 }
 
-/* Blob 1 (The main fill) */
+/* Blob 1: The Main Fill (Solid Brand Color) */
 .liquid-btn:before {
-    /* Gradient using your brand colors */
-    background: linear-gradient(25deg, var(--accent), var(--primary));
-    transform: translate3d(-5%, 80px, 0) rotate(330deg);
+    /* Uses your specific blue gradient */
+    background: var(--gradient-1); 
+    opacity: 1; /* Always opaque so it fills solid */
+    /* Push it down slightly initially */
+    transform: translate3d(-5%, 10px, 0) rotate(330deg);
 }
 
-/* Blob 2 (The secondary wave) */
+/* Blob 2: The Wave Effect (Semi-transparent) */
 .liquid-btn:after {
-    background: rgba(0, 147, 186, 0.8); /* Lighter primary color */
-    transform: translate3d(5%, 80px, 0) rotate(0deg);
-    transition-delay: 0.05s; /* Slight delay for wave effect */
+    /* Same color but lighter to create the 'wave' look */
+    background: rgba(0, 147, 186, 0.4); 
+    opacity: 1;
+    transform: translate3d(5%, 10px, 0) rotate(0deg);
 }
 
 /* --- HOVER STATE --- */
 .liquid-btn:hover {
     color: white;
-    box-shadow: inset 0 0 0 2px var(--primary), 0 10px 30px rgba(0, 147, 186, 0.3);
+    /* Add a glow effect */
+    box-shadow: inset 0 0 0 2px var(--primary), 0 10px 40px rgba(0, 147, 186, 0.4);
 }
 
 .liquid-btn:hover:before {
-    /* Move UP to cover button (-10px) and rotate */
-    transform: translate3d(-5%, -10px, 0) rotate(100deg);
+    /* Move WAY up (-220%) to ensure it fills the top corners */
+    transform: translate3d(0, -220%, 0) rotate(100deg);
+    /* 2.0s duration for the slow, smooth liquid feel */
+    transition: transform 2s cubic-bezier(0.2, 0, 0.1, 1);
 }
 
 .liquid-btn:hover:after {
-    /* Move UP to cover button (-10px) and rotate */
-    transform: translate3d(5%, -10px, 0) rotate(180deg);
+    transform: translate3d(0, -220%, 0) rotate(180deg);
+    /* Slightly faster/different curve for the secondary wave */
+    transition: transform 2s cubic-bezier(0.2, 0, 0.1, 1) 0.1s;
 }
 
 /* Active State */
