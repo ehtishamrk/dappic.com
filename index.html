@@ -4871,7 +4871,7 @@ body.loaded .hero-buttons {
     pointer-events: none;
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
-        /* --- CRAFT SERVICES ACCORDION STYLES --- */
+      /* --- FIXED CRAFT UI STYLES --- */
 .craft-section {
     padding: 6rem 2rem;
     background: var(--light);
@@ -4880,28 +4880,26 @@ body.loaded .hero-buttons {
 }
 
 .craft-ui-container {
-    --gap: 8px;
-    --base: clamp(2rem, 8cqi, 80px);
-    --speed: 0.6s;
-    --easing: linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%);
-    --article-width: 300; /* fallback */
+    --gap: 10px;
+    --base: clamp(3rem, 6vw, 80px); /* Slightly wider strips for better text fit */
+    --speed: 0.5s;
+    --easing: cubic-bezier(0.25, 1, 0.5, 1);
     
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .craft-ui-container h1.fluid {
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 200;
     margin: 0;
     color: var(--secondary);
     text-align: center;
-    line-height: 1.1;
 }
 
 .craft-ui-container .craft-desc {
@@ -4909,7 +4907,7 @@ body.loaded .hero-buttons {
     max-width: 600px;
     text-align: center;
     font-family: inherit;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
     opacity: 0.8;
     color: var(--accent);
@@ -4918,133 +4916,136 @@ body.loaded .hero-buttons {
 
 .craft-list {
     display: grid;
-    /* Initial state: first item expanded */
-    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+    /* First item expanded by default */
+    grid-template-columns: 8fr 1fr 1fr 1fr 1fr 1fr 1fr; 
     gap: var(--gap);
     list-style-type: none;
     padding: 0;
-    height: clamp(300px, 50vh, 500px);
+    height: 500px; /* Fixed height for consistency */
     margin: 0;
     width: 100%;
     transition: grid-template-columns var(--speed) var(--easing);
 }
 
 .craft-list li {
-    background: #fff;
+    background: #000;
     position: relative;
     overflow: hidden;
     min-width: var(--base);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 147, 186, 0.1);
+    border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s;
-}
-
-.craft-list li:hover {
-    border-color: var(--primary);
-}
-
-/* Internal Elements Transition */
-.craft-list li article {
-    width: calc(var(--article-width) * 1px);
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 1rem;
-    padding: 1.5rem;
-    overflow: hidden;
 }
 
 /* Images */
 .craft-list li img {
     position: absolute;
-    pointer-events: none;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.6;
+    filter: grayscale(1) brightness(0.6);
+    transition: all var(--speed) var(--easing);
     z-index: 0;
-    filter: grayscale(1) brightness(0.7);
-    transform: scale(1.1);
-    transition: filter var(--speed) var(--easing), transform var(--speed) var(--easing);
 }
 
-/* Text Content */
+/* Hover & Active Image States */
+.craft-list li:hover img {
+    opacity: 0.8;
+    filter: grayscale(0.5) brightness(0.8);
+}
+
+.craft-list li[data-active="true"] img {
+    opacity: 1;
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.05);
+}
+
+.craft-list li article {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* --- VERTICAL HEADINGS LOGIC --- */
+
+/* Default State (Collapsed): Text is rotated vertical */
 .craft-list li h3 {
     position: absolute;
-    top: 1.5rem;
+    /* Position for vertical text */
+    top: 2rem;
     left: 50%;
-    transform-origin: 0 50%;
-    transform: rotate(90deg) translateY(-50%);
+    
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #fff;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.8);
     white-space: nowrap;
-    z-index: 2;
+    
+    /* Rotation Pivot */
+    transform-origin: center left;
+    /* Logic: Center it horizontally (-50%), then rotate 90deg */
+    transform: translateX(-50%) rotate(90deg);
+    
+    transition: all var(--speed) var(--easing);
     margin: 0;
-    opacity: 0.7;
-    transition: opacity var(--speed) var(--easing);
+    width: max-content;
 }
 
-.craft-list li p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.9);
-    position: relative;
-    z-index: 2;
+/* Active State (Expanded): Text is horizontal top-left */
+.craft-list li[data-active="true"] h3 {
+    top: 2rem;
+    left: 2rem;
+    transform: translateX(0) rotate(0deg);
+    font-size: 1.75rem;
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Other Content (Paragraph, Icon, Link) - Hidden when collapsed */
+.craft-list li p,
+.craft-list li a,
+.craft-list li .craft-icon {
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--speed) var(--easing);
-    max-width: 90%;
+}
+
+.craft-list li p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 80%;
+    margin-bottom: 1.5rem;
 }
 
 .craft-list li a {
-    position: relative;
-    z-index: 2;
     color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: all var(--speed) var(--easing);
-    display: inline-flex;
-    align-items: center;
-    margin-top: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 2px;
 }
 
 .craft-list li .craft-icon {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 2rem;
+    right: 2rem;
     font-size: 1.5rem;
     color: #fff;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity var(--speed) var(--easing);
 }
 
-/* Active State Styles */
-.craft-list li[data-active="true"] img {
-    filter: grayscale(0) brightness(1);
-    transform: scale(1);
-}
-
-.craft-list li[data-active="true"] h3 {
-    opacity: 1;
-    /* Reset rotation for active state title if desired, or keep as side label */
-    transform: rotate(0deg) translateY(0);
-    left: 1.5rem;
-    top: 1.5rem;
-    font-size: 1.5rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
+/* Show content when Active */
 .craft-list li[data-active="true"] p,
 .craft-list li[data-active="true"] a,
 .craft-list li[data-active="true"] .craft-icon {
@@ -5053,11 +5054,12 @@ body.loaded .hero-buttons {
     transition-delay: 0.2s;
 }
 
-.craft-list li[data-active="true"]::after {
+/* Gradient Overlay for readablity */
+.craft-list li::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
     z-index: 1;
     pointer-events: none;
 }
@@ -5066,19 +5068,20 @@ body.loaded .hero-buttons {
 @media (max-width: 768px) {
     .craft-list {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(7, 60px);
-        height: 600px;
-        transition: grid-template-rows var(--speed) var(--easing);
-    }
-    
-    .craft-list li article {
-        width: 100%;
+        grid-template-rows: repeat(7, 60px); /* Default height for collapsed items */
+        height: 700px;
     }
     
     .craft-list li h3 {
-        transform: rotate(0);
-        left: 1rem;
-        top: 1.2rem;
+        /* On mobile collapsed, reset rotation to normal horizontal but small */
+        transform: rotate(0deg);
+        left: 1.5rem;
+        top: 1.25rem;
+    }
+    
+    .craft-list li[data-active="true"] h3 {
+        left: 1.5rem;
+        top: 1.5rem;
     }
 }
     </style>
@@ -5259,90 +5262,81 @@ body.loaded .hero-buttons {
             </div>
         </section>
         
-        <section class="craft-section">
+       <section class="craft-section">
     <div class="craft-ui-container">
         <h1 class="fluid">The Craft of UI</h1>
         <p class="craft-desc">
             Unlock the art and science of interface development. This isn’t just about
-            pushing pixels or following documentation — it’s about mastering the
-            tools, understanding the nuances, and shaping experiences with intention.
+            pushing pixels — it’s about mastering the tools and shaping experiences with intention.
         </p>
         
         <ul class="craft-list">
             <li data-active="true">
                 <article>
                     <h3>Brand Strategy</h3>
-                    <p>
-                        Comprehensive brand development, positioning, visual identity systems, and guidelines that resonate with your audience.
-                    </p>
+                    <p>Comprehensive brand development, visual identity systems, and strategic positioning.</p>
                     <div class="craft-icon">✦</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
-                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop" alt="Brand Strategy" />
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670&auto=format&fit=crop" alt="Brand Strategy" />
                 </article>
             </li>
+
             <li>
                 <article>
                     <h3>Motion Design</h3>
-                    <p>
-                        Cinematic motion design, 2D/3D animations, explainer videos, and visual storytelling that brings your brand to life.
-                    </p>
+                    <p>Cinematic motion design, 3D animations, and visual storytelling that brings brands to life.</p>
                     <div class="craft-icon">►</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
                     <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop" alt="Motion Design" />
                 </article>
             </li>
+
             <li>
                 <article>
                     <h3>Web Engineering</h3>
-                    <p>
-                        Enterprise-grade web applications, responsive websites, and e-commerce platforms built for performance and scale.
-                    </p>
+                    <p>Enterprise-grade web apps and responsive platforms built for extreme performance.</p>
                     <div class="craft-icon">⚡</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
                     <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2670&auto=format&fit=crop" alt="Web Engineering" />
                 </article>
             </li>
+
             <li>
                 <article>
                     <h3>Digital Marketing</h3>
-                    <p>
-                        Data-driven campaigns, paid advertising, and growth strategies that drive measurable ROI for your business.
-                    </p>
+                    <p>Data-driven campaigns and growth strategies that drive measurable ROI.</p>
                     <div class="craft-icon">📈</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" alt="Digital Marketing" />
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop" alt="Digital Marketing" />
                 </article>
             </li>
+
             <li>
                 <article>
                     <h3>SEO Mastery</h3>
-                    <p>
-                        Technical SEO optimization and content strategy to dominate search rankings and drive organic traffic.
-                    </p>
+                    <p>Technical SEO optimization to dominate search rankings and drive organic traffic.</p>
                     <div class="craft-icon">🔍</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
-                    <img src="https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=2670&auto=format&fit=crop" alt="SEO" />
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
+                    <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?q=80&w=2670&auto=format&fit=crop" alt="SEO" />
                 </article>
             </li>
+
             <li>
                 <article>
                     <h3>Content Creation</h3>
-                    <p>
-                        Premium photography, videography, copywriting, and graphic design to tell your unique story.
-                    </p>
+                    <p>Premium photography, videography, and copywriting to tell your unique story.</p>
                     <div class="craft-icon">✎</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
                     <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2574&auto=format&fit=crop" alt="Content Creation" />
                 </article>
             </li>
+
             <li>
                 <article>
-                    <h3>Workflow Auto</h3>
-                    <p>
-                        Custom automation solutions that streamline business processes and save valuable time.
-                    </p>
+                    <h3>Automation</h3>
+                    <p>Custom workflows that streamline business processes and save valuable time.</p>
                     <div class="craft-icon">⚙</div>
-                    <a href="#" onclick="navigateTo('services')"><span>Learn more</span></a>
+                    <a href="#" onclick="navigateTo('services')"><span>Explore</span></a>
                     <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop" alt="Automation" />
                 </article>
             </li>
