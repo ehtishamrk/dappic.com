@@ -5271,6 +5271,93 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
+        /* --- LIQUID CAPSULE BUTTON --- */
+.liquid-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    
+    /* Capsule Shape & Typography */
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    margin-bottom: 3rem; /* Space before the list */
+    
+    /* Outlined Style Default */
+    background: transparent;
+    color: var(--primary); /* Uses your #0093BA */
+    box-shadow: inset 0 0 0 2px var(--primary);
+    
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.1, 1);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* The Liquid Blobs (Hidden initially) */
+.liquid-btn:before,
+.liquid-btn:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    top: 0;
+    right: -50%;
+    left: -50%;
+    height: 0;
+    padding-bottom: 200%;
+    border-radius: 45%;
+    opacity: 0;
+    transition: transform 0s cubic-bezier(0.2, 0, 0.1, 1) 0.5s, opacity 0.5s cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+/* Blob 1 Configuration */
+.liquid-btn:before {
+    /* Pushed down */
+    transform: translate3d(-10%, 150%, 0) rotate(330deg);
+    /* Gradient using your Primary + Accent colors */
+    background: linear-gradient(25deg, var(--accent), transparent);
+}
+
+/* Blob 2 Configuration */
+.liquid-btn:after {
+    /* Pushed down */
+    transform: translate3d(10%, 150%, 0) rotate(0deg);
+    /* Gradient using your Primary color */
+    background: linear-gradient(70deg, rgba(0, 147, 186, 0.8), transparent);
+}
+
+/* Hover State */
+.liquid-btn:hover {
+    color: white;
+    box-shadow: inset 0 0 0 2px var(--primary), 0 10px 30px rgba(0, 147, 186, 0.3);
+}
+
+.liquid-btn:hover:before,
+.liquid-btn:hover:after {
+    opacity: 1;
+    /* The liquid rising animation */
+    transition: transform 2s ease 0s, opacity 0.2s ease;
+}
+
+.liquid-btn:hover:before {
+    transform: translate3d(-10%, -10%, 0) rotate(100deg);
+}
+
+.liquid-btn:hover:after {
+    transform: translate3d(10%, -10%, 0) rotate(180deg);
+}
+
+/* Active/Click State */
+.liquid-btn:active {
+    transform: scale(0.95);
+}
     </style>
 </head>
 <body>
@@ -5459,7 +5546,7 @@ body.loaded .hero-buttons {
     From <strong>Design & Dev</strong> to <strong>Marketing & Closing</strong>, 
     we handle the entire lifecycle of your business growth. 
         </p>
-        
+        <a href="#" onclick="navigateTo('services')" class="liquid-btn">Explore All Services</a>
         <ul class="craft-list">
     <li data-active="true">
         <article>
