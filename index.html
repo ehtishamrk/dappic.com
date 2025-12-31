@@ -5271,166 +5271,139 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
-  /* ===============================
-   GLOBALS (from SCSS variables)
-================================ */
-:root {
-  --color: #6138D8;
-  --ease-out: cubic-bezier(0.2, 0, 0.1, 1);
+  /* --- LIQUID CAPSULE BUTTON (EXACT SCSS PORT) --- */
+.liquid-btn {
+    /* 1. Definitions from source */
+    --btn-color: var(--primary); /* Uses your #0093BA */
+    --ease-out: cubic-bezier(0.2, 0, 0.1, 1);
+    
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Typography */
+    text-decoration: none;
+    font-size: 1rem; /* Adjust base size */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    
+    /* Shape */
+    min-width: 13ch;
+    padding: 1em 2em;
+    border-radius: 2em;
+    margin-bottom: 3rem;
+    
+    /* Initial State (Outlined) */
+    background: transparent;
+    color: var(--primary);
+    box-shadow: inset 0 0 0 0.1em var(--primary);
+    
+    /* Transitions (Source Logic) */
+    transition: 
+        opacity 0.3s var(--ease-out),
+        transform 0.3s var(--ease-out),
+        box-shadow 0.5s ease,
+        color 0.5s ease,
+        background 0.5s ease;
+        
+    will-change: box-shadow, color, transform, opacity, background;
+    cursor: pointer;
 }
 
-/* ===============================
-   BASE STYLES
-================================ */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1.5em;
-
-  overflow: hidden;
-
-  width: 100vw;
-  height: 100vh;
-
-  font-size: max(3.333vmin, 16px);
-  font-family: "Noto Sans", sans-serif;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Pseudo Elements (The Liquid) */
+.liquid-btn:before,
+.liquid-btn:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    
+    top: 0;
+    
+    /* Exact sizing from source */
+    right: -50%;
+    left: -50%;
+    height: 0;
+    padding-bottom: 200%;
+    border-radius: 39%;
+    
+    /* Initial Transparency */
+    opacity: 0;
+    
+    /* Reset Transition (When mouse leaves) */
+    /* transform 0s = instant reset after delay */
+    transition: transform 0s var(--ease-out) 0.5s, opacity 0.5s var(--ease-out);
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    20deg,
-    #5530c9 40%,
-    #4f2bc3
-  );
-  opacity: 0.2;
-  z-index: -1;
+/* Blob 1 Configuration */
+.liquid-btn:before {
+    /* Start Position: Pushed down 4.8em */
+    transform: translate3d(-10%, 4.8em, 0) rotate(330deg);
+    
+    /* Gradient mimicking the SCSS hue adjustments */
+    background: linear-gradient(
+        25deg, 
+        var(--accent), /* Lighter/Different Hue */
+        transparent
+    );
 }
 
-/* ===============================
-   BUTTON
-================================ */
-.btn {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  text-decoration: none;
-  color: white;
-
-  font-size: 2em;
-  min-width: 13ch;
-  padding: 1em 1.15em;
-  border-radius: 2em;
-
-  background: var(--color);
-
-  box-shadow:
-    inset 0 0 0 0.1em var(--color),
-    0 0 0 rgba(107, 67, 230, 0);
-
-  transition:
-    opacity 0.3s var(--ease-out),
-    transform 0.3s var(--ease-out),
-    box-shadow 0.5s ease,
-    color 0.5s ease,
-    background 0.5s ease;
-
-  will-change: box-shadow, color, transform, opacity, background;
+/* Blob 2 Configuration */
+.liquid-btn:after {
+    /* Start Position: Pushed down 4.8em */
+    transform: translate3d(10%, 4.8em, 0) rotate(0deg);
+    
+    /* Gradient mimicking the SCSS hue adjustments */
+    background: linear-gradient(
+        70deg, 
+        var(--primary), 
+        transparent
+    );
 }
 
-/* ===============================
-   LIQUID BLOBS
-================================ */
-.btn::before,
-.btn::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-
-  top: 0;
-  right: -50%;
-  left: -50%;
-  height: 0;
-  padding-bottom: 200%;
-  border-radius: 39%;
-
-  opacity: 0;
-
-  transition:
-    transform 0s var(--ease-out) 0.5s,
-    opacity 0.5s var(--ease-out);
+/* --- HOVER STATE --- */
+.liquid-btn:hover {
+    color: white;
+    background: rgba(0, 147, 186, 0.1); /* Slight tint on bg */
+    
+    /* Glow effect */
+    box-shadow: 
+        inset 0 0 0 0.1em var(--primary),
+        0 0 1.75em rgba(0, 147, 186, 0.5);
+        
+    /* Transition overrides for hover */
+    transition: 
+        opacity 0.3s var(--ease-out),
+        transform 0.3s var(--ease-out),
+        box-shadow 2s ease,
+        color 1.5s ease,
+        background 1s ease 0.75s;
 }
 
-/* Blob 1 */
-.btn::before {
-  transform: translate3d(-10%, 4.8em, 0) rotate(330deg);
-  background: linear-gradient(
-    25deg,
-    #7b5af0,
-    rgba(123, 90, 240, 0)
-  );
+/* Reveal the Liquid on Hover */
+.liquid-btn:hover:before,
+.liquid-btn:hover:after {
+    opacity: 1;
+    /* The Fill Animation: 2s duration, starting immediately */
+    transition: transform 2s ease 0s, opacity 0.2s ease;
 }
 
-/* Blob 2 */
-.btn::after {
-  transform: translate3d(10%, 4.8em, 0) rotate(0deg);
-  background: linear-gradient(
-    70deg,
-    rgba(123, 90, 240, 0.5),
-    rgba(97, 56, 216, 0)
-  );
+/* Final positions (Move UP to cover button) */
+.liquid-btn:hover:before {
+    /* Moves from 4.8em down to -1em up */
+    transform: translate3d(-10%, -1em, 0) rotate(100deg);
 }
 
-/* ===============================
-   HOVER STATE
-================================ */
-.btn:hover,
-.btn:focus {
-  background: #7b5af0;
-
-  box-shadow:
-    inset 0 0 0 0.1em var(--color),
-    0 0 1.75em rgba(123, 90, 240, 0.5);
-
-  transition:
-    opacity 0.3s var(--ease-out),
-    transform 0.3s var(--ease-out),
-    box-shadow 2s ease,
-    color 1.5s ease,
-    background 1s ease 0.75s;
+.liquid-btn:hover:after {
+    /* Moves from 4.8em down to -1em up */
+    transform: translate3d(10%, -1em, 0) rotate(180deg);
 }
-
-.btn:hover::before,
-.btn:hover::after,
-.btn:focus::before,
-.btn:focus::after {
-  opacity: 1;
-  transition: transform 2s ease, opacity 0.2s ease;
-}
-
-.btn:hover::before {
-  transform: translate3d(-10%, -1em, 0) rotate(100deg);
-}
-
-.btn:hover::after {
-  transform: translate3d(10%, -1em, 0) rotate(180deg);
-}
-
     </style>
 </head>
 <body>
