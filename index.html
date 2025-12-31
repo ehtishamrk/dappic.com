@@ -5271,10 +5271,10 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
-  /* --- LIQUID CAPSULE BUTTON (EXACT SCSS PORT) --- */
+  /* --- LIQUID CAPSULE BUTTON (BRANDED & FIXED FILL) --- */
 .liquid-btn {
-    /* 1. Definitions from source */
-    --btn-color: var(--primary); /* Uses your #0093BA */
+    /* 1. Configuration */
+    --btn-color: var(--primary); /* Your Blue */
     --ease-out: cubic-bezier(0.2, 0, 0.1, 1);
     
     position: relative;
@@ -5288,14 +5288,14 @@ body.loaded .hero-buttons {
     
     /* Typography */
     text-decoration: none;
-    font-size: 1rem; /* Adjust base size */
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     
     /* Shape */
     min-width: 13ch;
-    padding: 1em 2em;
+    padding: 1em 2.5em; /* Comfortable padding */
     border-radius: 2em;
     margin-bottom: 3rem;
     
@@ -5304,7 +5304,7 @@ body.loaded .hero-buttons {
     color: var(--primary);
     box-shadow: inset 0 0 0 0.1em var(--primary);
     
-    /* Transitions (Source Logic) */
+    /* Transitions (Exact Logic from SCSS) */
     transition: 
         opacity 0.3s var(--ease-out),
         transform 0.3s var(--ease-out),
@@ -5326,58 +5326,51 @@ body.loaded .hero-buttons {
     
     top: 0;
     
-    /* Exact sizing from source */
-    right: -50%;
-    left: -50%;
+    /* MASSIVE SIZE FIX: 450% insures the curve is flat enough to fill corners */
+    right: -100%;
+    left: -100%;
     height: 0;
-    padding-bottom: 200%;
-    border-radius: 39%;
+    padding-bottom: 450%; 
+    border-radius: 40%;
     
     /* Initial Transparency */
     opacity: 0;
     
-    /* Reset Transition (When mouse leaves) */
-    /* transform 0s = instant reset after delay */
+    /* Reset Transition */
     transition: transform 0s var(--ease-out) 0.5s, opacity 0.5s var(--ease-out);
 }
 
-/* Blob 1 Configuration */
+/* Blob 1: Main Fill (Brand Gradient) */
 .liquid-btn:before {
-    /* Start Position: Pushed down 4.8em */
-    transform: translate3d(-10%, 4.8em, 0) rotate(330deg);
+    /* Start Position: Pushed down 6em (Safe distance) */
+    transform: translate3d(-5%, 6em, 0) rotate(330deg);
     
-    /* Gradient mimicking the SCSS hue adjustments */
-    background: linear-gradient(
-        25deg, 
-        var(--accent), /* Lighter/Different Hue */
-        transparent
-    );
+    /* BRAND COLOR FIX: Uses your specific gradient */
+    background: var(--gradient-1, linear-gradient(135deg, #0093BA 0%, #233E7E 100%));
 }
 
-/* Blob 2 Configuration */
+/* Blob 2: Secondary Fill (Solid Primary) */
 .liquid-btn:after {
-    /* Start Position: Pushed down 4.8em */
-    transform: translate3d(10%, 4.8em, 0) rotate(0deg);
+    /* Start Position: Pushed down 6em */
+    transform: translate3d(5%, 6em, 0) rotate(0deg);
     
-    /* Gradient mimicking the SCSS hue adjustments */
-    background: linear-gradient(
-        70deg, 
-        var(--primary), 
-        transparent
-    );
+    /* BRAND COLOR FIX: Uses your primary color */
+    background: var(--primary);
+    opacity: 0.8; /* Slight transparency for depth */
 }
 
 /* --- HOVER STATE --- */
 .liquid-btn:hover {
     color: white;
-    background: rgba(0, 147, 186, 0.1); /* Slight tint on bg */
+    /* Slight background tint to prevent any tiny gaps */
+    background: rgba(0, 147, 186, 0.05); 
     
-    /* Glow effect */
+    /* Glow effect matching your brand */
     box-shadow: 
         inset 0 0 0 0.1em var(--primary),
-        0 0 1.75em rgba(0, 147, 186, 0.5);
+        0 0 1.5em rgba(0, 147, 186, 0.4);
         
-    /* Transition overrides for hover */
+    /* Transition overrides */
     transition: 
         opacity 0.3s var(--ease-out),
         transform 0.3s var(--ease-out),
@@ -5390,19 +5383,19 @@ body.loaded .hero-buttons {
 .liquid-btn:hover:before,
 .liquid-btn:hover:after {
     opacity: 1;
-    /* The Fill Animation: 2s duration, starting immediately */
+    /* The Fill Animation: 2s duration */
     transition: transform 2s ease 0s, opacity 0.2s ease;
 }
 
 /* Final positions (Move UP to cover button) */
 .liquid-btn:hover:before {
-    /* Moves from 4.8em down to -1em up */
-    transform: translate3d(-10%, -1em, 0) rotate(100deg);
+    /* Moves from 6em down to -2em up (Guarantees full coverage) */
+    transform: translate3d(-5%, -2em, 0) rotate(100deg);
 }
 
 .liquid-btn:hover:after {
-    /* Moves from 4.8em down to -1em up */
-    transform: translate3d(10%, -1em, 0) rotate(180deg);
+    /* Moves from 6em down to -2em up */
+    transform: translate3d(5%, -2em, 0) rotate(180deg);
 }
     </style>
 </head>
