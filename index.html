@@ -5271,7 +5271,7 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
-        /* --- LIQUID CAPSULE BUTTON --- */
+    /* --- LIQUID CAPSULE BUTTON --- */
 .liquid-btn {
     position: relative;
     z-index: 1;
@@ -5280,27 +5280,27 @@ body.loaded .hero-buttons {
     justify-content: center;
     text-decoration: none;
     
-    /* Capsule Shape & Typography */
+    /* Typography & Shape */
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 1rem 2.5rem;
     border-radius: 50px;
-    margin-bottom: 3rem; /* Space before the list */
+    margin-bottom: 3rem;
     
-    /* Outlined Style Default */
+    /* Colors */
     background: transparent;
-    color: var(--primary); /* Uses your #0093BA */
+    color: var(--primary);
     box-shadow: inset 0 0 0 2px var(--primary);
     
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.2, 0, 0.1, 1);
+    /* Speed up text color change to match the fill */
+    transition: all 0.6s cubic-bezier(0.2, 0, 0.1, 1);
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
 }
 
-/* The Liquid Blobs (Hidden initially) */
+/* The Liquid Blobs */
 .liquid-btn:before,
 .liquid-btn:after {
     content: '';
@@ -5308,53 +5308,51 @@ body.loaded .hero-buttons {
     z-index: -1;
     pointer-events: none;
     top: 0;
-    right: -50%;
     left: -50%;
-    height: 0;
-    padding-bottom: 200%;
-    border-radius: 45%;
-    opacity: 0;
-    transition: transform 0s cubic-bezier(0.2, 0, 0.1, 1) 0.5s, opacity 0.5s cubic-bezier(0.2, 0, 0.1, 1);
+    width: 200%;
+    height: 100%; /* Height relative to button */
+    padding-bottom: 200%; /* Makes it a large circle */
+    border-radius: 40%;
+    opacity: 0.8; /* Keep visible but hidden by position */
+    
+    /* Initial Position: Just below the button (80px) */
+    transform: translate3d(0, 80px, 0) rotate(0deg);
+    
+    /* Smooth transition for the rise */
+    transition: transform 0.8s cubic-bezier(0.2, 0, 0.1, 1);
 }
 
-/* Blob 1 Configuration */
+/* Blob 1 (The main fill) */
 .liquid-btn:before {
-    /* Pushed down */
-    transform: translate3d(-10%, 150%, 0) rotate(330deg);
-    /* Gradient using your Primary + Accent colors */
-    background: linear-gradient(25deg, var(--accent), transparent);
+    /* Gradient using your brand colors */
+    background: linear-gradient(25deg, var(--accent), var(--primary));
+    transform: translate3d(-5%, 80px, 0) rotate(330deg);
 }
 
-/* Blob 2 Configuration */
+/* Blob 2 (The secondary wave) */
 .liquid-btn:after {
-    /* Pushed down */
-    transform: translate3d(10%, 150%, 0) rotate(0deg);
-    /* Gradient using your Primary color */
-    background: linear-gradient(70deg, rgba(0, 147, 186, 0.8), transparent);
+    background: rgba(0, 147, 186, 0.8); /* Lighter primary color */
+    transform: translate3d(5%, 80px, 0) rotate(0deg);
+    transition-delay: 0.05s; /* Slight delay for wave effect */
 }
 
-/* Hover State */
+/* --- HOVER STATE --- */
 .liquid-btn:hover {
     color: white;
     box-shadow: inset 0 0 0 2px var(--primary), 0 10px 30px rgba(0, 147, 186, 0.3);
 }
 
-.liquid-btn:hover:before,
-.liquid-btn:hover:after {
-    opacity: 1;
-    /* The liquid rising animation */
-    transition: transform 2s ease 0s, opacity 0.2s ease;
-}
-
 .liquid-btn:hover:before {
-    transform: translate3d(-10%, -10%, 0) rotate(100deg);
+    /* Move UP to cover button (-10px) and rotate */
+    transform: translate3d(-5%, -10px, 0) rotate(100deg);
 }
 
 .liquid-btn:hover:after {
-    transform: translate3d(10%, -10%, 0) rotate(180deg);
+    /* Move UP to cover button (-10px) and rotate */
+    transform: translate3d(5%, -10px, 0) rotate(180deg);
 }
 
-/* Active/Click State */
+/* Active State */
 .liquid-btn:active {
     transform: scale(0.95);
 }
