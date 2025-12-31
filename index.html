@@ -5271,7 +5271,7 @@ body.loaded .hero-buttons {
         top: 1.5rem;
     }
 }
-   /* --- LIQUID CAPSULE BUTTON (FIXED) --- */
+   /* --- LIQUID CAPSULE BUTTON (REVERTED & TUNED) --- */
 .liquid-btn {
     position: relative;
     z-index: 1;
@@ -5295,9 +5295,10 @@ body.loaded .hero-buttons {
     box-shadow: inset 0 0 0 2px var(--primary);
     
     overflow: hidden;
-    /* Slower text transition (1.5s) to match the liquid speed */
-    transition: color 1.5s cubic-bezier(0.2, 0, 0.1, 1), box-shadow 0.5s ease;
+    /* Synced text color change */
+    transition: color 2s cubic-bezier(0.2, 0, 0.1, 1), box-shadow 0.5s ease;
     cursor: pointer;
+    will-change: transform, color, box-shadow;
 }
 
 /* The Liquid Blobs */
@@ -5308,39 +5309,38 @@ body.loaded .hero-buttons {
     z-index: -1;
     pointer-events: none;
     
-    /* INCREASED SIZE: 300% width insures it covers corners when rotating */
-    width: 300%;
-    height: 300%; /* Use height instead of padding-bottom for better control */
+    /* MAMMOTH SIZE to cover all corners */
+    width: 350%;
+    height: 350%;
     
     /* Center horizontally */
-    left: -100%; 
+    left: -125%; 
     top: 0;
     
     border-radius: 40%;
-    opacity: 1; 
     
-    /* START POSITION: Just below the button (80px) so it's instant */
-    transform: translate3d(0, 80px, 0) rotate(0deg);
+    /* Use your brand gradient for BOTH to look like one liquid */
+    background: var(--gradient-1);
     
-    /* SPEED FIX: Increased to 2s for a slower, smoother fill */
-    transition: transform 2s cubic-bezier(0.2, 0, 0.1, 1);
+    /* Hide below initially */
+    transform: translate3d(0, 100%, 0) rotate(0deg);
+    
+    /* The Slow, Smooth Animation */
+    transition: transform 2.5s cubic-bezier(0.2, 0, 0.1, 1);
 }
 
 /* Blob 1: The Main Fill */
 .liquid-btn:before {
-    /* UNIFIED COLOR: Uses your brand gradient so it looks solid */
-    background: var(--gradient-1); 
-    /* Slight rotation offset */
+    opacity: 1; /* Solid fill */
+    /* Start slightly rotated */
     transform: translate3d(0, 80px, 0) rotate(330deg);
 }
 
-/* Blob 2: The Wave Effect behind it */
+/* Blob 2: The Subtle Wave Behind */
 .liquid-btn:after {
-    /* Same color family but transparent to create the "wave" look without clashing */
-    background: rgba(0, 147, 186, 0.3); 
-    /* Slight delay for the wave ripple effect */
-    transition-delay: 0.1s; 
-    transform: translate3d(0, 80px, 0) rotate(0deg);
+    opacity: 0.6; /* Semi-transparent version of same color */
+    transform: translate3d(0, 80px, 0) rotate(30deg);
+    transition-delay: 0.1s; /* Tiny delay for wave effect */
 }
 
 /* --- HOVER STATE --- */
@@ -5350,13 +5350,13 @@ body.loaded .hero-buttons {
 }
 
 .liquid-btn:hover:before {
-    /* CORNER FIX: Moves way up (-80%) to ensure it covers top-left */
-    transform: translate3d(0, -80%, 0) rotate(100deg);
+    /* Move WAY up to cover everything */
+    transform: translate3d(0, -60%, 0) rotate(0deg);
 }
 
 .liquid-btn:hover:after {
-    /* CORNER FIX: Moves way up (-80%) to ensure it covers top-left */
-    transform: translate3d(0, -80%, 0) rotate(180deg);
+    /* Move WAY up to cover everything */
+    transform: translate3d(0, -50%, 0) rotate(180deg);
 }
 
 /* Active State */
