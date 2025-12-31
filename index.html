@@ -4873,6 +4873,7 @@ body.loaded .hero-buttons {
 }
       /* --- FIXED CRAFT UI STYLES --- */
 /* --- COMPLETE CRAFT UI STYLES --- */
+/* --- FIXED CRAFT UI STYLES --- */
 .craft-section {
     padding: 6rem 2rem;
     background: var(--light);
@@ -4915,7 +4916,7 @@ body.loaded .hero-buttons {
     font-weight: 300;
 }
 
-/* --- THE ACCORDION LIST --- */
+/* --- ACCORDION LIST --- */
 .craft-list {
     display: grid;
     /* Grid columns: First item expanded (8fr), others collapsed (1fr) */
@@ -4939,7 +4940,7 @@ body.loaded .hero-buttons {
     transition: all 0.3s;
 }
 
-/* --- IMAGE STYLING --- */
+/* --- IMAGES --- */
 .craft-list li img {
     position: absolute;
     inset: 0;
@@ -4963,18 +4964,20 @@ body.loaded .hero-buttons {
     transform: scale(1.05);
 }
 
-/* --- CONTENT CONTAINER (Important for text visibility) --- */
+/* --- CONTENT CONTAINER (FIXED WIDTH) --- */
 .craft-list li article {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 10; /* Keep above image/gradient */
     padding: 2rem;
-    /* This pushes the text to the bottom */
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
-    /* Ensure clicks pass through to the li */
-    pointer-events: none; 
+    pointer-events: none; /* Let clicks pass to LI */
+    
+    /* CRITICAL FIX: Force container to be wide so text doesn't wrap */
+    width: 100%; 
+    min-width: 400px; /* Prevents text crushing when li is 80px */
 }
 
 /* --- GRADIENT OVERLAY --- */
@@ -4982,18 +4985,17 @@ body.loaded .hero-buttons {
     content: '';
     position: absolute;
     inset: 0;
-    /* Dark gradient at bottom to make text readable */
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0) 60%);
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0) 60%);
     z-index: 1;
     pointer-events: none;
 }
 
-/* --- HEADINGS (Vertical & Horizontal Logic) --- */
+/* --- HEADINGS LOGIC --- */
 .craft-list li h3 {
     position: absolute;
-    /* Collapsed State: Center Vertical */
+    /* Collapsed: Center Vertical */
     top: 50%;
-    left: 40px; /* Lock to center of folded strip */
+    left: 40px; /* Locked to center of collapsed strip */
     
     font-size: 1.1rem;
     font-weight: 600;
@@ -5002,13 +5004,13 @@ body.loaded .hero-buttons {
     color: rgba(255, 255, 255, 0.7);
     white-space: nowrap;
     
-    /* Rotate vertically */
+    /* Vertical Rotation */
     transform-origin: center center;
     transform: translate(-50%, -50%) rotate(-90deg);
     
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     margin: 0;
-    z-index: 10;
+    z-index: 20;
 }
 
 /* Expanded State: Horizontal at Top Left */
@@ -5022,28 +5024,26 @@ body.loaded .hero-buttons {
     text-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
-/* --- TEXT & LINKS (Hide/Show Logic) --- */
+/* --- TEXT & LINKS (FIXED VISIBILITY) --- */
 .craft-list li p,
 .craft-list li a,
 .craft-list li .craft-icon {
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s ease;
-    /* Ensure they don't block layout when hidden */
-    visibility: hidden; 
 }
 
-/* Paragraph Style */
 .craft-list li p {
     color: rgba(255, 255, 255, 0.95);
     font-size: 1.1rem;
     line-height: 1.6;
-    max-width: 85%;
+    max-width: 90%; /* Prevent touching edges */
     margin-bottom: 1.5rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 20;
 }
 
-/* Link Style */
 .craft-list li a {
     color: #fff;
     text-decoration: none;
@@ -5054,10 +5054,11 @@ body.loaded .hero-buttons {
     display: inline-block;
     border-bottom: 2px solid var(--primary);
     padding-bottom: 4px;
-    pointer-events: auto; /* Re-enable clicks for the link */
+    pointer-events: auto; /* Enable clicks */
+    position: relative;
+    z-index: 20;
 }
 
-/* Icon Style */
 .craft-list li .craft-icon {
     position: absolute;
     top: 2rem;
@@ -5065,28 +5066,28 @@ body.loaded .hero-buttons {
     font-size: 2rem;
     color: #fff;
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    z-index: 20;
 }
 
-/* --- ACTIVE STATE REVEAL --- */
+/* --- SHOW TEXT WHEN ACTIVE --- */
 .craft-list li[data-active="true"] p,
 .craft-list li[data-active="true"] a,
 .craft-list li[data-active="true"] .craft-icon {
     opacity: 1;
     transform: translateY(0);
-    visibility: visible;
-    transition-delay: 0.2s; /* Wait for card to expand before showing text */
+    transition-delay: 0.2s;
 }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .craft-list {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(7, 60px); /* Collapsed height on mobile */
+        grid-template-rows: repeat(7, 60px);
         height: 700px;
     }
     
     .craft-list li h3 {
-        /* Reset rotation on mobile for easier reading */
+        /* On mobile collapsed, keep horizontal */
         transform: rotate(0deg);
         left: 1.5rem;
         top: 1.25rem;
@@ -5098,8 +5099,11 @@ body.loaded .hero-buttons {
         left: 1.5rem;
         font-size: 1.5rem;
     }
+    
+    .craft-list li article {
+        min-width: auto; /* Reset min-width on mobile */
+    }
 }
-
 /* --- FIXED VERTICAL HEADINGS --- */
 
 /* Default State (Collapsed): Text is vertical and locked to the left strip */
